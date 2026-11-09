@@ -47,5 +47,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c926e05f2df0b00dd6bb32c06000df66
-          command: pages deploy . --project-name us-stock-dashboard --skip-caching
+          command: pages deploy . --project-name us-stock-dashboard --skip-caching --branch main
         continue-on-error: true # 部署失败不阻断主流程（可改回 false 以强制）
