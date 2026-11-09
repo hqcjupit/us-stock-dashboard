@@ -76,3 +76,8 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c926e05f2df0b00dd6bb32c06000df66
           command: pages deploy . --project-name us-stock-dashboard --skip-caching --branch main
+
+      # —— 部署后回读生产域名，确认线上确实拿到本次内容（防止"假成功"）——
+      - name: Verify live deployment
+        if: steps.cfcheck.outputs.ready == 'true'
+        run: node scripts/verify-live.mjs

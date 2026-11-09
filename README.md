@@ -90,21 +90,39 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 可用 GitHub Action / cron 每天 06:30 触发，再把结果写回 HTML 重新部署。
 
 ### 一键每日自动化（GitHub Actions）
-仓库已带 `.github/workflows/daily.yml`：每天**北京时间 06:30** 自动跑管线，生成长文并注入 HTML、同步 `index.html` 后提交，再由 wrangler 部署到 Cloudflare Pages（生产分支 `main`）。
+仓库已带 `.github/workflows/daily.yml`：每天**北京时间 06:30** 自动跑管线，生成长文并注入 HTML、同步 `index.html` 后提交；**若已配置 `CLOUDFLARE_API_TOKEN`**，再由 wrangler 部署到 Cloudflare Pages（生产分支 `main`）并回读线上校验。
 
 使用前准备：
 1. 本地 `node scripts/futu_hot.mjs` 生成并提交 `futu_hot.json`（CI 直接用它，不必连 OpenD）。
 2. 在仓库 **Settings → Secrets** 配置 `LLM_API_KEY`（即 OpenRouter 的 `sk-or-v1-...` 密钥）；默认已走 OpenRouter `deepseek/deepseek-chat`，不配则长文用占位。
-3. **若要"提交后自动部署到线上"**，再配置 `CLOUDFLARE_API_TOKEN`（Cloudflare API Token，需 `Pages:Edit` 权限，在 Cloudflare 控制台 → My Profile → API Tokens 创建）。
-   - 未配置时工作流**仍能生成长文并提交**，只是最后部署步骤被跳过（设为 `continue-on-error`，不阻断主流程）——线上站点不会自动更新。
-   - 二选一补救：① 本地 `wrangler pages deploy . --project-name us-stock-dashboard --branch main` 手动部署；② 在 Cloudflare 把 Pages 项目改为 **Git 集成**（绑定本仓库），此后每次 push 自动部署，无需任何 Token。
+3. **若要"生成后自动部署到线上"**（一次性配置，之后全自动），创建 Cloudflare API Token 并写入仓库 Secret：
+
+   **① Cloudflare 控制台 → My Profile → API Tokens → Create Token → Custom Token → Get started**
+   | 字段 | 填什么 |
+   |---|---|
+   | Token name | `github-actions-us-stock-dashboard` |
+   | Permissions | 第一个下拉选 **Account**，第二个选 **Cloudflare Pages**，第三个选 **Edit** |
+   | Account Resources | **Include → 你的账号**（不要选 All accounts） |
+
+   > ⚠️ 不要用现成的 **"Edit Cloudflare Workers"** 模板——它不含 Pages 权限，部署会报 `Could not route to /client/v4/accounts/.../pages/projects`。只勾上面这一条权限即可，泄漏影响面最小。
+   > 点 **Continue to summary → Create Token**，然后**立刻复制 token 值**（Cloudflare 只显示一次）。
+
+   **② GitHub 仓库 → Settings → Secrets and variables → Actions → Secrets 标签页 → New repository secret**
+   - Name：`CLOUDFLARE_API_TOKEN`（**必须一字不差**，写错会被静默跳过部署）
+   - Secret：粘贴上一步的 token → **Add secret**
+
+   > Account ID 已写死在 `daily.yml`（`c926e05f2df0b00dd6bb32c06000df66`），**不需要**再配 `CLOUDFLARE_ACCOUNT_ID`。
+   > 本项目是用 `wrangler` Direct Upload 创建的，不要再切 Git 集成（切换不可逆，且会绕过本仓库的生成步骤）。
+
+   - 未配置该 Secret 时：工作流**仍能生成长文并提交**，`Check deploy credentials` 步骤会打印 `::notice::` 并**明确跳过**部署（不会假成功），线上站点需手动 `wrangler pages deploy . --project-name us-stock-dashboard --branch main`。
+   - 已配置时：部署完成后工作流会自动拉取生产域名，校验本次 `stockNotes` 是否全部上线；不一致直接把 job 标红。
 4. 推送后 Actions 即按 cron 运行；也可在 Actions 页面手动 `Run workflow` 立即试跑。
 
 #### 方案A：为指定股票一键生成 LLM 长文（推荐）
 仓库的 `Daily US Stock Dashboard Regenerate` 工作流支持手动触发输入：
 - 进入仓库 **Actions → Daily US Stock Dashboard Regenerate → Run workflow**；
 - 在 `stocks` 输入框填入股票代码（**空格或逗号分隔**，如 `GOOGL META`），留空则只刷新默认基线；
-- 点运行：脚本会为该股票调 OpenRouter 生成四段式长文，**合并**注入 `stockNotes`（不覆盖已有的 AMD 等解读），同步 `index.html` 后提交；若已配 `CLOUDFLARE_API_TOKEN` 则自动部署上线。
+- 点运行：脚本会为该股票调 OpenRouter 生成四段式长文，**合并**注入 `stockNotes`（不覆盖已有的 AMD 等解读），同步 `index.html` 后提交；若已配 `CLOUDFLARE_API_TOKEN` 则自动部署上线，并由 `scripts/verify-live.mjs` 回读生产域名确认本次长文确实生效（不一致则 job 标红）。
 - 之后在网站把该股票加入自选，卡片即显示真实 LLM 长文（前端 `buildStocks` 优先使用 `stockNotes`）。
 
 > 也可以本地等价操作：`node scripts/regenerate.mjs GOOGL --write-html`，再把 `us-stock-dashboard.html` 复制为 `index.html` 后部署。
