@@ -6,8 +6,8 @@
  *
  * 配置（环境变量，全部可选，缺省即降级返回 null）：
  *   LLM_API_KEY   必填才真正调用；为空则 generate* 直接返回 null（主流程用占位兜底）。
- *   LLM_BASE_URL  默认 https://api.openai.com/v1
- *   LLM_MODEL     默认 gpt-4o-mini
+ *   LLM_BASE_URL  默认 https://api.deepseek.com/v1（DeepSeek，开箱即用只需设 LLM_API_KEY）
+ *   LLM_MODEL     默认 deepseek-chat
  *   LLM_TIMEOUT   ms，默认 60000
  *
  * 设计原则：
@@ -24,8 +24,8 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 function cfg() {
   return {
     apiKey: process.env.LLM_API_KEY || '',
-    baseUrl: process.env.LLM_BASE_URL || 'https://api.openai.com/v1',
-    model: process.env.LLM_MODEL || 'gpt-4o-mini',
+    baseUrl: process.env.LLM_BASE_URL || 'https://api.deepseek.com/v1',
+    model: process.env.LLM_MODEL || 'deepseek-chat',
     timeout: Number(process.env.LLM_TIMEOUT || 60000),
   };
 }
