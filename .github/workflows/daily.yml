@@ -55,10 +55,24 @@ jobs:
           fi
 
       # —— 自动部署到 Cloudflare Pages（需仓库 Secrets: CLOUDFLARE_API_TOKEN）——
+      # 先探测凭证：未配置时明确跳过并给出提示，避免"假成功"（wrangler 会在 CI 非交互
+      # 环境因缺 CLOUDFLARE_API_TOKEN 直接报错，若用 continue-on-error 会被掩盖）。
+      - name: Check deploy credentials
+        id: cfcheck
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -n "$CF_TOKEN" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::未配置 CLOUDFLARE_API_TOKEN：长文已生成并提交，但跳过自动部署。线上站点需手动 wrangler pages deploy，或在 Cloudflare 把 Pages 项目改为 Git 集成（push 即部署）。"
+          fi
+
       - name: Deploy to Cloudflare Pages
+        if: steps.cfcheck.outputs.ready == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: c926e05f2df0b00dd6bb32c06000df66
           command: pages deploy . --project-name us-stock-dashboard --skip-caching --branch main
-        continue-on-error: true # 部署失败不阻断主流程（可改回 false 以强制）
