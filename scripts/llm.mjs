@@ -6,8 +6,8 @@
  *
  * 配置（环境变量，全部可选，缺省即降级返回 null）：
  *   LLM_API_KEY   必填才真正调用；为空则 generate* 直接返回 null（主流程用占位兜底）。
- *   LLM_BASE_URL  默认 https://api.deepseek.com/v1（DeepSeek，开箱即用只需设 LLM_API_KEY）
- *   LLM_MODEL     默认 deepseek-chat
+ *   LLM_BASE_URL  默认 https://openrouter.ai/api/v1（OpenRouter，开箱即用只需设 LLM_API_KEY）
+ *   LLM_MODEL     默认 deepseek/deepseek-chat
  *   LLM_TIMEOUT   ms，默认 60000
  *
  * 设计原则：
@@ -21,11 +21,28 @@ import { dirname, resolve } from 'node:path';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
+// —— 可选：本地若处于需要走代理的网络（如本机沙箱 HTTPS_PROXY），让全局 fetch 走代理 ——
+// 仅当存在代理环境变量且本机装了 undici 时启用；CI 直连环境自动跳过，不依赖任何第三方包。
+const PROXY_URL =
+  process.env.HTTPS_PROXY || process.env.https_proxy ||
+  process.env.HTTP_PROXY || process.env.http_proxy;
+if (PROXY_URL) {
+  try {
+    const undici = await import('undici');
+    if (undici?.ProxyAgent && undici?.setGlobalDispatcher) {
+      undici.setGlobalDispatcher(new undici.ProxyAgent(PROXY_URL));
+      console.warn(`[llm] 检测到代理，已启用全局出站 dispatcher → ${PROXY_URL}`);
+    }
+  } catch (e) {
+    console.warn('[llm] 未安装 undici，跳过代理设置（CI 直连环境可忽略此提示）。');
+  }
+}
+
 function cfg() {
   return {
     apiKey: process.env.LLM_API_KEY || '',
-    baseUrl: process.env.LLM_BASE_URL || 'https://api.deepseek.com/v1',
-    model: process.env.LLM_MODEL || 'deepseek-chat',
+    baseUrl: process.env.LLM_BASE_URL || 'https://openrouter.ai/api/v1',
+    model: process.env.LLM_MODEL || 'deepseek/deepseek-chat',
     timeout: Number(process.env.LLM_TIMEOUT || 60000),
   };
 }

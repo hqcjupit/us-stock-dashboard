@@ -78,9 +78,12 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 | 变量 | 说明 | 默认 |
 |---|---|---|
 | `LLM_API_KEY` | 模型网关密钥；**为空则全部用占位文本** | 空 |
-| `LLM_BASE_URL` | 兼容 `/v1/chat/completions` 的地址 | `https://api.openai.com/v1` |
-| `LLM_MODEL` | 模型名 | `gpt-4o-mini` |
+| `LLM_BASE_URL` | 兼容 `/v1/chat/completions` 的地址 | `https://openrouter.ai/api/v1` |
+| `LLM_MODEL` | 模型名 | `deepseek/deepseek-chat` |
 | `LLM_TIMEOUT` | 单次超时(ms) | `60000` |
+
+> 默认走 **OpenRouter**（`sk-or-v1-...` 密钥），开箱即用只需设 `LLM_API_KEY`。任何 OpenAI 兼容网关都可用：改 `LLM_BASE_URL`/`LLM_MODEL` 即可（如直连 DeepSeek、硅基流动、本地 Ollama 等）。
+> 本地若处于需代理的网络（如本机沙箱 `HTTPS_PROXY`），脚本会自动加载 `undici` 走全局代理；CI 直连环境无需 `undici`。
 
 > 四段式严格遵守原站 v7.2 字数上限（latest≤110 / fundamental≤130 / peNote≤65 / verdict≤175 字）。无 `LLM_API_KEY` 时生成占位，页面仍有可读内容。
 
@@ -91,7 +94,7 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 
 使用前准备：
 1. 本地 `node scripts/futu_hot.mjs` 生成并提交 `futu_hot.json`（CI 直接用它，不必连 OpenD）。
-2. 在仓库 **Settings → Secrets** 配置 `LLM_API_KEY`（及可选的 `LLM_BASE_URL`/`LLM_MODEL`）；不配则长文用占位。
+2. 在仓库 **Settings → Secrets** 配置 `LLM_API_KEY`（即 OpenRouter 的 `sk-or-v1-...` 密钥）；默认已走 OpenRouter `deepseek/deepseek-chat`，不配则长文用占位。
 3. 推送后 Actions 即按 cron 运行；也可在 Actions 页面手动 `Run workflow` 立即试跑。
 
 ## 安全说明

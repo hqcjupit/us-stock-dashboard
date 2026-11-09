@@ -19,11 +19,13 @@ jobs:
           node-version: '20'
 
       # —— 读取真实凭证（未配置时优雅降级：热度榜空 + 长文占位，管线不中断）——
+      # 默认走 OpenRouter（deepseek/deepseek-chat）。只需在仓库 Secrets 配置 LLM_API_KEY
+      # （即 OpenRouter 的 sk-or-v1-... 密钥）；如需换模型/网关，再设 LLM_BASE_URL / LLM_MODEL。
       - name: Regenerate baselines + hot list + editorial
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
-          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL || 'deepseek/deepseek-chat' }}
           FUTU_HOT_JSON: futu_hot.json
         run: node scripts/regenerate.mjs --write-html
 

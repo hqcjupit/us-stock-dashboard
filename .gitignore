@@ -1,5 +1,7 @@
 # 依赖与产物
 node_modules/
+package.json
+package-lock.json
 *.log
 deploy*.log
 
