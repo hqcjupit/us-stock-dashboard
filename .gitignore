@@ -1,0 +1,20 @@
+# 依赖与产物
+node_modules/
+*.log
+deploy*.log
+
+# 系统/编辑器
+.DS_Store
+Thumbs.db
+
+# WorkBuddy 内部目录（记忆/配置，不入库）
+.workbuddy/
+
+# 本地临时文件
+_test_*.html
+_test_*.js
+_inline_test.js
+/tmp/
+
+# wrangler 本地缓存/登录态（含凭证，严禁入库）
+.wrangler/

@@ -1,0 +1,57 @@
+name: 美股看板每日重生成
+
+# 每天北京时间 06:30 自动跑一遍数据管线，把热度榜/长文/基线注入 index.html 后提交。
+# 若 Cloudflare Pages 已绑定本仓库 Git，提交即触发部署；否则取消底部 wrangler 步骤注释。
+on:
+  schedule:
+    # GitHub Actions 的 cron 使用 UTC。北京时间 06:30 = UTC 22:30（前一天）。
+    - cron: '30 22 * * *'
+  workflow_dispatch: {}   # 允许在 Actions 页面手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 重生成并注入 HTML
+        env:
+          # LLM 长文生成：在仓库 Settings -> Secrets 配置 LLM_API_KEY；不配则用占位文本
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          # 注入目标文件（部署入口）
+          HTML_PATH: index.html
+          # futu_hot.json 需预先 commit 到仓库（本地跑 node scripts/futu_hot.mjs 生成后提交）；
+          # 若未配置，热度榜会保持上一次注入的结果，管线不中断。
+        run: node scripts/regenerate.mjs --write-html
+
+      - name: 提交改动
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "无变化，跳过提交"
+          else
+            git commit -m "chore: 每日重生成 $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
+
+      # —— 可选：若 Pages 未绑定 Git，用 wrangler 直接部署 ——
+      # - name: 部署到 Cloudflare Pages
+      #   uses: cloudflare/wrangler-action@v3
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     command: pages deploy . --project-name=us-stock-dashboard

@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>美股新手看板 | US Market Daily Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ========== ROOT ========== */
+:root{
+  --bg:#FAF6F0;
+  --bg-sec:#F3EEE6;
+  --card:#FFFFFF;
+  --ink:#1A1A2E;
+  --ink-sec:#5E5E6B;
+  --ink-light:#9B9BA6;
+  --accent:#8B1D3D;
+  --accent-light:#A8264E;
+  --gold:#B8860B;
+  --up:#D02020;
+  --down:#00874C;
+  --border:#E8E0D5;
+  --border-dark:#D5CBBD;
+  --shadow:0 2px 12px rgba(26,26,46,0.06);
+  --shadow-lg:0 10px 30px rgba(26,26,46,0.10);
+  --radius:14px;
+  --radius-sm:8px;
+  --serif:'Noto Serif SC',Georgia,'Times New Roman',serif;
+  --sans:'Inter','Noto Sans SC','Helvetica Neue',sans-serif;
+  --mono:'IBM Plex Mono','SF Mono',Consolas,monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+a { color:var(--accent); text-decoration:none; }
+
+/* ========== UTILS ========== */
+.up { color:var(--up); }
+.down { color:var(--down); }
+.flat { color:var(--ink-light); }
+.muted { color:var(--ink-sec); }
+.small { font-size:12px; }
+.badge {
+  display:inline-block;
+  font-size:11px;
+  padding:2px 8px;
+  border-radius:20px;
+  border:1px solid var(--border-dark);
+  background:var(--bg-sec);
+  color:var(--ink-sec);
+  font-family:var(--mono);
+}
+.tag {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:12px;
+  color:var(--ink-sec);
+  background:var(--bg-sec);
+  border:1px solid var(--border);
+  padding:4px 10px;
+  border-radius:20px;
+}
+
+/* ========== HEADER ========== */
+.topbar {
+  border-bottom:1px solid var(--border-dark);
+  background:var(--bg);
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+.topbar-inner {
+  max-width:1240px;
+  margin:0 auto;
+  padding:18px 24px 14px;
+}
+.brand-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.brand { display:flex; align-items:flex-start; gap:12px; }
+.brand-mark {
+  width:36px; height:36px;
+  background:var(--accent);
+  color:#fff;
+  border-radius:8px;
+  display:grid;
+  place-items:center;
+  font-family:var(--serif);
+  font-weight:900;
+  font-size:18px;
+}
+.brand-title h1 {
+  font-family:var(--serif);
+  font-size:32px;
+  font-weight:900;
+  line-height:1.1;
+  letter-spacing:-0.5px;
+}
+.brand-title .en {
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--ink-light);
+  margin-top:3px;
+  font-weight:500;
+}
+.brand-sub {
+  font-size:13px;
+  color:var(--ink-sec);
+  margin-top:4px;
+}
+.update-box {
+  text-align:right;
+  font-size:12px;
+  color:var(--ink-sec);
+}
+.update-box strong {
+  display:block;
+  font-size:14px;
+  color:var(--ink);
+  font-weight:600;
+  margin-bottom:2px;
+}
+.pulse {
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
+  color:var(--down);
+  font-weight:500;
+}
+.pulse::before {
+  content:'';
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--down);
+  animation:pulse 1.8s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* nav */
+.nav { display:flex; gap:8px; flex-wrap:wrap; }
+.nav a {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 14px;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:500;
+  color:var(--ink-sec);
+  border:1px solid var(--border);
+  background:var(--card);
+  transition:all .15s;
+}
+.nav a:hover, .nav a.active {
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
+.nav a span { font-family:var(--mono); font-size:11px; opacity:.7; }
+
+/* source chips */
+.source-bar {
+  max-width:1240px;
+  margin:0 auto;
+  padding:12px 24px 0;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.source-label {
+  font-size:11px;
+  color:var(--ink-light);
+  font-weight:500;
+}
+
+/* ========== LAYOUT ========== */
+.container {
+  max-width:1240px;
+  margin:0 auto;
+  padding:28px 24px 60px;
+}
+.module {
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+  margin-bottom:24px;
+  overflow:hidden;
+}
+.module-header {
+  padding:22px 26px 18px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.module-num {
+  width:42px;height:42px;
+  border-radius:50%;
+  background:var(--ink);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-family:var(--serif);
+  font-weight:900;
+  font-size:18px;
+}
+.module-title-wrap { flex:1; }
+.module-en {
+  font-size:10px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--ink-light);
+  font-weight:600;
+}
+.module-title {
+  font-family:var(--serif);
+  font-size:22px;
+  font-weight:700;
+  line-height:1.3;
+}
+.module-body { padding:24px 26px; }
+
+/* ========== HIGHLIGHT CARD ========== */
+.highlight-card {
+  background:var(--ink);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  padding:20px 24px;
+  margin-bottom:22px;
+}
+.highlight-card .label {
+  font-size:11px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  margin-bottom:8px;
+  font-weight:600;
+}
+.highlight-card p {
+  font-size:17px;
+  line-height:1.7;
+  font-weight:400;
+}
+.highlight-card strong { color:#FFD700; font-weight:700; }
+
+/* ========== INDEX CARDS ========== */
+.index-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin:14px 0;
+}
+.index-card {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:18px;
+  transition:transform .15s, box-shadow .15s;
+}
+.index-card:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
+.index-card .name {
+  font-size:12px;
+  color:var(--ink-sec);
+  font-weight:600;
+  margin-bottom:6px;
+}
+.index-card .value {
+  font-family:var(--mono);
+  font-size:26px;
+  font-weight:600;
+  color:var(--ink);
+  line-height:1;
+}
+.index-card .change {
+  font-family:var(--mono);
+  font-size:14px;
+  font-weight:600;
+  margin-top:6px;
+}
+.index-card .note {
+  font-size:12px;
+  color:var(--ink-sec);
+  margin-top:10px;
+  line-height:1.5;
+}
+
+/* ========== SENTIMENT ========== */
+.sentiment-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+.sentiment-card {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:18px;
+}
+.sentiment-card .top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+  gap:8px;
+}
+.sentiment-card .label { font-size:13px; font-weight:600; color:var(--ink); }
+.sentiment-card .value { font-family:var(--mono); font-size:24px; font-weight:700; }
+.sentiment-card .gauge {
+  height:8px;
+  border-radius:4px;
+  background:linear-gradient(90deg, var(--down) 0%, #E88000 35%, #999 50%, #00A050 75%, var(--up) 100%);
+  position:relative;
+  margin:10px 0;
+}
+.sentiment-card .gauge-pointer {
+  position:absolute;
+  top:-4px;
+  width:3px;
+  height:16px;
+  background:var(--ink);
+  border-radius:2px;
+  transition:left .5s;
+}
+.gauge-labels {
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+  color:var(--ink-light);
+  margin-bottom:10px;
+}
+.sentiment-card .explain {
+  font-size:13px;
+  color:var(--ink-sec);
+  line-height:1.6;
+}
+.sentiment-summary {
+  margin-top:16px;
+  background:var(--bg-sec);
+  border:1px solid var(--border-dark);
+  border-radius:var(--radius-sm);
+  padding:16px 20px;
+  font-size:14.5px;
+  line-height:1.8;
+  border-left:4px solid var(--accent);
+}
+.sentiment-summary strong { color:var(--accent); }
+
+/* ========== EVENT CARDS ========== */
+.event-card {
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:20px 22px;
+  margin-bottom:16px;
+  background:var(--card);
+  border-left:4px solid var(--accent);
+}
+.event-card:last-child { margin-bottom:0; }
+.event-title {
+  font-family:var(--serif);
+  font-size:18px;
+  font-weight:700;
+  line-height:1.4;
+  margin-bottom:12px;
+}
+.event-row {
+  margin-bottom:10px;
+  font-size:14px;
+  line-height:1.7;
+}
+.event-row:last-child { margin-bottom:0; }
+.event-row .ev-label { font-weight:700; color:var(--accent); margin-right:6px; }
+.event-row .plain {
+  color:var(--ink-sec);
+  font-size:12px;
+  display:block;
+  margin-top:2px;
+}
+
+/* ========== SECTOR / THEME ========== */
+.theme-box {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:18px 20px;
+  margin-bottom:20px;
+  font-size:14.5px;
+  line-height:1.75;
+}
+.theme-box strong { color:var(--accent); }
+.sector-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:20px;
+}
+.sector-col h4 {
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:var(--ink-light);
+  margin-bottom:10px;
+  font-weight:700;
+}
+.sector-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:8px;
+  margin-bottom:8px;
+  font-size:13.5px;
+  background:var(--bg);
+  border:1px solid var(--border);
+}
+.sector-item.gain { border-left:3px solid var(--up); }
+.sector-item.loss { border-left:3px solid var(--down); }
+.sector-item .s-name { flex:1; font-weight:600; }
+.sector-item .s-pct { font-family:var(--mono); font-weight:700; font-size:13px; }
+
+/* ========== HOT STOCKS ========== */
+.hot-section-title {
+  font-size:13px;
+  color:var(--ink-sec);
+  font-weight:700;
+  margin:22px 0 4px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.hot-section-title .badge { font-weight:500; }
+.hot-stock-card {
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 16px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  margin-bottom:10px;
+  flex-wrap:wrap;
+}
+.hot-rank {
+  width:28px; height:28px;
+  border-radius:50%;
+  background:var(--ink);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  flex-shrink:0;
+}
+.hot-rank.r1 { background:var(--accent); }
+.hot-ident { min-width:130px; }
+.hot-ident .h-code { font-family:var(--mono); font-weight:700; font-size:14px; }
+.hot-ident .h-name { font-size:12px; color:var(--ink-sec); }
+.hot-price-wrap {
+  font-family:var(--mono);
+  font-size:14px;
+  font-weight:600;
+  min-width:150px;
+}
+.hot-why { flex:1; min-width:220px; font-size:13px; color:var(--ink-sec); line-height:1.55; }
+
+/* ========== TIPS BOX ========== */
+.tip-box {
+  margin-top:22px;
+  background:#FBF3E4;
+  border:1px solid #E8D9B0;
+  border-radius:var(--radius-sm);
+  padding:18px 22px;
+}
+.tip-box h4 {
+  font-family:var(--serif);
+  font-size:16px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#7A5A00;
+}
+.tip-box ul { list-style:none; }
+.tip-box li {
+  font-size:13.5px;
+  line-height:1.7;
+  padding-left:22px;
+  position:relative;
+  margin-bottom:8px;
+  color:var(--ink);
+}
+.tip-box li:last-child { margin-bottom:0; }
+.tip-box li::before {
+  content:'⚠';
+  position:absolute;
+  left:0;
+  color:#B8860B;
+  font-weight:700;
+}
+
+/* ========== WATCHLIST ========== */
+.watchlist-controls {
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+.watchlist-controls input {
+  flex:1;
+  min-width:220px;
+  padding:10px 14px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:14px;
+  font-family:var(--sans);
+}
+.watchlist-controls input:focus {
+  outline:none;
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(139,29,61,0.08);
+}
+.btn {
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  font-family:var(--sans);
+  transition:all .15s;
+}
+.btn-add { background:var(--accent); color:#fff; }
+.btn-add:hover { background:var(--accent-light); }
+.btn-ghost {
+  background:transparent;
+  color:var(--ink-sec);
+  border:1px solid var(--border);
+}
+.btn-ghost:hover { color:var(--ink); border-color:var(--ink-sec); }
+.btn-remove {
+  background:transparent;
+  color:var(--ink-light);
+  border:1px solid var(--border);
+  padding:5px 12px;
+  font-size:12px;
+  cursor:pointer;
+  border-radius:6px;
+  font-family:var(--sans);
+}
+.btn-remove:hover { color:var(--down); border-color:var(--down); background:rgba(0,135,76,0.04); }
+.empty-tip { font-size:13px; color:var(--ink-sec); margin-bottom:14px; }
+.watchlist-status {
+  font-size:13px;
+  color:var(--accent);
+  min-height:20px;
+  margin-bottom:8px;
+}
+
+.stock-card {
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  margin-bottom:14px;
+  overflow:hidden;
+}
+.stock-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:16px 20px;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+}
+.stock-name-wrap { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.stock-name { font-family:var(--serif); font-size:18px; font-weight:700; }
+.stock-code {
+  font-family:var(--mono);
+  font-size:12px;
+  color:var(--ink-light);
+  background:#fff;
+  border:1px solid var(--border);
+  padding:2px 8px;
+  border-radius:4px;
+}
+.stock-price-wrap { display:flex; align-items:baseline; gap:10px; }
+.stock-price { font-family:var(--mono); font-size:22px; font-weight:600; }
+.stock-change { font-family:var(--mono); font-size:14px; font-weight:700; }
+.stock-body { padding:18px 20px; font-size:14px; line-height:1.75; }
+.stock-row { margin-bottom:8px; }
+.stock-row .s-label { font-weight:700; color:var(--accent); margin-right:6px; }
+.invalid-tip {
+  background:rgba(190,60,60,.10);
+  border:1px dashed rgba(190,60,60,.45);
+  border-radius:8px;
+  padding:10px 14px;
+  color:#a04040;
+  font-size:13px;
+  line-height:1.6;
+}
+.stock-summary {
+  background:var(--bg);
+  border-radius:8px;
+  padding:12px 16px;
+  margin-top:12px;
+  font-size:13.5px;
+  line-height:1.7;
+  border-left:3px solid var(--accent);
+}
+.stock-links { margin-top:10px; font-size:11.5px; color:var(--ink-light); }
+.stock-links a { color:var(--ink-sec); margin-right:14px; }
+.stock-links a:hover { color:var(--accent); }
+
+/* ========== CALENDAR ========== */
+.cal-list { list-style:none; }
+.cal-item {
+  display:flex;
+  gap:16px;
+  padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+.cal-item:last-child { border-bottom:none; padding-bottom:0; }
+.cal-date {
+  min-width:86px;
+  text-align:center;
+  background:var(--ink);
+  color:#fff;
+  border-radius:8px;
+  padding:8px 0;
+  align-self:flex-start;
+}
+.cal-date .monthday {
+  font-family:var(--mono);
+  font-size:15px;
+  font-weight:700;
+}
+.cal-date .weekday { font-size:11px; opacity:.75; display:block; }
+.cal-content { flex:1; }
+.cal-title { font-weight:700; font-size:15px; margin-bottom:4px; }
+.cal-desc { font-size:13px; color:var(--ink-sec); line-height:1.6; margin-bottom:4px; }
+.cal-impact { font-size:13px; color:var(--ink); line-height:1.6; }
+
+/* ========== METRICS ========== */
+.metrics-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+.metric-card {
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:18px;
+  transition:transform .15s;
+}
+.metric-card:hover { transform:translateY(-2px); }
+.metric-card .m-name {
+  font-size:12px;
+  color:var(--ink-sec);
+  font-weight:600;
+  margin-bottom:6px;
+}
+.metric-card .m-value {
+  font-family:var(--mono);
+  font-size:24px;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.1;
+}
+.metric-card .m-change {
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  margin-top:6px;
+}
+.metric-card .m-explain {
+  font-size:12.5px;
+  color:var(--ink-sec);
+  margin-top:10px;
+  line-height:1.55;
+}
+.metric-card .m-source { margin-top:10px; font-size:11px; color:var(--ink-light); }
+.metric-card.macro { border-left:3px solid var(--gold); background:#FCF8EF; }
+
+/* macro summary */
+.macro-summary {
+  margin-top:22px;
+  background:var(--ink);
+  color:#fff;
+  border-radius:var(--radius-sm);
+  padding:22px 26px;
+}
+.macro-summary .label {
+  font-size:11px;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+  margin-bottom:10px;
+  font-weight:600;
+}
+.macro-summary p {
+  font-size:15px;
+  line-height:1.85;
+  margin-bottom:10px;
+}
+.macro-summary p:last-child { margin-bottom:0; }
+.macro-summary strong { color:#FFD700; font-weight:700; }
+.macro-summary .dim { color:rgba(255,255,255,.65); font-size:12.5px; }
+
+/* ========== FOOTER ========== */
+.footer { max-width:1240px; margin:0 auto; padding:0 24px 50px; }
+.disclaimer {
+  background:var(--bg-sec);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:18px 22px;
+  font-size:13px;
+  color:var(--ink-sec);
+  line-height:1.75;
+  margin-bottom:16px;
+}
+.disclaimer strong { color:var(--accent); }
+.sources { font-size:12px; color:var(--ink-light); line-height:1.8; }
+.timestamp { font-size:12px; color:var(--ink-light); margin-top:8px; }
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:900px){
+  .index-grid, .metrics-grid { grid-template-columns:1fr; }
+  .sector-grid, .sentiment-grid { grid-template-columns:1fr; }
+  .brand-title h1 { font-size:24px; }
+  .module-title { font-size:19px; }
+}
+@media(max-width:600px){
+  .topbar-inner, .container, .footer { padding-left:16px; padding-right:16px; }
+  .brand-row { flex-direction:column; align-items:flex-start; }
+  .update-box { text-align:left; }
+  .stock-head { flex-direction:column; align-items:flex-start; }
+}
+
+.flash { animation:flash .8s ease-out; }
+@keyframes flash{0%{background:rgba(184,134,11,.18)}100%{background:transparent}}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand-row">
+      <div class="brand">
+        <div class="brand-mark">M</div>
+        <div class="brand-title">
+          <h1>美股新手看板</h1>
+          <div class="en">US Market Daily Briefing</div>
+          <div class="brand-sub">把美股的变化，翻译成小白也能看懂的投资线索</div>
+        </div>
+      </div>
+      <div class="update-box">
+        <strong id="header-date">最近交易日：2026年11月6日（周五）</strong>
+        <span id="et-session-label">价格数据基于美东时间最近一个交易日收盘（美股盘中则为实时价）· 本页 2026 年 11 月 9 日（周一）盘前更新</span>
+        <div class="pulse">每次打开自动刷新最新数据</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#m1" class="active"><span>01</span>昨晚市场</a>
+      <a href="#m2"><span>02</span>发生什么大事</a>
+      <a href="#m3"><span>03</span>大家在交易什么</a>
+      <a href="#m4"><span>04</span>我的自选股</a>
+      <a href="#m5"><span>05</span>接下来注意什么</a>
+      <a href="#m6"><span>06</span>核心指标</a>
+    </nav>
+  </div>
+</div>
+
+<div class="source-bar">
+  <span class="source-label">数据与信息来源：</span>
+  <span class="tag">富途牛牛</span>
+  <span class="tag">Investing.com</span>
+  <span class="tag">Yahoo Finance</span>
+  <span class="tag">腾讯自选股</span>
+  <span class="tag">CNN Fear &amp; Greed</span>
+  <span class="tag">MacroMicro / CBOE</span>
+  <span class="tag">Mortgage News Daily</span>
+  <span class="tag">TradingEconomics</span>
+  <span class="tag">CoinGecko</span>
+</div>
+
+<div class="container">
+
+<!-- ===== MODULE 1 ===== -->
+<div class="module" id="m1">
+  <div class="module-header">
+    <div class="module-num">01</div>
+    <div class="module-title-wrap">
+      <div class="module-en">Market Pulse</div>
+      <div class="module-title">昨夜市场怎么样？</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="highlight-card">
+      <div class="label">一句话</div>
+      <p>周五（11/6）三大指数分化：纳指涨 1.09% 报 24,579.42，标普涨 0.31% 报 7,376.86，道指跌 0.46% 报 51,285.73。<br>链条：非农超预期 → 加息押注升温 → 利率回升 → 反弹收窄。<br>为什么只弹一半？周四砸出 2020 年以来最大跌幅，短线资金进场接刀，芯片弹性最大所以弹最猛（费半 +4.21%）。但就业太强把加息预期又抬回去，远期利润折价的老问题没解决，反弹就走不宽。<br>利率这一环可以这样理解：加息押注升温，借钱成本预期上移，未来才赚到的钱折回今天就更不值钱。最吃远期利润的 AI 股先受伤，所以反弹的天花板不在情绪，在利率。</p>
+    </div>
+
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">三大指数</h4>
+    <div class="index-grid">
+      <div class="index-card">
+        <div class="name">标普500 <span class="small muted">S&amp;P 500</span></div>
+        <div class="value" id="sp500-value">7,376.86</div>
+        <div class="change up" id="sp500-change">+0.31%</div>
+        <div class="note">涨 23.13 点，但 318 家下跌、184 家上涨。指数涨是科技撑的，多数股票还在跌，反弹没走宽。</div>
+      </div>
+      <div class="index-card">
+        <div class="name">纳斯达克 <span class="small muted">NASDAQ</span></div>
+        <div class="value" id="nasdaq-value">24,579.42</div>
+        <div class="change up" id="nasdaq-change">+1.09%</div>
+        <div class="note">涨 264.43 点。它装的芯片最多，超跌修复弹性最大，所以反弹领涨。</div>
+      </div>
+      <div class="index-card">
+        <div class="name">道琼斯 <span class="small muted">Dow Jones</span></div>
+        <div class="value" id="dow-value">51,285.73</div>
+        <div class="change down" id="dow-change">-0.46%</div>
+        <div class="note">跌 237.33 点。它没有芯片可弹，防御与金融股回吐，所以逆势收跌。</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin:22px 0 10px;">市场情绪</h4>
+    <div class="sentiment-grid">
+      <div class="sentiment-card">
+        <div class="top">
+          <span class="label">VIX 恐慌指数 <span class="muted small">（越低，市场越"不怕"）</span></span>
+          <span class="value up" id="vix-value">25.64</span>
+        </div>
+        <div class="gauge"><div class="gauge-pointer" id="vix-pointer" style="left:78%"></div></div>
+        <div class="gauge-labels"><span>恐慌</span><span>中性</span><span>麻木</span></div>
+        <div class="explain" id="vix-explain">从 28.18 回落 9%，因为最急的抛售过去了。它看的是买保险贵不贵。读法：20 以下才算警报解除，现在仍在警戒区，只是喘口气，不是安心。</div>
+      </div>
+      <div class="sentiment-card">
+        <div class="top">
+          <span class="label">CNN 贪婪指数 <span class="muted small">（0=恐惧，100=贪婪）</span></span>
+          <span class="value down" id="fg-value">22</span>
+        </div>
+        <div class="gauge"><div class="gauge-pointer" id="fg-pointer" style="left:22%"></div></div>
+        <div class="gauge-labels"><span>恐惧</span><span>中性</span><span>贪婪</span></div>
+        <div class="explain" id="fg-explain">从 20 微升到 22，仍在极度恐惧区（0-25）。它由七项指标合成，反弹日只微升，说明资金没有真正回流风险资产，只是卖压暂停。</div>
+      </div>
+    </div>
+
+    <div class="sentiment-summary">
+      <strong>情绪总结：</strong>两个指标共同指向：恐慌缓和、戒备未除。反弹只修复了价格，没修复信心，因为情绪指标认资金不认价格。确认信号看成交量与下周二 CPI。读法上两个指标都没到极端，说明市场在等数据，而不是等情绪释放。
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODULE 2 ===== -->
+<div class="module" id="m2">
+  <div class="module-header">
+    <div class="module-num">02</div>
+    <div class="module-title-wrap">
+      <div class="module-en">What Moved the Market</div>
+      <div class="module-title">发生了什么大事？</div>
+    </div>
+  </div>
+  <div class="module-body">
+
+    <div class="event-card">
+      <div class="event-title">1. 非农大超预期，加息押注急升</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>10 月非农新增 16.5 万人，预期只有 6.5 万；失业率降到 4.1%，时薪环比涨 0.4%。8、9 两月合计上修 8.4 万，就业比想的还结实。工资是物价的先行指标：企业抢人就得加薪，因为劳动力紧了；加薪落到消费上，物价就压不下来。数据一出，12 月加息概率从 70% 跳到 78%，美元指数涨 0.72% 报 102.28。<span class="dim">（来源：美国劳工统计局、21 世纪经济报道）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>就业强对工人是好事，对股市是压力。因为联储 9 月刚重启加息（就是靠抬高借钱成本压物价），而加息的理由正是经济太热。概率一升，2 年期收益率立刻涨 5.6 个基点（基点即 0.01 个百分点）报 4.514%。对股市的传导是两步：利率上行先压估值，经济过热再抬盈利预期，最后看哪股力赢。短端先动，因为市场在改近期预期。为什么先看短端？因为加息加的是近期资金的价格，短端对政策预期最敏感。下周二 CPI 是第二只靴子，验证看 CPI 公布当天的 2 年期收益率。<span class="dim">（来源：LSEG、每日经济新闻）</span></div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-title">2. 芯片超跌反弹，但 AI 的估值锚被下调</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>费城半导体指数涨 4.21%，AMD 涨 11%、英特尔涨 7.71%、美光涨 5.12%。白宫经济委员会主任哈塞特喊话：数据中心建设仍有很大空间，项目该由当地社区决定。但一级市场在降价：Anthropic 的 IPO 估值预期从最高 2 万亿美元降到 1.2-1.3 万亿。OpenAI 融资估值也从 1.5 万亿降到 1.25 万亿。降幅三五成，通常出现在增长故事被证伪之后；这次证伪还没发生，所以更像提前挤水分。<span class="dim">（来源：21 世纪经济报道）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>反弹与降价同时发生，说明市场分得清两件事：短期跌幅太大需要修复，长期值多少钱要重算。一级市场（未上市公司的私下定价）先打折，因为私募没有散户接盘，定价最诚实。一级砍三成，二级的 AI 估值就悬在半空。下周 Anthropic 启动路演，认购冷，二级跟着降；认购热，说明恐慌没伤到长钱。哈塞特的喊话也在链条里：白宫怕 AI 停摆拖累经济，所以口径在安抚；但审批权在州和社区手里，安抚归安抚，钱看不看开工数据。<span class="dim">（来源：21 世纪经济报道）</span></div>
+    </div>
+
+    <div class="event-card">
+      <div class="event-title">3. 反弹极窄，防御股反而领跌</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>十一大板块七涨四跌，科技涨 1.45% 领涨，必需消费跌 1.28% 垫底。全周标普跌 2.68%，创 2025 年 4 月以来最差单周。伯克希尔三季度营业利润 127.05 亿美元，同比降 5.8%，投资收益也在缩水。<span class="dim">（来源：the closing print、中国证券网）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>健康的反弹是普涨，这次只涨 AI 一串。必需消费下跌是防御盘回吐：周四买它躲跌的钱，周五见风险缓和就撤，因为资金在打游击、没建长期仓。巴菲特那边是同一逻辑的实体版：高利率环境压利润，"利率更高更久"不只压股价，也压企业。验证看本周板块宽度能不能转正。宽度为什么重要？因为指数是被几只权重股抬起来的，多数股票在跌意味着钱没有回到市场，只是在权重股里挪窝。<span class="dim">（来源：the closing print）</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== MODULE 3 ===== -->
+<div class="module" id="m3">
+  <div class="module-header">
+    <div class="module-num">03</div>
+    <div class="module-title-wrap">
+      <div class="module-en">Market Theme</div>
+      <div class="module-title">大家在交易和关注什么？</div>
+    </div>
+  </div>
+  <div class="module-body">
+
+    <div class="theme-box">
+      <strong>主线：技术性反弹。</strong><br>
+      十一大板块七涨四跌，科技 +1.45% 领涨、通信服务 +0.43% 随后；材料 -0.73% 靠后。资金只回补周四砸得最深的芯片，其他地方没动。热度榜五只与上一榜完全相同，因为反弹的主角就是暴跌的主角。这意味着：市场没找到新方向，只是把周四的极端定价修回一半，方向等 CPI 定。超跌反弹的机制不复杂：周四的抛售里有一大块是杠杆盘被强制平仓，价格被砸穿价值。强制卖盘消失后价格自然回弹一段，因为没人接的刀现在有人接了。
+    </div>
+
+    <div class="sector-grid">
+      <div class="sector-col">
+        <h4>领涨板块</h4>
+        <div class="sector-item gain">
+          <span class="s-name">科技 <span class="small muted">芯片超跌修复弹性最大，抢反弹的资金先抢弹性</span></span>
+          <span class="s-pct up">+1.45%</span>
+        </div>
+        <div class="sector-item gain">
+          <span class="s-name">通信服务 <span class="small muted">跟着 AI 叙事回血，弹性次之</span></span>
+          <span class="s-pct up">+0.43%</span>
+        </div>
+      </div>
+      <div class="sector-col">
+        <h4>领跌板块</h4>
+        <div class="sector-item loss">
+          <span class="s-name">必需消费 <span class="small muted">防御盘回吐：周四买它躲跌的钱，周五撤了</span></span>
+          <span class="s-pct down">-1.28%</span>
+        </div>
+        <div class="sector-item loss">
+          <span class="s-name">材料 <span class="small muted">工业金属需求还没接上反弹，铜也只微涨</span></span>
+          <span class="s-pct down">-0.73%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hot-section-title">🔥 今日热度最高的 5 只个股 <span class="badge">数据源：富途 OpenAPI 美股热度榜 · 交易/搜索/新闻三类热度加权 · 每日自动重取</span></div>
+    <div id="hot-stocks-list"></div>
+
+    <div class="tip-box">
+      <h4>两个提醒</h4>
+      <ul>
+        <li>别把反弹当反转：318 家下跌、184 家上涨，宽度是负的。强制卖盘也有尽头，因为杠杆纪律决定了卖完即止。宽度不转正，因为机构没回流，反弹随时可能被下一份数据打断。</li>
+        <li>下周二 CPI 是试金石：加息概率已回到近八成。若通胀同步超预期，"更高更久"坐实，本轮修复被证伪；回落才给反弹续命，因为通胀是联储唯一的加息理由，物价低头利率才能松。</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== MODULE 4 ===== -->
+<div class="module" id="m4">
+  <div class="module-header">
+    <div class="module-num">04</div>
+    <div class="module-title-wrap">
+      <div class="module-en">Watchlist</div>
+      <div class="module-title">我的自选股怎么样了？</div>
+    </div>
+  </div>
+  <div class="module-body">
+
+    <div class="watchlist-controls">
+      <input type="text" id="add-stock-input" placeholder="输入美股代码添加自选，比如 GOOGL、AMD、NFLX，回车即可">
+      <button class="btn btn-add" id="btn-add-stock">添加自选</button>
+      <button class="btn btn-ghost" id="btn-reset-watchlist">恢复默认</button>
+    </div>
+    <div class="watchlist-status" id="watchlist-status"></div>
+    <div class="empty-tip">💡 价格、涨跌幅、均线位置、成交量、52 周位置每次打开自动刷新；文字点评基于 11 月 6 日收盘信息。</div>
+
+    <div id="watchlist-container"></div>
+
+  </div>
+</div>
+
+<!-- ===== MODULE 5 ===== -->
+<div class="module" id="m5">
+  <div class="module-header">
+    <div class="module-num">05</div>
+    <div class="module-title-wrap">
+      <div class="module-en">Coming Up</div>
+      <div class="module-title">接下来要注意什么？</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <ul class="cal-list">
+      <li class="cal-item">
+        <div class="cal-date"><div class="monthday">11/10</div><span class="weekday">周二晚（北京）</span></div>
+        <div class="cal-content">
+          <div class="cal-title">10 月 CPI：利率路径的分水岭</div>
+          <div class="cal-desc">通胀数据此前断档，市场手里只有 8 月旧账：年增 3.13%；油价已从 104 美元跌到 91 附近。</div>
+          <div class="cal-impact"><strong>所以呢：</strong>它决定"更高更久"是不是现实。高于 3.33%，加息预期再加码，成长股再挨估值压缩；低于 2.93%，恐慌加速退潮。加息概率悬在近八成，这份 CPI 就是改票的口。传导链条是：CPI 超预期 → 联储更鹰 → 利率上行 → 成长股估值再压缩。<span class="dim">（来源：美国劳工统计局、stockcast）</span></div>
+        </div>
+      </li>
+      <li class="cal-item">
+        <div class="cal-date"><div class="monthday">11/11-13</div><span class="weekday">周三到周五</span></div>
+        <div class="cal-content">
+          <div class="cal-title">AI 资本开支链财报密集</div>
+          <div class="cal-desc">思科、应用材料、CoreWeave、Cerebras 相继放榜，全是数据中心链条上的公司。</div>
+          <div class="cal-impact"><strong>所以呢：</strong>政策只是质疑，订单才是证据，因为收入不会说谎。应用材料的设备订单反映晶圆厂还建不建，CoreWeave 的收入反映算力租赁真不真。集体印证需求，回调就定性为估值重置。这些公司是 AI 链条的收银台，订单数据比任何表态都硬。<span class="dim">（来源：21 世纪经济报道、Nasdaq 行事历）</span></div>
+        </div>
+      </li>
+      <li class="cal-item">
+        <div class="cal-date"><div class="monthday">11/13</div><span class="weekday">周五</span></div>
+        <div class="cal-content">
+          <div class="cal-title">10 月 PPI：通胀的上游读数</div>
+          <div class="cal-desc">生产者价格指数（工厂出货价的涨幅），先于 CPI 反映成本变化。</div>
+          <div class="cal-impact"><strong>所以呢：</strong>PPI 先动、CPI 后动，因为工厂成本早晚转嫁给消费者，PPI 相当于 CPI 的预告片。若 PPI 高于预期，CPI 回落就是缓不济急，"更高更久"延长；两份同向回落，利率路径就提前定了。<span class="dim">（来源：美国劳工统计局）</span></div>
+        </div>
+      </li>
+      <li class="cal-item">
+        <div class="cal-date"><div class="monthday">下周</div><span class="weekday">路演启动</span></div>
+        <div class="cal-content">
+          <div class="cal-title">Anthropic IPO 路演：AI 估值的公开定价</div>
+          <div class="cal-desc">估值预期已从最高 2 万亿美元降到 1.2-1.3 万亿，缩水三到四成。</div>
+          <div class="cal-impact"><strong>所以呢：</strong>它是 AI 估值的定价仪式：认购冷淡，二级 AI 板块的折价坐实；认购火爆，说明恐慌没伤到长期钱。因为它的定价会成为所有 AI 资产的新参照系。看认购倍数与最终定价。<span class="dim">（来源：21 世纪经济报道）</span></div>
+        </div>
+      </li>
+      <li class="cal-item">
+        <div class="cal-date"><div class="monthday">11/17</div><span class="weekday">周二盘后</span></div>
+        <div class="cal-content">
+          <div class="cal-title">英伟达财报：AI 需求是否还在的唯一实证</div>
+          <div class="cal-desc">数据中心收入与指引，直接回答"AI 需求是否还在"这一个问题。</div>
+          <div class="cal-impact"><strong>所以呢：</strong>它是本轮唯一能一锤定音的实证。指引强，回调定性为估值重置；指引弱，抛售逻辑升级。财报前的反弹都算抢跑，因为它一票定方向。<span class="dim">（来源：英伟达财报日程、富途资讯）</span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== MODULE 6 ===== -->
+<div class="module" id="m6">
+  <div class="module-header">
+    <div class="module-num">06</div>
+    <div class="module-title-wrap">
+      <div class="module-en">Dashboard</div>
+      <div class="module-title">核心指标仪表盘</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">第一组：资金成本与美元（股票贵不贵）</h4>
+    <div class="metrics-grid" style="margin-bottom:8px;">
+      <div class="metric-card">
+        <div class="m-name">10 年期美债收益率 <span class="small muted">（全球资产的基准利率）</span></div>
+        <div class="m-value" id="metric-tnx">4.86%</div>
+        <div class="m-change up" id="metric-tnx-change">涨 2.6 个基点报 4.859%</div>
+        <div class="m-explain">它是全市场的贴现率（把未来才赚到的钱折成今天值的利率），涨是因为非农太强：经济热，联储就没理由松手。与周四合看：周四跌是恐惧买债，周五涨是数据压债，同一根收益率两天换了司机。读法：恐慌退潮后它跟数据走，看 CPI 公布当天的反应。读它的斜率比读点位有用，因为斜率代表预期变化的速度。</div>
+        <div class="m-source">来源：每日经济新闻（CMT 4.859%）／Yahoo Finance（^TNX）</div>
+      </div>
+      <div class="metric-card macro">
+        <div class="m-name">30 年期美债收益率 <span class="small muted">（"美债风暴"的风暴眼）</span></div>
+        <div class="m-value" id="metric-tyx">5.27%</div>
+        <div class="m-change up" id="metric-tyx-change">涨 1.2 个基点报 5.265%</div>
+        <div class="m-explain">它是财政信用温度计（市场信不信美国几十年后还得起债）。只微涨，因为长端看的是长期通胀与发债供给，单日就业数据推不动它。它也是海外买家的主战场，发债供给算的是几十年的账。读法：守在 5.3 下方，财政这条压制就还在缓解。</div>
+        <div class="m-source">来源：每日经济新闻（CMT 5.265%）／美财政部 CMT</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-name">美元指数 DXY <span class="small muted">（美元强弱）</span></div>
+        <div class="m-value" id="metric-dxy">102.28</div>
+        <div class="m-change up" id="metric-dxy-change">涨 0.72%，连涨两日</div>
+        <div class="m-explain">美元涨因为非农强：利率越高，美元存款越有吸引力，钱往高息货币走。周四避险买、周五加息预期买，两股力同向，所以连涨。读法：102 上方站稳，会持续抽走无息资产的钱。美元要跟美股连着看，因为美元太强会抽走风险资产的水。</div>
+        <div class="m-source">来源：ICE 美元指数（经 stockcast、the closing print）</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin:22px 0 10px;">第二组：经济周期与政策预期（会不会衰退）</h4>
+    <div class="metrics-grid" style="margin-bottom:8px;">
+      <div class="metric-card macro">
+        <div class="m-name">2Y-10Y 美债利差 <span class="small muted">（衰退预警灯）</span></div>
+        <div class="m-value" id="metric-yieldcurve">+0.35%</div>
+        <div class="m-change down" id="metric-yieldcurve-change">10 年期 4.859% 减 2 年期 4.514%；上日约 +0.37%</div>
+        <div class="m-explain">算法直白：10 年期减 2 年期。变负叫倒挂（短期利率高过长期），倒挂通常领先衰退，现在仍正且宽。周五收窄是因为加息预期先打短端。短端为什么先动？因为加息直接影响短期资金成本，长端要靠通胀和增长慢慢改变。读法：收窄到零以下是警报，当前仍在正常区间。</div>
+        <div class="m-source">来源：10Y(^TNX) 实时 − 2Y 基线 4.51%（每日按美财政部 CMT 更新）</div>
+      </div>
+      <div class="metric-card macro">
+        <div class="m-name">12 月加息概率 <span class="muted small">（政策预期）</span></div>
+        <div class="m-value" id="metric-fedprob">78%</div>
+        <div class="m-change up" id="metric-fedprob-change">从 70% 回升</div>
+        <div class="m-explain">它来自利率期货，等于市场用真金白银押出来的概率。回升是因为非农太强，联储更有底气加息（鹰指偏收紧，鸽指偏宽松）。读法：11/10 CPI 是下一个改票的口，通胀超预期它就再上台阶。概率的用处在于把模糊的态度变成可交易的数字，因为期货里每张合约都是真金白银。</div>
+        <div class="m-source">来源：LSEG（经 21 世纪经济报道）／CME FedWatch</div>
+      </div>
+      <div class="metric-card macro">
+        <div class="m-name">铜金比 <span class="small muted">（增长 vs 避险）</span></div>
+        <div class="m-value" id="metric-cugold">0.00153</div>
+        <div class="m-change up" id="metric-cugold-change">铜涨 0.18%（6.26 美元/磅）；金跌 0.94%</div>
+        <div class="m-explain">铜是经济体温计（工厂和电网都要用），金是避难所。铜涨金跌，因为避险盘撤退、工业需求修复，与反弹日的风险偏好一致。读法：比值回升延续，说明市场在定价"不衰退"。</div>
+        <div class="m-source">来源：COMEX 期铜／COMEX 期金（经 stockcast）</div>
+      </div>
+    </div>
+
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin:22px 0 10px;">第三组：通胀、地缘与风险偏好（有没有黑天鹅）</h4>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="m-name">WTI 原油 <span class="small muted">（通胀与地缘供给）</span></div>
+        <div class="m-value" id="metric-wti">$90.83</div>
+        <div class="m-change up" id="metric-wti-change">涨 0.34%；全周跌 12.8%</div>
+        <div class="m-explain">它是通胀链最上游的阀门：油贵，运输制造发电跟着贵。单日微涨，因为霍尔木兹的断供风险还在；全周大跌是中期选举后地缘溢价（断供风险的价格）在退潮。油价回落给下周 CPI 留了下行空间。读法：90 守住，通胀的刺就没拔净。看油价要看全周方向，因为单日的涨跌常被突发新闻扭曲。</div>
+        <div class="m-source">来源：NYMEX（澎湃新闻、stockcast）</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-name">黄金 <span class="small muted">（避险/抗通胀）</span></div>
+        <div class="m-value" id="metric-gold">$4,075</div>
+        <div class="m-change down" id="metric-gold-change">期货跌 0.94% 报 4,074.90</div>
+        <div class="m-explain">实际利率（名义利率减通胀预期）是它的对手盘：这个数升，不生息的黄金就吃亏。周五非农推高名义利率，金价应声回落。金不生息，所以利率越高它越吃亏，这是它跟利率反着走的原因。但周一亚市现货已重回 4,100 上方，避险需求没走远。读法看的是 4,100：反复得而复失，因为多空还在拉锯。</div>
+        <div class="m-source">来源：COMEX 期金（Yahoo、stockcast）／现货金（中国证券网）</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-name">比特币 BTC <span class="small muted">（风险偏好/流动性）</span></div>
+        <div class="m-value" id="metric-btc">$75,073</div>
+        <div class="m-change down" id="metric-btc-change">约 7.5 万一线，企稳待方向</div>
+        <div class="m-explain">它是风险温度计，只看流动性（市场上的钱多不多、贵不贵）。周五美股反弹它没跟涨，说明反弹靠平仓回补、没有新增资金进场——真回暖时它通常先动。它对资金的进出最敏感，因为没有分红没有利润，全靠流动性撑着。读法：守不住 7.5 万，风险偏好就还在下修。</div>
+        <div class="m-source">来源：加密行情（the closing print）／腾讯行情快照（盘中自动刷新）</div>
+      </div>
+    </div>
+
+    <div class="macro-summary" id="macro-summary">
+      <div class="label">三句话串起来看</div>
+      <p><strong>第一组：钱变贵了，而且短端变得更快。</strong>10 年期只涨 2.6 个基点，2 年期涨 5.6 个基点。差别在各自的钟：2 年期盯近一两年，它急涨说明近期还要加息。10 年期盯更长期，它微动说明大家不信利率会长期高。短端硬、长端软（鹰指偏收紧，鸽指偏宽松），是紧缩延续期的典型形态。验证看 11/10 CPI：超预期，短端再上一截。</p>
+      <p><strong>第二组：市场一边买反弹、一边降 AI 的账。</strong>反弹在二级（股市），降价在一级（私募）：两大 AI 公司的估值预期都砍了三成以上。一级没有散户接盘，定价最诚实，它先降，二级的估值就悬在半空。所以这轮反弹是修复不是反转，确认看 Anthropic 认购倍数与产业链财报。</p>
+      <p><strong>第三组：油、金、铜、比特币各走各路，说的却是同一件事——恐慌在退潮。</strong>油价全周大跌，是怕断供的人在变少；金跌，是不需要躲了；铜涨，是敢押工厂开工了；比特币不跟涨，是新增的钱还没进场。前三个指向"不慌了"，第四个提醒"但也没人冲进来"。</p>
+      <p><strong>记一条链就够了：</strong>非农超预期 → 加息预期回温 → 短端利率上行 → 成长股估值受压。反弹只能靠超跌修复撑着，方向悬而未决。下周两道闸门：11/10 CPI 定利率路径，Anthropic 认购与产业链财报定 AI 估值。两道都松，修复变反转；两道都紧，周四的剧本重演。</p>
+      <p class="dim">（解读基于美东时间 2026-11-06 收盘信息，2026-11-09 更新；上方指标数值每次打开页面会自动刷新至最近一个交易日。）</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <div class="disclaimer">
+    <strong>风险提示：</strong>本看板仅为信息整理与市场科普，不构成任何投资建议。股市有风险，投资需谨慎。所有数据来自公开信息源，可能存在延迟。本页面不提供买入/卖出/加仓/减仓建议，也不预测具体价格。
+  </div>
+  <div class="sources">
+    <strong>数据来源：</strong>富途牛牛（个股热度、资讯、个股动态点评）、Investing.com（大宗商品与美债行情核对）、Yahoo Finance（指数/个股/ETF 实时行情，经代理自动刷新）、腾讯自选股（板块 ETF 行情）、CBOE / MacroMicro（VIX）、Mortgage News Daily（美债收益率）、TradingEconomics（美元指数、WTI）、USA TODAY（金价）、CoinGecko（比特币）、CNN Fear &amp; Greed Index、CME FedWatch（利率概率，经媒体转引）。个股详情可跳转
+    <a href="https://www.futunn.com/stock" target="_blank" rel="noopener">富途牛牛</a> 或
+    <a href="https://www.investing.com/" target="_blank" rel="noopener">Investing.com</a> 核实。
+  </div>
+  <div class="timestamp" id="footer-timestamp">
+    数据截至：美东时间 2026-11-06 收盘 · 价格数据每次打开自动刷新 · 深度解读基于 2026-11-06 收盘信息
+  </div>
+</div>
+
+<script>
+/* ==================== CONFIG ==================== */
+const EDITORIAL_DATE = '2026-11-06'; // 深度解读所基于的交易日
+
+/* 默认自选股：编辑性内容（最新动态/基本面/估值锚）基于 2026-11-06 收盘信息，2026-11-09 更新。
+   来源：美国劳工统计局 / 21 世纪经济报道 / 每日经济新闻 / 中国证券网 / 富途资讯 / 腾讯行情快照。
+   baseQuote / baseDyn 为页面打开时的基线数据，Yahoo 接口失败时也能保证不显示"—"。
+   v7.2 表达标准：latest <= 110 字、fundamental <= 130 字、peNote <= 65 字、verdict <= 175 字。
+   四段的分工：latest 讲当天涨跌与原因；fundamental 讲生意怎么赚钱、关键变量是什么；
+   peNote 讲贵不贵、贵在哪；verdict 结论先行，写"位置 + 对什么敏感 + 往后看什么"。 */
+const defaultStocks = [
+  {
+    code:'AAPL', name:'苹果',
+    latest:'跌 0.52% 收 342.37 美元，反弹日它逆势小跌。因为避险资金撤了：周四买它躲跌的钱，周五风险缓和就撤走，防御属性反着用。',
+    fundamental:'服务业务是利润奶牛：App Store 抽成、订阅、搜索分成，毛利率远高于卖硬件。它对政策风波免疫，因为增长不押 AI 算力，靠存量设备慢慢收钱。自己的 AI 走端侧路线，不参加机房军备赛。',
+    peNote:'PE（滚动）约 38 倍，高于自身五年均值；贵在确定性，不在增速。',
+    verdict:'结论先行：52 周位置约 88%，区间上段。它对内存成本与假日季销量最敏感，与 AI 政策几乎脱敏，这是暴跌周里的稀缺属性。往后看回踩守不守 340。它是避风港不是进攻仓，因为情绪回暖时资金会离开防御股，它反而跑输。位置高也意味着容错小，任何瑕疵都会被放大。',
+    baseQuote:{ price:342.37, prev:344.17, changePct:-0.52, hi52:355.38, lo52:242.76, marketTime:null },
+    baseDyn:{ tech:'停在区间上段（约 88%），短线回踩未破 5 日线。', funds:'避险盘撤退日跌幅最小，承接仍在。', valuationPos:88.4 }
+  },
+  {
+    code:'TSLA', name:'特斯拉',
+    latest:'涨 4.23% 收 358.22 美元，巨头里反弹最猛。因为它估值几乎全靠预期：周四预期被抽走时跌最深，周五修复时也弹最凶。',
+    fundamental:'卖车主业毛利率承压，价格战没停，估值靠自动驾驶与机器人撑。关键变量是交付量：交付上不去，故事就只是故事。远期故事对利率与情绪最敏感，因为利率回升时远期利润折价更重，它的地基先晃。',
+    peNote:'PE（滚动）约 378 倍，几乎全靠预期定价。',
+    verdict:'结论先行：52 周位置约 30%，仍在区间下段。它对交付量与自动驾驶监管最敏感，得州审批是新增变量。往后看 11 月交付数据与 340 平台：高贝塔反弹是情绪修复的影子，意味着站稳要等基本面接棒。反弹里它弹性最大，因为空头最集中的股票回补最猛。',
+    baseQuote:{ price:358.22, prev:343.69, changePct:4.23, hi52:498.83, lo52:297.38, marketTime:null },
+    baseDyn:{ tech:'反弹收复 5 日线，仍在区间下段（约 30%）。', funds:'放量反弹，空头回补明显。', valuationPos:30.2 }
+  },
+  {
+    code:'NVDA', name:'英伟达',
+    latest:'涨 2.78% 收 186.64 美元，跟着费半修复周四的深坑。全周仍跌 8.8%，一天的反弹只收回一小半。',
+    fundamental:'数据中心订单能见度高，护城河是 CUDA 这个写代码的入口。风险在下游节奏：客户买芯片的前提是机房建得起来，因为审批一紧订单兑现就慢，这个前提仍在被考验。',
+    peNote:'PE（滚动）约 23 倍；风险在预期密度，不在估值本身。',
+    verdict:'结论先行：52 周位置约 29%，区间下段。它对云厂开支口径与 11/17 财报最敏感，后者是全场唯一的锚。往后看 190 关口与指引：数据中心指引强，回调就只是估值重置，因为需求没被证伪；弱，抛售逻辑升级。',
+    baseQuote:{ price:186.64, prev:181.60, changePct:2.78, hi52:243.37, lo52:163.89, marketTime:null },
+    baseDyn:{ tech:'超跌修复，仍在区间下段（约 29%）。', funds:'反弹有量，但全周仍净流出。', valuationPos:28.6 }
+  },
+  {
+    code:'MSFT', name:'微软',
+    latest:'跌 0.99% 收 530.61 美元，反弹日继续阴跌。它是机构持有量最大的股票，降风险仓位还没减完，抛压来自减总仓而非看空。',
+    fundamental:'Azure 与 AI 收入持续兑现，云按用量收钱，用量涨得比价格快，等于把通胀转嫁给客户。它对开支口径敏感是结构性的：既是最大买家又是最大卖家，开支减速对它是省成本、对供应商是砍订单。它是最大算力买家，开支口径是全场焦点。',
+    peNote:'PE（滚动）约 28 倍；有真利润托底，不靠故事支撑。',
+    verdict:'结论先行：52 周位置约 86%，区间上段。它对资本开支（盖机房买设备的钱）口径最敏感。往后看下季云指引：若开支减速而收入不减，利润率反而受益；短期看的是机构仓位出清进度，卖干净才谈方向。买卖双重身份让它比别的巨头更难猜方向。',
+    baseQuote:{ price:530.61, prev:535.93, changePct:-0.99, hi52:559.15, lo52:348.54, marketTime:null },
+    baseDyn:{ tech:'退回区间上段（约 86%），阴跌未止。', funds:'机构减仓延续，抛压来自总仓位。', valuationPos:86.4 }
+  },
+  {
+    code:'AMZN', name:'亚马逊',
+    latest:'跌 0.35% 收 259.30 美元，波动最小。电商与云各占一半，因为 AI 恐慌与防御回吐两股力在它身上对冲。',
+    fundamental:'AWS 加广告双引擎，零售利润率在修复。它自研芯片自建云，把算力成本留在体内，代价是自由现金流先变紧，因为买设备的钱远超经营现金流。',
+    peNote:'PE（滚动）约 20 倍，五只里最便宜；便宜是安全垫，也是没拿到成长溢价的证据。',
+    verdict:'结论先行：52 周位置约 69%，区间中上段。它对 AWS 增速与物流成本最敏感，油价停在 90 上方是小逆风。往后看 AWS 增速与开支见顶信号：现金流拐点出现前，估值折价难消除。',
+    baseQuote:{ price:259.30, prev:260.21, changePct:-0.35, hi52:287.20, lo52:196.00, marketTime:null },
+    baseDyn:{ tech:'区间中上段（约 69%），窄幅整理。', funds:'量能平稳，两股力对冲。', valuationPos:69.4 }
+  }
+];
+
+/* 模块三：当日热度 Top5 —— 数据源：富途 OpenAPI 美股热度榜（Qot_GetHotList）。
+   富途按【交易热度 / 搜索热度 / 新闻热度】加权算出综合热度，覆盖当日有效美股样本（周一盘前口径 3,446 只），每天自动变化。
+   取数脚本：.workbuddy/futu_hot.py（已内置"剔除 ETF/停牌/不可报价"过滤），运行后写 .workbuddy/futu_hot.json。
+   代码列表会被 refresh_baseline.py 自动读取并刷新 basePrice/baseChg（勿写死在其他地方）。
+   2026-11-06 榜（11-09 10:03 取数，全市场 3,446 只，取前 5）：
+     NVDA 999.99万(+0) / SPCX 136.36万(-1) / MU 86.59万(-1) / SNDK 62.99万(-1) / INTC 54.70万(+0)。
+   五只与上一榜完全相同、无换血，仅 SPCX 与 MU 排名对调；NVDA 热度破千万封顶，榜单被反弹与财报预期主导。
+   v7.2：单只 why <= 110 字，写"为什么被关注（结合 news_title 与热度/涨幅）+ 可用来看什么信号"。 */
+const hotStocks = [
+  { code:'NVDA', name:'英伟达', basePrice:186.64, baseChg:2.78, why:'热度第一（约 1,000 万，封顶持平）。涨 2.78%，"货物失踪"传闻再添关注度。11/17 财报是全场唯一锚，赌的人最多，因为订单数据直接决定这轮回调的定性。' },
+  { code:'SPCX', name:'SpaceX', basePrice:134.27, baseChg:8.62, why:'热度第二（136.4 万，升 1 位）。涨 8.62% 领涨热度榜，马斯克抛出明年 5,000 亿美元年收入目标。远期目标没有现金流验证，看的是算力订单能否落地。' },
+  { code:'MU', name:'美光科技', basePrice:690.00, baseChg:5.12, why:'热度第三（86.6 万，降 1 位）。涨 5.12% 修复周四深坑，存储涨价与产能担忧并存。因为 DRAM 现货价方向决定涨价的可持续性。' },
+  { code:'SNDK', name:'闪迪', basePrice:835.06, baseChg:3.55, why:'热度第四（63.0 万，降 1 位）。涨 3.55%，换手率 12.7% 仍高，筹码没稳。看的是 800 美元平台收不收得住，收不住还有第二只脚。' },
+  { code:'INTC', name:'英特尔', basePrice:56.28, baseChg:7.71, why:'热度第五（54.7 万，持平）。涨 7.71% 弹得猛，因为周四砸得深、又没有独立利空。看 60 美元整数位，收复说明板块情绪修复到位。' }
+];
+
+let currentStocks = [];
+let storageOK = true;
+
+/* ==================== PROXY FETCH ==================== */
+/* 超时守卫：任何实时拉取最多等 ms 毫秒，超时即放弃并让页面保持基线数据，
+   杜绝"打开很久还不更新"（此前 Yahoo 代理在国内网络下常挂，串行等待可达数分钟）。 */
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('timeout after ' + ms + 'ms')), ms))
+  ]);
+}
+
+/* 增强取数：多代理轮询 + 单请求后台重试 + 更短的日线周期，降低被限概率 */
+async function fetchRaw(url, timeoutMs=8000) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { signal: controller.signal, headers:{ 'Accept':'application/json' } });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error('http ' + res.status);
+    return await res.text();
+  } catch(e) { clearTimeout(timer); throw e; }
+}
+
+async function fetchViaProxy(url) {
+  const attempts = [
+    { u: url, unwrap: t => t },                                        // 直连（部分网络可用）
+    { u: `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, unwrap: t => t },
+    { u: `https://corsproxy.io/?${encodeURIComponent(url)}`, unwrap: t => t },
+    { u: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, unwrap: t => t },
+    { u: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, unwrap: t => JSON.parse(t).contents }
+  ];
+  for (const a of attempts) {
+    for (let retry=0; retry<2; retry++) { // 每个通道最多试 2 次
+      try {
+        const text = await fetchRaw(a.u, retry===0?8000:15000);
+        return JSON.parse(a.unwrap(text));
+      } catch(e) { await new Promise(r=>setTimeout(r, 400)); }
+    }
+  }
+  return null;
+}
+
+/* ==================== YAHOO HELPERS ==================== */
+/* 行情 JSON 获取：优先走自有中转 /api/quote（Cloudflare Pages Function，服务端代理 Yahoo，
+   无 CORS 限制、不依赖任何第三方），失败（未部署后端 / 后端故障）再回退第三方 CORS 代理链。
+   自有中转返回结构与 Yahoo 完全一致，因此后续解析逻辑无需改动。 */
+async function fetchChartJson(symbol, range='1d', interval='1m') {
+  try {
+    const r = await withTimeout(
+      fetch(`/api/quote?symbol=${encodeURIComponent(symbol)}&range=${encodeURIComponent(range)}&interval=${encodeURIComponent(interval)}`),
+      8000
+    );
+    if (r.ok) {
+      const j = await r.json();
+      if (j && j.chart && j.chart.result && j.chart.result[0]) return j;
+    }
+  } catch(e) { /* 回退第三方代理链 */ }
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=${range}&interval=${interval}`;
+  return fetchViaProxy(url);
+}
+
+async function getChart(symbol, range='1d', interval='1m') {
+  const data = await fetchChartJson(symbol, range, interval);
+  if (!data || !data.chart || !data.chart.result || !data.chart.result[0]) return null;
+  try {
+    const r = data.chart.result[0];
+    const meta = r.meta;
+    return { meta, r };
+  } catch(e) { return null; }
+}
+
+async function getQuote(symbol) {
+  // 多区间/多频率尝试：1分钟日内数据优先，失败则改用日线，提高对期货/个股/指数的兼容性
+  const plans = [
+    ['1d', '1m'],
+    ['5d', '1d'],
+    ['1mo', '1d']
+  ];
+  for (const [range, interval] of plans) {
+    const c = await getChart(symbol, range, interval);
+    if (!c) continue;
+    const meta = c.meta;
+    const price = meta.regularMarketPrice;
+    let prev = meta.previousClose || meta.chartPreviousClose;
+    // chartPreviousClose 是拆股前价格（如 AMD 2025 年 1:10 拆股后仍返回 200.15），
+    // 与现价差超 25% 视为拆股污染，跳过该 plan；日线数据则用倒数第二根收盘作前收
+    if (prev != null && Math.abs(price - prev) / prev > 0.25 && interval === '1m') continue;
+    if (prev != null && interval === '1d' && c.r && c.r.indicators && c.r.indicators.quote) {
+      const closes = (c.r.indicators.quote[0].close || []).filter(v => v != null);
+      if (closes.length >= 2) prev = closes[closes.length - 2];
+    }
+    if (price == null || prev == null) continue;
+    return {
+      symbol,
+      price, prev,
+      changePct: ((price - prev) / prev) * 100,
+      name: meta.shortName || meta.longName || symbol,
+      hi52: meta.fiftyTwoWeekHigh || null,
+      lo52: meta.fiftyTwoWeekLow || null,
+      marketTime: meta.regularMarketTime || null
+    };
+  }
+  return null;
+}
+
+/* 取日线，用于计算均线/量能/52周位置；优先 3 个月降低请求失败率，不够再试 6 个月 */
+async function getDaily(symbol) {
+  for (const range of ['3mo','6mo']) {
+    const c = await getChart(symbol, range, '1d');
+    if (!c) continue;
+    try {
+      const q = c.r.indicators.quote[0];
+      const closes = (q.close || []).filter(v => v != null);
+      const vols = (q.volume || []).filter(v => v != null);
+      if (closes.length >= 30) return { closes, vols, meta: c.meta };
+    } catch(e) {}
+  }
+  return null;
+}
+
+function maAt(arr, n) {
+  if (arr.length < n) return null;
+  const slice = arr.slice(-n);
+  return slice.reduce((a,b)=>a+b,0) / n;
+}
+
+/* 单条均线文本；数据不足时返回占位文本，绝不参与格式化（防 None 崩溃） */
+function maTxtHtml(n, m) {
+  if (m == null) return `${n}日线 数据不足`;
+  return `${n}日线 $${m.toFixed(1)}`;
+}
+
+/* 基于日线数据生成技术面/资金面/估值描述；数据不足时返回可用的52周位置 */
+function buildDynAnalysis(daily, price, hi52, lo52) {
+  let tech = '均线数据暂时取不到，稍后自动重试；也可点击下方富途牛牛链接查看实时行情。';
+  let funds = '成交量数据暂时取不到，稍后自动重试。';
+  let valuationPos = null;
+  if (daily && daily.closes.length >= 30) {
+    const c = daily.closes;
+    const ma5 = maAt(c, 5), ma20 = maAt(c, 20), ma60 = maAt(c, 60);
+    const above = [ma5, ma20, ma60].filter(m => m != null && price >= m).length;
+    const mas = `${maTxtHtml(5, ma5)}、${maTxtHtml(20, ma20)}、${maTxtHtml(60, ma60)}`;
+    if (above === 3) tech = `股价运行在 5/20/60 日所有均线上方（${mas}），短中期趋势偏强。`;
+    else if (above === 0) tech = `股价跌破 5/20/60 日所有均线（${mas}），趋势偏弱，抄底要谨慎。`;
+    else tech = `股价在均线之间拉锯（${mas}），方向未明，处于震荡选择期。`;
+    if (daily.vols.length >= 21) {
+      const vols = daily.vols;
+      const lastV = vols[vols.length-1];
+      const avg20 = vols.slice(-21,-1).reduce((a,b)=>a+b,0)/20;
+      const ratio = lastV / avg20;
+      if (ratio >= 1.5) funds = `最新一个交易日成交量是近 20 日平均的 ${ratio.toFixed(1)} 倍，明显放量，说明多空分歧大、关注度高。`;
+      else if (ratio >= 1.1) funds = `最新一个交易日成交量较近 20 日均量温和放大（约 ${ratio.toFixed(1)} 倍）。`;
+      else if (ratio <= 0.7) funds = `最新一个交易日成交量只有近 20 日均量的 ${(ratio*100).toFixed(0)}%，明显缩量，交投清淡。`;
+      else funds = `成交量与近 20 日均量基本持平（约 ${(ratio*100).toFixed(0)}%），资金动向平稳。`;
+    }
+  }
+  if (hi52 && lo52 && hi52 > lo52) {
+    valuationPos = ((price - lo52) / (hi52 - lo52)) * 100;
+  }
+  return { tech, funds, valuationPos };
+}
+
+function posText(p) {
+  if (p == null) return '';
+  if (p >= 85) return `股价处于 52 周区间从低到高约 ${p.toFixed(0)}% 的位置，贴近历史高位，追高的性价比要打折。`;
+  if (p >= 60) return `股价处于 52 周区间从低到高约 ${p.toFixed(0)}% 的位置，偏高位但没到极端。`;
+  if (p >= 40) return `股价处于 52 周区间从低到高约 ${p.toFixed(0)}% 的位置，中游水平。`;
+  if (p >= 15) return `股价处于 52 周区间从低到高约 ${p.toFixed(0)}% 的位置，偏低，可能是机会也可能是陷阱，要结合基本面判断。`;
+  return `股价贴近 52 周低点（区间位置约 ${p.toFixed(0)}%），弱势明显，左侧抄底风险高。`;
+}
+
+/* ==================== WATCHLIST ==================== */
+/* stockNotes：用户新增自选股的深度解读（最新动态/基本面/估值点评/综合评估）。
+   由"美股看板每日重生成"任务在每天 06:30 读取 .workbuddy/watchlist.json
+   后为新增自选股生成并写回此处，格式：'代码': { name, latest, fundamental, peNote, verdict }。
+   页面刚添加、还没来得及生成正式解读时，服务端/边缘函数会返回 note（简版速览），
+   mergeExtras 只在正式解读缺失时填充，次日晨间正式版自动替换。 */
+const stockNotes = {
+};
+
+/* extraBase：服务端自动生成的新增自选股基线（价格 + 技术面/资金面/估值动态）。
+   由 refresh_baseline.py 每次运行时刷新写回，保证新增自选股首屏即有数据，
+   不等每日任务生成深度解读（latest/fundamental/peNote 仍由每日任务补充）。 */
+const extraBase = {
+};
+function saveWatchlist() {
+  if (!storageOK) return;
+  try {
+    localStorage.setItem('usDashboard_watchlist_v2', JSON.stringify(currentStocks.map(s => s.code)));
+  } catch(e) { storageOK = false; }
+  /* 同步到本地服务端：落盘 watchlist.json + 服务端立即抓新增股基线、重写 HTML、
+     清理已删股残留，并把最新基线返回 → mergeExtras 即时渲染。
+     外发链接（Cloudflare Pages 边缘函数）同样走 /api/watchlist，行为一致；
+     两者都失败时（纯静态环境），退回浏览器端 CORS 代理链拉取新增股数据。 */
+  try {
+    withTimeout(fetch('/api/watchlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(currentStocks.map(s => s.code))
+    }).then(r => r.ok ? r.json() : Promise.reject(new Error('backend ' + r.status))), 40000)
+      .then(data => {
+        if (data && data.ok) {
+          if (data.extras) mergeExtras(data.extras);
+          if (Array.isArray(data.invalid) && data.invalid.length) applyInvalidCodes(data.invalid);
+        }
+      })
+      .catch(async () => {
+        /* 兜底：无后端或后端失败 → 浏览器端代理链拉取缺数据的自选股 */
+        const need = currentStocks.filter(s => !s.quote && !s.baseQuote && !extraBase[s.code] &&
+          !defaultStocks.find(d => d.code === s.code));
+        for (const s of need) {
+          const q = await withTimeout(getQuote(s.code), 8000).catch(() => null);
+          if (q && q.price > 0) {
+            s.quote = q;
+            const daily = await withTimeout(getDaily(s.code), 5000).catch(() => null);
+            s.dyn = buildDynAnalysis(daily, q.price, q.hi52, q.lo52);
+          } else if (q) {
+            s.invalid = true;
+          }
+        }
+        if (need.length) renderWatchlist();
+      });
+  } catch(e) { /* ignore */ }
+}
+
+/* 把服务端返回的最新自选基线合并进 extraBase 并即时重渲染。
+   解决：删旧加新后新股票长时间"—"（浏览器端实时拉取在国内经常失败）
+   extras 每项可带 note（服务端生成的简版速览：latest/fundamental/peNote/verdict），
+   只在正式深度解读（stockNotes）缺失时填充，次日晨间正式版自动替换 */
+function mergeExtras(extras) {
+  if (!extras || typeof extras !== 'object') return false;
+  let touched = false;
+  for (const code of Object.keys(extras)) {
+    const e = extras[code];
+    if (!e || (!e.baseQuote && !e.baseDyn)) continue;
+    extraBase[code] = {
+      name: e.name || code,
+      baseQuote: e.baseQuote || null,
+      baseDyn: e.baseDyn || null
+    };
+    if (e.note) {
+      const s0 = currentStocks.find(s => s.code === code);
+      if (s0) {
+        if (!s0.latest && e.note.latest) s0.latest = e.note.latest;
+        if (!s0.fundamental && e.note.fundamental) s0.fundamental = e.note.fundamental;
+        if (!s0.peNote && e.note.peNote) s0.peNote = e.note.peNote;
+        if (!s0.verdict && e.note.verdict) s0.verdict = e.note.verdict;
+      }
+    }
+    touched = true;
+  }
+  if (!touched) return false;
+  currentStocks.forEach(s => {
+    const eb = extraBase[s.code];
+    if (!eb) return;
+    if (!s.quote && eb.baseQuote) { s.quote = eb.baseQuote; }
+    if (!s.dyn && eb.baseDyn) { s.dyn = eb.baseDyn; }
+    if (!s.latest && eb.name && s.name === s.code) { s.name = eb.name; }
+  });
+  renderWatchlist();
+  return true;
+}
+
+/* 标记服务端/边缘函数判定为无效的代码（拼写错误、非美股上市主体等），
+   卡片上直接给出可操作的提示，而不是永远显示"—"或"计算中…"。
+   注：SKHY/SPCX 这类"腾讯有映射价但 Yahoo 无数据"的代码不判无效，
+   只对"完全拿不到有效行情"（腾讯无快照或价格<=0）的代码提示。 */
+function applyInvalidCodes(invalidCodes) {
+  if (!Array.isArray(invalidCodes) || !invalidCodes.length) return false;
+  let touched = false;
+  for (const s of currentStocks) {
+    if (invalidCodes.indexOf(s.code) >= 0 && !s.quote && !s.baseQuote) {
+      s.invalid = true;
+      touched = true;
+    }
+  }
+  if (touched) {
+    renderWatchlist();
+    showStatus('⚠ 部分代码无法获取行情（' + invalidCodes.join('、') + '）：可能是拼写错误或非美股上市主体，请核对后删除或重新添加', true);
+  }
+  return touched;
+}
+function buildStocks(codes) {
+  if (!codes || !Array.isArray(codes) || !codes.length) return defaultStocks.map(s => ({...s}));
+  return codes.map(code => {
+    const def = defaultStocks.find(s => s.code === code);
+    if (def) return {...def};
+    const note = stockNotes[code];
+    const extra = extraBase[code] || {};
+    if (note || extra.name) {
+      return {
+        code,
+        name: (note && note.name) || extra.name || code,
+        latest: note ? note.latest : null,
+        fundamental: note ? note.fundamental : null,
+        peNote: note ? note.peNote : null,
+        verdict: note ? note.verdict : null,
+        baseQuote: extra.baseQuote || null,
+        baseDyn: extra.baseDyn || null
+      };
+    }
+    return { code, name: code, latest: null, fundamental: null, peNote: null, verdict: null };
+  });
+}
+
+function loadWatchlist() {
+  let codes = null;
+  try {
+    const saved = localStorage.getItem('usDashboard_watchlist_v2');
+    if (saved) codes = JSON.parse(saved);
+  } catch(e) { storageOK = false; }
+  return buildStocks(codes);
+}
+
+function showStatus(msg, isErr) {
+  const el = document.getElementById('watchlist-status');
+  el.textContent = msg || '';
+  el.style.color = isErr ? 'var(--down)' : 'var(--accent)';
+}
+
+async function refreshStockCard(stock) {
+  // 每只最多等 7 秒；超时保留基线，确保卡片不空、不显示"—"
+  const q = await withTimeout(getQuote(stock.code), 7000).catch(() => null);
+  if (!q) {
+    if (!stock.quote && stock.baseQuote) stock.quote = stock.baseQuote;
+    if (!stock.dyn && stock.baseDyn) stock.dyn = stock.baseDyn;
+    /* 既没有实时数据、也没有任何基线（新增自选股在纯静态/网络受限环境下的典型状态）→ 打标，
+       让卡片显示诚实提示，而不是永久停留在"计算中…"或误导性的"服务端正在补充"。 */
+    if (!stock.quote && !stock.baseQuote) stock.loadFailed = true;
+    return stock.quote ? stock : null;
+  }
+  if (q.price <= 0) { /* 无效代码（如拼错的 AMAZ 解析到价格 0 的公司） */
+    stock.invalid = true;
+    stock.quote = null;
+    return stock;
+  }
+  stock.name = q.name || stock.name || stock.code;
+  const daily = await withTimeout(getDaily(stock.code), 5000).catch(() => null);
+  const dyn = buildDynAnalysis(daily, q.price, q.hi52 || (stock.baseQuote && stock.baseQuote.hi52), q.lo52 || (stock.baseQuote && stock.baseQuote.lo52));
+  stock.quote = q;
+  stock.dyn = dyn;
+  return stock;
+}
+
+function renderStockCard(stock, idx) {
+  const q = stock.quote || stock.baseQuote;
+  const dyn = stock.dyn || stock.baseDyn;
+  const price = q ? q.price : null;
+  const chg = q ? q.changePct : null;
+  const isUp = chg != null && chg >= 0;
+  const changeClass = chg == null ? 'flat' : (isUp ? 'up' : 'down');
+  const sign = isUp ? '+' : '';
+  const dynPos = dyn ? dyn.valuationPos : null;
+  const isLive = !!stock.quote;
+  /* 无效代码（服务端/边缘函数判定拿不到有效行情）→ 整卡给出明确提示，不再显示"—" */
+  if (stock.invalid) {
+    const card = document.createElement('div');
+    card.className = 'stock-card';
+    card.dataset.code = stock.code;
+    card.innerHTML = `
+      <div class="stock-head">
+        <div class="stock-name-wrap">
+          <span class="stock-name">${esc(stock.name || stock.code)}</span>
+          <span class="stock-code">${esc(stock.code)}.US</span>
+        </div>
+        <button class="btn-remove" data-remove-idx="${idx}">删除</button>
+      </div>
+      <div class="stock-body">
+        <div class="stock-row invalid-tip">⚠ 无法获取该代码的行情数据：可能是拼写错误，或该主体未在美股上市（例如 SpaceX 未上市、SK海力士为韩股、亚马逊应为 AMZN）。请删除后重新添加正确代码。</div>
+        <div class="stock-links">
+          <a href="https://www.futunn.com/stock/${esc(stock.code)}-US" target="_blank" rel="noopener">富途牛牛 · ${esc(stock.code)} 个股页</a>
+        </div>
+      </div>
+    `;
+    return card;
+  }
+
+  const latestLine = stock.latest
+    ? stock.latest
+    : (chg != null ? `最近一个交易日 ${sign}${chg.toFixed(2)}%，${chg >= 0 ? '走势偏强' : '走势偏弱'}；深度解读将在每个工作日早上自动生成，可先点下方富途链接看最新消息。` : '实时行情暂未取到，正在自动重试；也可点击富途牛牛链接直接查看。');
+  const fundLine = stock.fundamental
+    ? stock.fundamental
+    : '深度解读将在每个工作日早上自动生成（已加入自选即进入更新队列）；最新财报与研报可点击下方富途/Investing.com 链接查看。';
+  const valLine = (stock.peNote ? stock.peNote + ' ' : '') + (dynPos != null ? posText(dynPos) : '估值位置数据加载中，稍后自动刷新。');
+
+  const card = document.createElement('div');
+  card.className = 'stock-card';
+  card.dataset.code = stock.code;
+  /* 取数失败时给出诚实提示，而不是长期显示"计算中…" */
+  const techLine = dyn ? dyn.tech : (stock.loadFailed ? '行情源暂不可达（纯静态模式或网络受限）；部署 /api/quote 后端后可实时获取' : '计算中…');
+  const fundsLine = dyn ? dyn.funds : (stock.loadFailed ? '同上，部署后端或检查网络后自动重试' : '计算中…');
+  const badge = stock.loadFailed
+    ? '<span class="badge" style="margin-right:10px;color:var(--down);">行情获取失败</span>'
+    : (isLive ? '<span class="badge" style="margin-right:10px;">已刷新实时数据</span>' : '<span class="badge" style="margin-right:10px;">显示基线数据，实时刷新中</span>');
+  card.innerHTML = `
+    <div class="stock-head">
+      <div class="stock-name-wrap">
+        <span class="stock-name">${esc(stock.name || stock.code)}</span>
+        <span class="stock-code">${esc(stock.code)}.US</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="stock-price-wrap">
+          <span class="stock-price">${price != null ? '$' + price.toFixed(2) : '—'}</span>
+          <span class="stock-change ${changeClass}">${chg != null ? sign + chg.toFixed(2) + '%' : '—'}</span>
+        </div>
+        <button class="btn-remove" data-remove-idx="${idx}">删除</button>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-row"><span class="s-label">最新动态：</span>${latestLine}</div>
+      <div class="stock-row"><span class="s-label">基本面：</span>${fundLine}</div>
+      <div class="stock-row"><span class="s-label">技术面：</span>${techLine}</div>
+      <div class="stock-row"><span class="s-label">资金面：</span>${fundsLine}</div>
+      <div class="stock-row"><span class="s-label">估值：</span>${valLine || '估值数据加载中…'}</div>
+      <div class="stock-summary"><strong>⚡ 综合评估：</strong>${buildVerdict(stock, chg, dynPos)}</div>
+      <div class="stock-links">
+        ${badge}
+        <a href="https://www.futunn.com/stock/${esc(stock.code)}-US" target="_blank" rel="noopener">富途牛牛 · ${esc(stock.code)} 个股页</a>
+        <a href="https://www.investing.com/equities/${esc(stock.code.toLowerCase())}" target="_blank" rel="noopener">Investing.com · 行情与估值</a>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+function buildVerdict(stock, chg, pos) {
+  /* 优先级：stockNotes 正式深度解读 > 服务端返回的简版速览(verdict) > 通用模板 */
+  const note = stockNotes[stock.code];
+  if (note && note.verdict) return note.verdict + '（点评基于 ' + EDITORIAL_DATE + ' 收盘信息，价格数据实时自动更新）';
+  if (stock.verdict) return stock.verdict + '（点评基于 ' + EDITORIAL_DATE + ' 收盘信息，价格数据实时自动更新）';
+  const parts = [];
+  /* 注意：默认自选的评估写在上方 defaultStocks 各自的 verdict 字段里，随编辑层每日重写；
+     这里只保留通用兜底模板，禁止再写死具体个股文案（否则会好几天不更新）。 */
+  if (stock.code === 'AAPL' || stock.code === 'TSLA' || stock.code === 'NVDA' || stock.code === 'MSFT' || stock.code === 'AMZN') {
+    console.warn('默认自选缺少 verdict 字段，请检查编辑层是否每日重写：' + stock.code);
+  }
+  if (chg != null) parts.push(`当日${chg >= 0 ? '上涨' : '下跌'} ${Math.abs(chg).toFixed(2)}%`);
+  if (pos != null) parts.push(`52周区间位置约 ${pos.toFixed(0)}%`);
+  if (pos != null && !stock.peNote) {
+    if (pos >= 85) parts.push('位置偏高，注意追高风险');
+    else if (pos <= 15) parts.push('位置偏低，是机会还是陷阱需结合基本面确认');
+  }
+  let verdict = parts.join('；');
+  return verdict ? verdict + '。（数据自动更新，点评基于 ' + EDITORIAL_DATE + ' 收盘信息）' : '数据加载中，稍后自动刷新。';
+}
+
+/* 首次渲染时直接填入基线数据，避免页面先显示"计算中…" */
+function hydrateBaseStocks() {
+  currentStocks.forEach(s => {
+    if (!s.quote && s.baseQuote) s.quote = s.baseQuote;
+    if (!s.dyn && s.baseDyn) s.dyn = s.baseDyn;
+  });
+}
+
+function renderWatchlist() {
+  const container = document.getElementById('watchlist-container');
+  container.innerHTML = '';
+  if (!currentStocks.length) {
+    container.innerHTML = '<div class="empty-tip">自选列表已清空。点击上方"恢复默认"可以找回苹果、特斯拉、英伟达、微软、亚马逊。</div>';
+    return;
+  }
+  currentStocks.forEach((stock, idx) => {
+    container.appendChild(renderStockCard(stock, idx));
+  });
+}
+
+async function addStock() {
+  const input = document.getElementById('add-stock-input');
+  const raw = input.value.trim().toUpperCase().replace(/\s+/g, '');
+  if (!raw) { showStatus('请输入美股代码，比如 GOOGL、AMD、NFLX', true); return; }
+  const code = raw.replace(/\.US$/, '');
+  if (currentStocks.find(s => s.code === code)) {
+    showStatus(`${code} 已经在自选列表里了`, true);
+    return;
+  }
+  showStatus(`正在获取 ${code} 的数据…`);
+  const stock = { code, name: code, latest: null, fundamental: null, peNote: null };
+  currentStocks.push(stock);
+  renderWatchlist();
+  saveWatchlist();
+  input.value = '';
+  const refreshed = await refreshStockCard(stock);
+  if (refreshed && refreshed.quote && refreshed.quote.price > 0) {
+    if (!stock.latest) stock.name = refreshed.quote.name || code;
+    showStatus(`✅ ${code} 已添加，数据已更新`);
+  } else if (refreshed && refreshed.quote && refreshed.quote.price <= 0) {
+    stock.invalid = true;
+    showStatus(`⚠ ${code} 无法获取行情：代码可能无效或拼写错误（如 SpaceX 未上市、SK海力士为韩股、亚马逊应为 AMZN）`, true);
+  } else {
+    showStatus(`${code} 已加入列表；但当前浏览器未能从 Yahoo 行情源取到实时数据（纯静态模式或网络/代理受限）。部署 /api/quote 后端后该股票即自动显示实时价；本地仍保留此自选，刷新后会再次尝试。`, true);
+  }
+  renderWatchlist();
+  saveWatchlist();
+}
+
+function removeStockByCode(code) {
+  currentStocks = currentStocks.filter(s => s.code !== code);
+  saveWatchlist();
+  renderWatchlist();
+  showStatus(`已删除 ${code}`);
+}
+
+async function refreshAllWatchlist() {
+  // 并行刷新全部自选，避免串行等待导致长时间不更新
+  await Promise.all(currentStocks.map(async (stock) => {
+    await withTimeout(refreshStockCard(stock), 9000).catch(() => {});
+  }));
+  renderWatchlist();
+}
+
+/* ==================== HOT STOCKS (MODULE 3) ==================== */
+function renderHotList() {
+  const wrap = document.getElementById('hot-stocks-list');
+  wrap.innerHTML = '';
+  hotStocks.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'hot-stock-card';
+    el.innerHTML = `
+      <div class="hot-rank ${i===0?'r1':''}">${i+1}</div>
+      <div class="hot-ident">
+      <div class="h-code">${esc(s.code)}</div>
+      <div class="h-name">${esc(s.name)}</div>
+      </div>
+      <div class="hot-price-wrap">
+        <span id="hotp-${s.code}">${s.basePrice != null ? '$' + s.basePrice.toFixed(2) : '—'}</span>
+        <span id="hotc-${s.code}" class="${s.baseChg != null ? (s.baseChg >= 0 ? 'up' : 'down') : 'flat'}">${s.baseChg != null ? (s.baseChg >= 0 ? '+' : '') + s.baseChg.toFixed(2) + '%' : ''}</span>
+      </div>
+      <div class="hot-why">${s.why}</div>
+    `;
+    wrap.appendChild(el);
+  });
+}
+
+async function updateHotStocks() {
+  // 并行拉取，每只最多等 7 秒；超时即保留首屏基线，绝不长时间空白
+  await Promise.all(hotStocks.map(async (s) => {
+    const q = await withTimeout(getQuote(s.code), 7000).catch(() => null);
+    const pEl = document.getElementById(`hotp-${s.code}`);
+    const cEl = document.getElementById(`hotc-${s.code}`);
+    if (!pEl || !cEl) return;
+    if (q) {
+      pEl.textContent = '$' + q.price.toFixed(2);
+      cEl.textContent = (q.changePct >= 0 ? '+' : '') + q.changePct.toFixed(2) + '%';
+      cEl.className = q.changePct >= 0 ? 'up' : 'down';
+      pEl.title = ''; cEl.title = '';
+    } else if (s.basePrice != null) {
+      // 未取到实时行情：保持首屏基线（服务端最近一次刷新），避免"—"
+      pEl.textContent = '$' + s.basePrice.toFixed(2);
+      cEl.textContent = (s.baseChg >= 0 ? '+' : '') + s.baseChg.toFixed(2) + '%';
+      cEl.className = s.baseChg >= 0 ? 'up' : 'down';
+      pEl.title = '实时行情暂未获取，显示服务端最近一次刷新的收盘价';
+      cEl.title = '实时行情暂未获取，显示服务端最近一次刷新的涨跌幅';
+    }
+  }));
+}
+
+/* ==================== LIVE UPDATE ==================== */
+let lastTradingDateLabel = '最近一个交易日';
+
+async function updateLive() {
+  // 全链路并行刷新：指数/VIX/利率/商品/热股/自选同时进行，每项最多等 7 秒。
+  // 拿不到实时数据就保持首屏基线，整体最坏约 7-9 秒完成，绝不出现"打开很久不更新"。
+  await Promise.allSettled([
+    updateIndices(),
+    updateVix(),
+    updateYields(),
+    updateCommodities(),
+    updateHotStocks(),
+    refreshAllWatchlist()
+  ]);
+  updateFooterTimestamp();
+}
+
+async function updateIndices() {
+  // 三大指数并行
+  const indexMap = { '^GSPC':'sp500-value|sp500-change', '^IXIC':'nasdaq-value|nasdaq-change', '^DJI':'dow-value|dow-change' };
+  let firstMarketTime = null;
+  const results = await Promise.all(Object.entries(indexMap).map(async ([sym, ids]) => {
+    const q = await withTimeout(getQuote(sym), 7000).catch(() => null);
+    return { q, ids };
+  }));
+  for (const { q, ids } of results) {
+    if (!q) continue;
+    const [valId, chgId] = ids.split('|');
+    const valEl = document.getElementById(valId);
+    const chgEl = document.getElementById(chgId);
+    if (valEl) { valEl.textContent = q.price.toLocaleString('en-US',{maximumFractionDigits:2}); valEl.classList.add('flash'); setTimeout(()=>valEl.classList.remove('flash'),800); }
+    if (chgEl) { chgEl.textContent = (q.changePct>=0?'+':'') + q.changePct.toFixed(2) + '%'; chgEl.className='change ' + (q.changePct>=0?'up':'down'); }
+    if (!firstMarketTime && q.marketTime) firstMarketTime = q.marketTime;
+  }
+  if (firstMarketTime) updateTradingDateLabel({ marketTime: firstMarketTime });
+}
+
+async function updateVix() {
+  const vix = await withTimeout(getQuote('^VIX'), 7000).catch(() => null);
+  if (!vix) return;
+  const el = document.getElementById('vix-value');
+  if (el) el.textContent = vix.price.toFixed(2);
+  const ptr = document.getElementById('vix-pointer');
+  if (ptr) { // 10~30 映射到 0~100%
+    const p = Math.max(0, Math.min(100, ((vix.price - 10) / 20) * 100));
+    ptr.style.left = p + '%';
+  }
+  const mel = document.getElementById('metric-vix');
+  const mcel = document.getElementById('metric-vix-change');
+  if (mel) mel.textContent = vix.price.toFixed(2);
+  if (mcel) { mcel.textContent = (vix.changePct>=0?'+':'') + vix.changePct.toFixed(1) + '%'; mcel.className='m-change ' + (vix.changePct>=0?'up':'down'); }
+}
+
+async function updateYields() {
+  // 10Y / 30Y 并行；2Y 用每日任务维护的基线常量，利差 = 10Y实时 − 2Y基线，避免 ^IRX（13周券）冒充 2 年期
+  const YIELD_2Y = 4.51;
+  const [tnx, tyx] = await Promise.all([
+    withTimeout(getQuote('^TNX'), 7000).catch(() => null),
+    withTimeout(getQuote('^TYX'), 7000).catch(() => null)
+  ]);
+  let tnxPrice = null;
+  if (tnx) {
+    tnxPrice = tnx.price;
+    const mel = document.getElementById('metric-tnx');
+    const mcel = document.getElementById('metric-tnx-change');
+    const chgBp = (tnx.price - tnx.prev);
+    if (mel) mel.textContent = tnx.price.toFixed(3) + '%';
+    if (mcel) { mcel.textContent = (chgBp>=0?'+':'') + chgBp.toFixed(1) + 'bp'; mcel.className='m-change ' + (chgBp<=0?'down':'up'); }
+  }
+  if (tyx) {
+    const mel = document.getElementById('metric-tyx');
+    const mcel = document.getElementById('metric-tyx-change');
+    const chgBp = (tyx.price - tyx.prev);
+    if (mel) mel.textContent = tyx.price.toFixed(3) + '%';
+    if (mcel) { mcel.textContent = (chgBp>=0?'+':'') + chgBp.toFixed(1) + 'bp'; mcel.className='m-change ' + (chgBp<=0?'down':'up'); }
+  }
+  if (tnxPrice != null) {
+    const spread = tnxPrice - YIELD_2Y;
+    const el = document.getElementById('metric-yieldcurve');
+    const cel = document.getElementById('metric-yieldcurve-change');
+    if (el) el.textContent = (spread >= 0 ? '+' : '') + spread.toFixed(2) + '%';
+    if (cel) {
+      cel.textContent = spread >= 0 ? '曲线未倒挂（软着陆概率上升）' : '曲线倒挂（需警惕经济放缓）';
+      cel.className = 'm-change ' + (spread >= 0 ? 'up' : 'down');
+    }
+  }
+}
+
+async function updateCommodities() {
+  // DXY / WTI / Gold / BTC 并行
+  const metricMap = [
+    {sym:'DX-Y.NYB', valId:'metric-dxy', chgId:'metric-dxy-change', prefix:'', fixed:2},
+    {sym:'CL=F', valId:'metric-wti', chgId:'metric-wti-change', prefix:'$', fixed:2},
+    {sym:'GC=F', valId:'metric-gold', chgId:'metric-gold-change', prefix:'$', fixed:2},
+    {sym:'BTC-USD', valId:'metric-btc', chgId:'metric-btc-change', prefix:'$', fixed:0}
+  ];
+  const pairs = await Promise.all(metricMap.map(async (m) => {
+    const q = await withTimeout(getQuote(m.sym), 7000).catch(() => null);
+    return { m, q };
+  }));
+  let goldPrice = null;
+  for (const { m, q } of pairs) {
+    if (!q) continue;
+    if (m.sym === 'GC=F') goldPrice = q.price;
+    const valEl = document.getElementById(m.valId);
+    const chgEl = document.getElementById(m.chgId);
+    if (valEl) valEl.textContent = m.prefix + (m.fixed===0 ? q.price.toLocaleString('en-US',{maximumFractionDigits:0}) : q.price.toFixed(m.fixed));
+    if (chgEl) { chgEl.textContent = (q.changePct>=0?'+':'') + q.changePct.toFixed(2) + '%'; chgEl.className='m-change ' + (q.changePct>=0?'up':'down'); }
+  }
+  // 铜金比（基线已嵌入 0.00149，fetch 失败时不显示"—"）
+  const copper = await withTimeout(getQuote('HG=F'), 7000).catch(() => null);
+  if (copper && goldPrice) {
+    const ratio = copper.price / goldPrice;
+    const el = document.getElementById('metric-cugold');
+    const cel = document.getElementById('metric-cugold-change');
+    if (el) el.textContent = ratio.toFixed(5);
+    if (cel) { cel.textContent = '铜 $' + copper.price.toFixed(2) + ' / 金 $' + goldPrice.toFixed(0); cel.className = 'm-change flat'; }
+  }
+}
+
+/* ==================== DATE LABELS ==================== */
+function updateTradingDateLabel(q) {
+  try {
+    if (q.marketTime) {
+      const d = new Date(q.marketTime * 1000);
+      const et = d.toLocaleDateString('zh-CN', { timeZone:'America/New_York', month:'long', day:'numeric' });
+      lastTradingDateLabel = '美东 ' + et;
+    }
+  } catch(e) {}
+  const label = document.getElementById('et-session-label');
+  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（美股盘中则为实时价，深度解读基于 ${EDITORIAL_DATE} 收盘）`;
+}
+
+function updateHeaderDate() {
+  const el = document.getElementById('header-date');
+  if (!el) return;
+  const now = new Date();
+  const cn = now.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
+  el.textContent = cn;
+}
+
+function updateFooterTimestamp() {
+  const ft = document.getElementById('footer-timestamp');
+  if (!ft) return;
+  const now = new Date();
+  const et = now.toLocaleString('zh-CN', { timeZone:'America/New_York', hour12:false });
+  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 深度解读基于 ${EDITORIAL_DATE} 收盘信息`;
+}
+
+/* ==================== NAV ACTIVE STATE ==================== */
+function onScroll() {
+  const modules = ['m1','m2','m3','m4','m5','m6'];
+  const links = document.querySelectorAll('.nav a');
+  let active = 'm1';
+  for (const id of modules) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) active = id;
+  }
+  links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active));
+}
+
+/* ==================== INIT ==================== */
+window.addEventListener('scroll', onScroll, { passive:true });
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateHeaderDate();
+  currentStocks = loadWatchlist();
+  hydrateBaseStocks();
+  renderWatchlist();
+  renderHotList();
+
+  // 打开页面即从服务端拉最新自选（跨设备同步）：服务端保存的代码列表是跨设备的唯一真相源。
+  // 若本机 localStorage 与服务端不一致（在别处增删过自选），以服务端为准重建并同步回本地。
+  withTimeout(fetch('/api/watchlist').then(r => r.ok ? r.json() : null), 10000)
+    .then(data => {
+      if (data && data.ok) {
+        // 1) 以服务端代码列表为准，实现跨设备同步
+        if (Array.isArray(data.codes) && data.codes.length) {
+          const localCodes = currentStocks.map(s => s.code);
+          const differ =
+            data.codes.length !== localCodes.length ||
+            data.codes.some(c => !localCodes.includes(c));
+          if (differ) {
+            currentStocks = buildStocks(data.codes);
+            saveWatchlist();   // 同步回 localStorage，保证两端一致
+            renderWatchlist();
+          }
+        }
+        // 2) 合并服务端基线（覆盖 HTML 静态基线落后于 watchlist 的场景）
+        if (data.extras) mergeExtras(data.extras);
+        if (Array.isArray(data.invalid) && data.invalid.length) applyInvalidCodes(data.invalid);
+        // 3) 拉取新列表的实时行情
+        refreshAllWatchlist().catch(() => {});
+      }
+    })
+    .catch(() => {});
+
+  // 绑定事件（使用事件监听而非内联 onclick，兼容更多环境）
+  const addBtn = document.getElementById('btn-add-stock');
+  const addInput = document.getElementById('add-stock-input');
+  if (addBtn) addBtn.addEventListener('click', () => addStock());
+  if (addInput) addInput.addEventListener('keydown', e => { if (e.key === 'Enter') addStock(); });
+
+  const resetBtn = document.getElementById('btn-reset-watchlist');
+  if (resetBtn) resetBtn.addEventListener('click', () => {
+    currentStocks = defaultStocks.map(s => ({...s}));
+    saveWatchlist();
+    renderWatchlist();
+    showStatus('已恢复默认自选（AAPL/TSLA/NVDA/MSFT/AMZN），正在刷新数据…');
+    refreshAllWatchlist().catch(()=>{});
+  });
+
+  // 删除按钮：事件委托
+  const wlContainer = document.getElementById('watchlist-container');
+  if (wlContainer) wlContainer.addEventListener('click', e => {
+    const btn = e.target.closest('[data-remove-idx]');
+    if (!btn) return;
+    const code = btn.closest('.stock-card')?.dataset.code;
+    if (code) removeStockByCode(code);
+  });
+
+  if (!storageOK) showStatus('当前环境不支持本地存储，自选股修改仅本次打开有效', true);
+
+  // 首次刷新 + 每 5 分钟自动刷新
+  setTimeout(() => { updateLive().catch(()=>{}); }, 500);
+  setInterval(() => { updateLive().catch(()=>{}); }, 300000);
+});
+</script>
+
+</body>
+</html>

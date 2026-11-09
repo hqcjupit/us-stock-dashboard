@@ -1,0 +1,11 @@
+name = "us-stock-dashboard"
+pages_build_output_dir = "."
+compatibility_date = "2024-09-23"
+
+# 自选股跨设备同步所需的 KV 绑定。
+# 先在 Cloudflare 控制台创建一个 KV namespace，把它的 ID 填到下面 id 字段，
+# 绑定名必须叫 WATCHLIST_KV（与 functions/api/watchlist.js 中的 env.WATCHLIST_KV 对应）。
+# 未绑定 KV 时函数会优雅降级：POST 仍实时计算基线并返回，只是不做持久化。
+[[kv_namespaces]]
+binding = "WATCHLIST_KV"
+id = "a14f4e0b5d2049e4a5aff6da3facf11e"
