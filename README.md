@@ -97,6 +97,15 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 2. 在仓库 **Settings → Secrets** 配置 `LLM_API_KEY`（即 OpenRouter 的 `sk-or-v1-...` 密钥）；默认已走 OpenRouter `deepseek/deepseek-chat`，不配则长文用占位。
 3. 推送后 Actions 即按 cron 运行；也可在 Actions 页面手动 `Run workflow` 立即试跑。
 
+#### 方案A：为指定股票一键生成 LLM 长文（推荐）
+仓库的 `Daily US Stock Dashboard Regenerate` 工作流支持手动触发输入：
+- 进入仓库 **Actions → Daily US Stock Dashboard Regenerate → Run workflow**；
+- 在 `stocks` 输入框填入股票代码（**空格或逗号分隔**，如 `GOOGL META`），留空则只刷新默认基线；
+- 点运行：脚本会为该股票调 OpenRouter 生成四段式长文，合并注入 `stockNotes`（**不覆盖**已有的 AMD 等解读），同步 `index.html` 后提交并自动部署到生产。
+- 之后在网站把该股票加入自选，卡片即显示真实 LLM 长文（前端 `buildStocks` 优先使用 `stockNotes`）。
+
+> 也可以本地等价操作：`node scripts/regenerate.mjs GOOGL --write-html`，再把 `us-stock-dashboard.html` 复制为 `index.html` 后部署。
+
 ## 安全说明
 - 已对股票名/代码渲染做 HTML 转义，修复原站的 XSS 隐患。
 - 自选股代码会 POST 到 `/api/watchlist`；若介意暴露浏览过的代码，可不绑定 KV（仅本机 localStorage）。

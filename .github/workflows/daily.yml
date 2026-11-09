@@ -3,7 +3,13 @@ name: Daily US Stock Dashboard Regenerate
 on:
   schedule:
     - cron: '30 22 * * *'
-  workflow_dispatch: # 允许在 Actions 页面手动触发测试
+  workflow_dispatch:
+    inputs:
+      stocks:
+        description: '要生成 LLM 长文的股票代码（空格或逗号分隔，如 GOOGL META）。留空=仅刷新默认基线。'
+        required: false
+        default: ''
+        type: string
 
 permissions:
   contents: write
@@ -21,13 +27,20 @@ jobs:
       # —— 读取真实凭证（未配置时优雅降级：热度榜空 + 长文占位，管线不中断）——
       # 默认走 OpenRouter（deepseek/deepseek-chat）。只需在仓库 Secrets 配置 LLM_API_KEY
       # （即 OpenRouter 的 sk-or-v1-... 密钥）；如需换模型/网关，再设 LLM_BASE_URL / LLM_MODEL。
+      # workflow_dispatch 输入 stocks 时，会为该股票生成 LLM 长文并合并注入 stockNotes（方案A）。
       - name: Regenerate baselines + hot list + editorial
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
           LLM_MODEL: ${{ secrets.LLM_MODEL || 'deepseek/deepseek-chat' }}
           FUTU_HOT_JSON: futu_hot.json
-        run: node scripts/regenerate.mjs --write-html
+          # 用户输入经环境变量传递，不直接嵌入脚本，避免特殊字符注入；cron 触发时为空串
+          STOCKS_INPUT: ${{ inputs.stocks }}
+        run: |
+          SYMS="${STOCKS_INPUT//,/ }"
+          node scripts/regenerate.mjs $SYMS --write-html
+          # index.html 为部署入口，与源文件 us-stock-dashboard.html 保持同步
+          cp us-stock-dashboard.html index.html
 
       - name: Commit regenerated data
         run: |

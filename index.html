@@ -1523,9 +1523,15 @@ function applyInvalidCodes(invalidCodes) {
 function buildStocks(codes) {
   if (!codes || !Array.isArray(codes) || !codes.length) return defaultStocks.map(s => ({...s}));
   return codes.map(code => {
-    const def = defaultStocks.find(s => s.code === code);
-    if (def) return {...def};
     const note = stockNotes[code];
+    const def = defaultStocks.find(s => s.code === code);
+    if (def) {
+      // 若已生成正式深度解读（stockNotes），优先用其覆盖默认内联文章（支持方案A为默认股重生成）
+      if (note) {
+        return {...def, name: note.name || def.name, latest: note.latest, fundamental: note.fundamental, peNote: note.peNote, verdict: note.verdict};
+      }
+      return {...def};
+    }
     const extra = extraBase[code] || {};
     if (note || extra.name) {
       return {

@@ -158,14 +158,43 @@ async function buildEditorial(symbol, baseline) {
 }
 
 /* ===================== HTML 注入 ===================== */
-// 用 const 名定位，整块替换为新字面量（保留块前注释）。非贪婪匹配到首个分号终止符。
+// 用 const 名 + 明确的结束标记定位，整块替换为新字面量（保留块前注释）。
+// 按新字面量首字符决定结束标记：数组 '[' → "\\n];"，对象 '{' → "\\n};"。
+// 这样即使长文里出现 ASCII 分号/方括号也不会被误判为块结束（原正则会被 ';' 截断）。
+function findConstEnd(html, start, newLiteral) {
+  const term = String(newLiteral).trimStart()[0] === '[' ? '\n];' : '\n};';
+  const end = html.indexOf(term, start);
+  return end < 0 ? null : { end, term };
+}
 function setConstBlock(html, name, newLiteral) {
-  const re = new RegExp('const ' + name + ' = [\\s\\S]*?(\\n\\];|\\n\\};|;)');
-  if (!re.test(html)) {
+  const start = html.indexOf('const ' + name + ' = ');
+  if (start < 0) {
     console.warn(`[html] 未找到 const ${name}，跳过注入。`);
     return html;
   }
-  return html.replace(re, 'const ' + name + ' = ' + newLiteral + ';\n');
+  const hit = findConstEnd(html, start, newLiteral);
+  if (!hit) {
+    console.warn(`[html] 未找到 const ${name} 的结束标记，跳过注入。`);
+    return html;
+  }
+  return html.slice(0, start) + 'const ' + name + ' = ' + newLiteral + ';\n' +
+    html.slice(hit.end + hit.term.length);
+}
+
+// 读取 HTML 中已有的 stockNotes 对象（合法 JSON），用于"合并注入"而非覆盖。
+// 注意：结束标记 "\\n};" 里的 '}' 就是对象自身的闭合符，必须补回，否则 JSON 少一个 '}'。
+function readStockNotes(html) {
+  const start = html.indexOf('const stockNotes = ');
+  if (start < 0) return null;
+  const objStart = html.indexOf('{', start);
+  const end = html.indexOf('\n};', objStart);
+  if (objStart < 0 || end < 0) return null;
+  try {
+    return JSON.parse(html.slice(objStart, end) + '\n}');
+  } catch (e) {
+    console.warn('[html] 现有 stockNotes 解析失败，将以新内容替换。');
+    return null;
+  }
 }
 
 // 刷新 defaultStocks 内嵌的 baseQuote/baseDyn（仅替换数字块，长文 latest/fundamental 等不动）。
@@ -209,8 +238,11 @@ function injectIntoHtml(opts, baselines) {
     console.log('[html] hotStocks 为空，保留现有热度榜（未写回）。');
   }
   if (opts.stockNotes && Object.keys(opts.stockNotes).length) {
-    html = setConstBlock(html, 'stockNotes', JSON.stringify(opts.stockNotes, null, 2));
-    console.log(`[html] 已注入 stockNotes（${Object.keys(opts.stockNotes).length} 条）。`);
+    // 合并已有 stockNotes，避免覆盖此前注入的解读（如 AMD）；支持方案A多次追加新股
+    const existing = readStockNotes(html);
+    const merged = existing ? { ...existing, ...opts.stockNotes } : { ...opts.stockNotes };
+    html = setConstBlock(html, 'stockNotes', JSON.stringify(merged, null, 2));
+    console.log(`[html] 已合并 stockNotes（共 ${Object.keys(merged).length} 条，本次新增/更新 ${Object.keys(opts.stockNotes).length} 条）。`);
   } else {
     console.log('[html] stockNotes 为空（无新增自选），保留现有解读（未写回）。');
   }
@@ -266,8 +298,9 @@ async function main() {
   // 4) 注入 HTML（可选）
   if (WRITE_HTML) {
     console.log('\n[注入] --write-html 已启用');
-    // stockNotes：仅注入命令行明确指定的"新增自选股"（默认股走手写/每日任务，不覆盖）
-    const added = symbols.filter((s) => !DEFAULT_SYMBOLS.includes(s));
+    // 方案A：命令行明确指定的股票（无论是否默认股）都生成解读并合并注入 stockNotes，
+    // 配合前端 buildStocks 的"stockNotes 优先"逻辑，可为任意股票（含默认股）重生成长文。
+    const added = [...symbols];
     const stockNotesObj = {};
     if (added.length) {
       for (const s of added) if (editorial[s]) stockNotesObj[s] = editorial[s];
