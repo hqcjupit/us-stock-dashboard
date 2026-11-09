@@ -97,15 +97,18 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 2. 在仓库 **Settings → Secrets** 配置 `LLM_API_KEY`（即 OpenRouter 的 `sk-or-v1-...` 密钥）；默认已走 OpenRouter `deepseek/deepseek-chat`，不配则长文用占位。
 3. **若要"生成后自动部署到线上"**（一次性配置，之后全自动），创建 Cloudflare API Token 并写入仓库 Secret：
 
-   **① Cloudflare 控制台 → My Profile → API Tokens → Create Token → Custom Token → Get started**
+   **① Cloudflare 控制台 → My Profile → API Tokens → Create Token → Start from scratch / Custom**
    | 字段 | 填什么 |
    |---|---|
    | Token name | `github-actions-us-stock-dashboard` |
-   | Permissions | 第一个下拉选 **Account**，第二个选 **Cloudflare Pages**，第三个选 **Edit** |
-   | Account Resources | **Include → 你的账号**（不要选 All accounts） |
+   | Permissions | 在 **Edit Account policy** 里，用 `Search for permission groups...` 搜 `Pages`，勾选 **Cloudflare Pages → Edit**（新版 UI，2026-11 起；Pages 归在 `Developer Platform` 分类）。旧版 UI 是三个下拉：**Account / Cloudflare Pages / Edit** |
+   | Account Resources | `Include` 保持，把默认的 `All accounts` 改成 **你的账号**（能改就改；只有一个账号时不改也能用） |
+   | Client IP address filtering | **留空**（GitHub Actions runner 出口 IP 不固定，填了会导致 CI 鉴权失败） |
+   | Token expiration | 建议 `1 year`（到期前重建 Token 并更新 Secret）；`No expiration` 也能用，但长期凭证风险更高 |
 
-   > ⚠️ 不要用现成的 **"Edit Cloudflare Workers"** 模板——它不含 Pages 权限，部署会报 `Could not route to /client/v4/accounts/.../pages/projects`。只勾上面这一条权限即可，泄漏影响面最小。
-   > 点 **Continue to summary → Create Token**，然后**立刻复制 token 值**（Cloudflare 只显示一次）。
+   > ⚠️ 不要用 **"Edit Cloudflare Workers"** 模板——它不含 Pages 权限，部署会报 `Could not route to /client/v4/accounts/.../pages/projects`；也别用 `Bulk Select` 批量勾选，只勾上面这一条权限，泄漏影响面最小。
+   > 选完后权限计数应从 `0` 变成 `1`。点 **Continue to summary → Create Token**，然后**立刻复制 token 值**（Cloudflare 只显示一次）。
+   > 可用 `curl https://api.cloudflare.com/client/v4/user/tokens/verify -H "Authorization: Bearer <token>"` 验证 Token 有效。
 
    **② GitHub 仓库 → Settings → Secrets and variables → Actions → Secrets 标签页 → New repository secret**
    - Name：`CLOUDFLARE_API_TOKEN`（**必须一字不差**，写错会被静默跳过部署）
