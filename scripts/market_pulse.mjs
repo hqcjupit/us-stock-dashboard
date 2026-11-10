@@ -56,6 +56,44 @@ function pulseLooksValid(p, snap) {
   return hits >= 2;
 }
 
+// 无数据支撑的断言/预测：prompt 已禁止，但模型偶有违反，故在代码层再做一次逐字段兜底。
+const BANNED = /突破|创(下|出)?新高|创新高|最大单日|近[一二三四五六七八九十\d]+[周月日]|资金(集中)?流入|资金流出|板块贡献|市场广度|后市|预计|料将|有望|全线上扬/;
+const NAMES = { sp500: '标普500', nasdaq: '纳斯达克', dow: '道琼斯' };
+
+function plainIndexNote(k, snap) {
+  const q = snap.indices[k];
+  if (!q) return '行情暂缺。';
+  const n = q.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return `${NAMES[k]}收于 ${n}，当日 ${q.changePct >= 0 ? '+' : ''}${q.changePct.toFixed(2)}%。`;
+}
+
+/** 只清洗命中的字段，保留 LLM 其余合格内容；第一段含真实点位，不改动。 */
+function sanitizePulse(p, snap) {
+  const out = { ...p, oneline: [...p.oneline], indexNotes: { ...p.indexNotes } };
+  let hits = 0;
+  for (let i = 1; i < out.oneline.length; i++) {
+    if (BANNED.test(out.oneline[i])) {
+      out.oneline[i] = '涨幅差异反映风格相对强弱；更多细节需结合成交量与后续数据观察。';
+      hits++;
+    }
+  }
+  for (const k of Object.keys(NAMES)) {
+    if (BANNED.test(out.indexNotes[k] || '')) { out.indexNotes[k] = plainIndexNote(k, snap); hits++; }
+  }
+  if (BANNED.test(out.vixExplain || '')) {
+    out.vixExplain = snap.vix
+      ? `VIX 报 ${snap.vix.price.toFixed(2)}，当日 ${snap.vix.changePct >= 0 ? '+' : ''}${snap.vix.changePct.toFixed(2)}%。数值越高代表买保险越贵；20 以下通常视为警报缓解。`
+      : 'VIX 行情暂缺。';
+    hits++;
+  }
+  if (BANNED.test(out.sentimentSummary || '')) {
+    out.sentimentSummary = '三大指数与 VIX 的组合反映当日风险偏好变化；完整解读需结合更多数据。';
+    hits++;
+  }
+  if (hits) console.log(`[pulse] 已清洗 ${hits} 处无数据支撑的表述`);
+  return out;
+}
+
 export async function buildMarketPulse(baselines) {
   const snap = buildSnapshot(baselines);
   if (!Object.keys(snap.indices).length) {
@@ -67,6 +105,8 @@ export async function buildMarketPulse(baselines) {
     if (p) console.warn('[pulse] LLM 输出未复现真实点位，回退到机械文案');
     else console.log('[pulse] LLM 不可用，使用含真实数字的机械文案');
     p = placeholderMarketPulse(snap);
+  } else {
+    p = sanitizePulse(p, snap);
   }
   return { ...p, editorialDate: snap.date, snapshot: snap };
 }
