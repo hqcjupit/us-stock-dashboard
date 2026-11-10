@@ -1543,8 +1543,13 @@ async function generateNoteFor(code, force) {
       })
     }), 100000);
     const d = await resp.json().catch(() => null);
-    if (!resp.ok || !d || !d.ok || !d.note) {
-      throw new Error((d && d.error) || ('HTTP ' + resp.status));
+    if (!d) {
+      throw new Error(resp.status === 404 || resp.status === 405
+        ? '当前页面没有 /api/notes 后端（纯静态模式），即时生成不可用；部署 Cloudflare Pages Functions 后即可使用，次日 06:30 每日任务仍会补齐'
+        : ('服务端返回非 JSON 响应（HTTP ' + resp.status + '）'));
+    }
+    if (!resp.ok || !d.ok || !d.note) {
+      throw new Error(d.error || ('HTTP ' + resp.status));
     }
     applyRemoteNotes({ [code]: d.note });
     stock.noteState = 'done';
