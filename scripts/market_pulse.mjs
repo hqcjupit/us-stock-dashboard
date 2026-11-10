@@ -104,6 +104,10 @@ export function injectPulseIntoHtml(html, pulse) {
     if (t) out = replaceInner(out, k + '-note', esc(String(t)));
   }
   if (pulse.vixExplain) out = replaceInner(out, 'vix-explain', esc(String(pulse.vixExplain)));
+  // CNN 贪婪指数没有免费自动数据源，卡片数值/指针是 11/6 编辑部快照。
+  // 每日情绪解读更新后，必须明确标注它是静态的，避免与旁边"情绪回暖"的新文案互相矛盾。
+  out = replaceInner(out, 'fg-explain',
+    'CNN 贪婪指数无免费自动数据源，此卡片数值为 2026-11-06 编辑部静态快照，不随每日行情更新；实时情绪请参考左侧 VIX。');
   if (pulse.sentimentSummary) out = replaceInner(out, 'sentiment-summary-text', esc(String(pulse.sentimentSummary)));
   if (pulse.editorialDate) {
     out = out.replace(/const EDITORIAL_DATE = '[^']*'/, `const EDITORIAL_DATE = '${pulse.editorialDate}'`);
