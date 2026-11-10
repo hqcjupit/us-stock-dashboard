@@ -85,12 +85,12 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 > 默认走 **OpenRouter**（`sk-or-v1-...` 密钥），开箱即用只需设 `LLM_API_KEY`。任何 OpenAI 兼容网关都可用：改 `LLM_BASE_URL`/`LLM_MODEL` 即可（如直连 DeepSeek、硅基流动、本地 Ollama 等）。
 > 本地若处于需代理的网络（如本机沙箱 `HTTPS_PROXY`），脚本会自动加载 `undici` 走全局代理；CI 直连环境无需 `undici`。
 
-> 四段式严格遵守原站 v7.2 字数上限（latest≤110 / fundamental≤130 / peNote≤65 / verdict≤175 字）。无 `LLM_API_KEY` 时生成占位，页面仍有可读内容。
+> 四段式严格遵守原站 v7.2 字数上限（latest≤110 / fundamental≤130 / peNote≤65 / verdict≤175 字）。无 `LLM_API_KEY` 时 `editorial.json` 写占位文本，但**不会注入页面**（保留已有真实解读）。个股 prompt 明令禁止编造财报、新闻、评级与未给出的数字。
 
 可用 GitHub Action / cron 每天 06:30 触发，再把结果写回 HTML 重新部署。
 
 ### 一键每日自动化（GitHub Actions）
-仓库已带 `.github/workflows/daily.yml`：每天**北京时间 06:30** 自动跑管线，生成长文并注入 HTML、同步 `index.html` 后提交；**若已配置 `CLOUDFLARE_API_TOKEN`**，再由 wrangler 部署到 Cloudflare Pages（生产分支 `main`）并回读线上校验。
+仓库已带 `.github/workflows/daily.yml`：每天**北京时间 06:30** 自动跑管线——先预取线上自选股列表，按当天行情为**每一只自选股**重生成长文并注入 HTML、同步 `index.html` 后提交；**若已配置 `CLOUDFLARE_API_TOKEN`**，再由 wrangler 部署到 Cloudflare Pages（生产分支 `main`）并回读线上校验。
 
 使用前准备：
 1. 本地 `node scripts/futu_hot.mjs` 生成并提交 `futu_hot.json`（CI 直接用它，不必连 OpenD）。
@@ -128,20 +128,23 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 | 实时层 | 三大指数 / 个股 / VIX 的**价格数字** | 每次打开页面经 `/api/quote` 拉 Yahoo |
 | 基线层 | `defaultStocks` 的 `baseQuote`/`baseDyn`、`baselines.json` | 每日管线刷新 |
 | 指数解读层 | 01 模块「一句话」、三大指数点评、VIX 与情绪解读、`EDITORIAL_DATE` | 每日管线用 `^GSPC/^IXIC/^DJI/^VIX` 真实行情 + LLM 生成并注入（`scripts/market_pulse.mjs`，产物 `market_pulse.json`） |
-| 个股长文 | `stockNotes`（AMD / GOOGL / NVDA…） | 方案A手动触发时生成并合并注入；默认股长文每日写入 `editorial.json` 备查 |
+| 个股长文 | `stockNotes`（线上自选股里的每一只） | **每日全量重生成**：管线先读 `/api/watchlist` 的 codes，用当天行情 + LLM 重写四段式并合并注入；LLM 失败/占位时保留旧解读 |
 | 热度榜 | `hotStocks` | 富途源；无源时保留现有内容 |
 | **静态编辑层** | 02「发生了什么大事」、03 主题、05 日程、CNN 贪婪指数卡片 | **不自动更新**：没有新闻/情绪数据源，页面标签已明确标注为 `2026-11-06` 编辑部快照；需要时人工改 HTML |
 
 > 修复记录：此前 01 模块整块是写死的 11/6 文案，导致「顶部日期是新的、解读还停留在上周五，且一句话里的点位与卡片实时价互相矛盾」。现在 01 模块每天随行情重写；LLM 输出还会经过**数字一致性校验**（必须复现至少两个真实收盘点位），不合格即回退到只复述真实数字的机械文案，绝不编造新闻或数字。
 
-#### 方案A：为指定股票一键生成 LLM 长文（推荐）
-仓库的 `Daily US Stock Dashboard Regenerate` 工作流支持手动触发输入：
-- 进入仓库 **Actions → Daily US Stock Dashboard Regenerate → Run workflow**；
-- 在 `stocks` 输入框填入股票代码（**空格或逗号分隔**，如 `GOOGL META`），留空则只刷新默认基线；
-- 点运行：脚本会为该股票调 OpenRouter 生成四段式长文，**合并**注入 `stockNotes`（不覆盖已有的 AMD 等解读），同步 `index.html` 后提交；若已配 `CLOUDFLARE_API_TOKEN` 则自动部署上线，并由 `scripts/verify-live.mjs` 回读生产域名确认本次长文确实生效（不一致则 job 标红）。
-- 之后在网站把该股票加入自选，卡片即显示真实 LLM 长文（前端 `buildStocks` 优先使用 `stockNotes`）。
+#### 新加自选股，解读什么时候出现？
+网页上点「加入自选」后，代码存进服务端 KV。工作流每天 06:30（北京时间）会先读 `/api/watchlist` 拿到**当前全部自选股**，逐只调用 OpenRouter 生成四段式解读并合并注入 `stockNotes`，再提交、部署、回读校验。所以：
 
-> 也可以本地等价操作：`node scripts/regenerate.mjs GOOGL --write-html`，再把 `us-stock-dashboard.html` 复制为 `index.html` 后部署。
+- **新加的股票**：次日 06:30 自动出现解读（此前会显示"次日自动生成"的占位说明）。
+- **已有的股票**：解读每天重写一次，不再冻结在首次生成那天。
+- **想立刻刷新**：Actions → `Daily US Stock Dashboard Regenerate` → **Run workflow**，`stocks` **留空**即为全量重生成。
+- `stocks` 输入框只用于**额外指定不在自选列表里的股票**（空格/逗号分隔，如 `META COIN`），运行后同样会生成并注入。
+- 前端 `buildStocks` 对默认股也优先使用 `stockNotes`，因此默认 6 只同样每天更新，不再显示 11/6 的手写快照。
+
+> 安全边界：`/api/watchlist` 是公开可写的，脚本对代码做格式校验并限制最多 20 只；LLM 未返回真实内容时**跳过该股、保留已有解读**，不会用占位文本覆盖。
+> 本地等价操作：`WATCHLIST_CODES="AAPL TSLA NVDA MSFT AMZN AMD GOOGL INTC" node scripts/regenerate.mjs --write-html`，再把 `us-stock-dashboard.html` 复制为 `index.html` 后部署。也可不设该变量，让脚本自己拉线上列表（`WATCHLIST_API_URL` 可改地址）。
 
 ## 安全说明
 - 已对股票名/代码渲染做 HTML 转义，修复原站的 XSS 隐患。

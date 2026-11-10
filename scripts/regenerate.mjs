@@ -7,21 +7,24 @@
  *      与 baseDyn（MA5/20/60 技术面、量能资金面、52周位置），写 baselines.json。
  *   2) 热度榜：富途美股热度 Top5（scripts/futu.mjs）——取代码后用 Yahoo 机械刷新
  *      basePrice/baseChg，再调 LLM 生成 why 短评，写 hot_list.json。
- *   3) 编辑层：为默认股 + 命令行指定的新增自选股调 LLM 生成四段式深度解读
- *      （latest/fundamental/peNote/verdict），写 editorial.json（新增股注入 stockNotes）。
+ *   3) 编辑层：读取线上 /api/watchlist 的自选股列表（KV，唯一真相源），为其中每一只
+ *      调 LLM 重生成四段式深度解读（latest/fundamental/peNote/verdict），
+ *      写 editorial.json 并合并注入 stockNotes —— 因此"用户后来新加的股票"次日即有解读，
+ *      已有的解读也会每天刷新，而不是冻结在首次生成那天。
  *
  * 全部模块"无凭证即可跑"：缺富途源 → 热度榜空；缺 LLM key → 用占位文本兜底，
- * 绝不因外部依赖缺失而中断。配齐凭证后即为完整每日管线。
+ * 且占位文本绝不覆盖已有真实解读；绝不因外部依赖缺失而中断。配齐凭证后即为完整每日管线。
  *
  * 用法：
- *   node scripts/regenerate.mjs                         # 刷新默认列表基线 + 热度榜 + 默认股 editorial
- *   node scripts/regenerate.mjs AAPL NVDA                # 额外为这两只生成 stockNotes 并注入
- *   node scripts/regenerate.mjs --write-html            # 把热度榜与 stockNotes 注入 us-stock-dashboard.html
- *   node scripts/regenerate.mjs --refresh-default-baselines  # 同时用 live Yahoo 刷新默认自选的 baseQuote/baseDyn
+ *   node scripts/regenerate.mjs --write-html   # 每日任务：按线上自选股全量重生成并注入
+ *   node scripts/regenerate.mjs META --write-html  # 额外为 META（可不在自选里）生成并注入
  *
  * 环境变量（详见 README）：
  *   富途：FUTU_HOT_JSON / FUTU_HOST / FUTU_PORT / FUTU_TOPN
  *   LLM ：LLM_API_KEY / LLM_BASE_URL / LLM_MODEL / LLM_TIMEOUT
+ *   自选：WATCHLIST_API_URL（默认生产域名 /api/watchlist）、WATCHLIST_CODES（直接注入代码，
+ *         空格/逗号分隔，用于 CI 预取或本地离线测试；设置后不再发起网络请求）
+ *   HTML_PATH：注入目标 HTML，默认 us-stock-dashboard.html
  */
 
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
@@ -42,6 +45,52 @@ const args = process.argv.slice(2);
 const WRITE_HTML = args.includes('--write-html');
 const REFRESH_DEFAULT_BASE = args.includes('--refresh-default-baselines');
 const symbols = args.filter((a) => !a.startsWith('--'));
+
+/* ===================== 线上自选股列表 ===================== */
+// 服务端 /api/watchlist（KV）是自选股的唯一真相源。每日管线必须读它，
+// 否则只能维护写死的默认列表，用户在网页上新加的股票永远等不到解读。
+const WATCHLIST_API_URL = process.env.WATCHLIST_API_URL ||
+  'https://us-stock-dashboard-bxj.pages.dev/api/watchlist';
+const MAX_WATCHLIST = 20; // 接口公开可写，限制上限防止被塞满后拖垮 LLM 调用量
+
+export function sanitizeCodes(input) {
+  const raw = Array.isArray(input) ? input : String(input || '').split(/[\s,]+/);
+  return [...new Set(raw
+    .map((s) => String(s || '').trim().toUpperCase())
+    // 只接受常见美股代码；排除 ^ 开头的指数与任何含注入字符的内容
+    .filter((s) => /^[A-Z][A-Z0-9.\-]{0,9}$/.test(s)))].slice(0, MAX_WATCHLIST);
+}
+
+async function fetchWatchlistCodes() {
+  // CI 已用 curl 带重试预取，或本地离线测试可直接注入，避免再发一次请求
+  if (process.env.WATCHLIST_CODES) {
+    const codes = sanitizeCodes(process.env.WATCHLIST_CODES);
+    console.log(`[watchlist] 使用 WATCHLIST_CODES（${codes.length} 只）：${codes.join(', ') || '(空)'}`);
+    return codes;
+  }
+  try {
+    const resp = await fetch(WATCHLIST_API_URL, {
+      signal: AbortSignal.timeout(12000),
+      headers: { 'User-Agent': 'us-stock-dashboard-regenerate/1.0' },
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const j = await resp.json();
+    if (!Array.isArray(j?.codes)) throw new Error('响应缺少 codes 数组');
+    const codes = sanitizeCodes(j.codes);
+    console.log(`[watchlist] 读取线上自选股（${codes.length} 只）：${codes.join(', ') || '(空)'}`);
+    return codes;
+  } catch (e) {
+    // 拉取失败时不做全量刷新，保留已有解读，绝不因网络抖动清空内容
+    console.warn(`[watchlist] 读取失败（${e.message}）；本次跳过全量解读刷新，保留现有解读。`);
+    return null;
+  }
+}
+
+// 占位文本 / 失败结果绝不能覆盖已有的真实 LLM 解读（例如密钥临时失效时）
+export function isPlaceholderNote(note) {
+  if (!note || !note.latest || !note.verdict) return true;
+  return /待接入\s*LLM|占位|placeholder/i.test(String(note.latest) + String(note.verdict));
+}
 
 /* ===================== YAHOO 基线计算 ===================== */
 async function fetchChart(symbol, range, interval) {
@@ -225,7 +274,7 @@ function injectDefaultBaselines(html, baselines) {
   return html.slice(0, dStart) + block + html.slice(dEnd);
 }
 
-function injectIntoHtml(opts, baselines, pulse) {
+export function injectIntoHtml(opts, baselines, pulse) {
   if (!existsSync(HTML_PATH)) {
     console.warn(`[html] 找不到 ${HTML_PATH}，跳过注入。`);
     return;
@@ -260,7 +309,10 @@ function injectIntoHtml(opts, baselines, pulse) {
 
 /* ===================== 主流程 ===================== */
 async function main() {
-  const list = symbols.length ? [...new Set([...DEFAULT_SYMBOLS, ...symbols])] : DEFAULT_SYMBOLS;
+  const watchlist = await fetchWatchlistCodes();
+  // 拉取成功 → 以线上自选股为长文目标；失败 → 只生成默认列表 editorial 备查，不注入
+  const autoTargets = watchlist && watchlist.length ? watchlist : null;
+  const list = [...new Set([...DEFAULT_SYMBOLS, ...symbols, ...(autoTargets || [])])];
 
   // 1) 基线层
   console.log(`\n[1/3] 刷新 ${list.length} 只标的的基线数据…`);
@@ -298,8 +350,9 @@ async function main() {
   // 3) 编辑层（LLM 四段式）
   console.log('\n[3/3] 生成编辑性长文…');
   const editorial = {};
-  // 默认股 + 命令行指定股都生成（默认股写入 editorial.json 备查，不覆盖手写文本）
-  const noteTargets = [...new Set([...DEFAULT_SYMBOLS, ...symbols])];
+  // 只给"当前自选股 + 手动指定股"生成长文（而非 20 个指数/商品标的），省下大量无效 LLM 调用；
+  // 读取自选股失败时退回默认列表，仅写 editorial.json 备查、不注入 HTML。
+  const noteTargets = [...new Set([...(autoTargets || DEFAULT_SYMBOLS), ...symbols])];
   for (const sym of noteTargets) {
     try {
       const note = await buildEditorial(sym, baselines[sym]);
@@ -315,13 +368,21 @@ async function main() {
   // 4) 注入 HTML（可选）
   if (WRITE_HTML) {
     console.log('\n[注入] --write-html 已启用');
-    // 方案A：命令行明确指定的股票（无论是否默认股）都生成解读并合并注入 stockNotes，
+    // 每日全量：线上自选股列表里的每一只都重新生成解读（既刷新此前冻结的 AMD/GOOGL/NVDA，
+    // 也为用户新加但尚无解读的 INTC 等自动补上）；方案A 手动指定的代码额外并入。
     // 配合前端 buildStocks 的"stockNotes 优先"逻辑，可为任意股票（含默认股）重生成长文。
-    const added = [...symbols];
+    const targets = [...new Set([...(autoTargets || []), ...symbols])];
     const stockNotesObj = {};
-    if (added.length) {
-      for (const s of added) if (editorial[s]) stockNotesObj[s] = editorial[s];
+    let skipped = 0;
+    for (const s of targets) {
+      if (isPlaceholderNote(editorial[s])) {
+        skipped++;
+        console.warn(`[html] ${s} 本次未拿到真实 LLM 解读，保留已有内容（不覆盖）。`);
+        continue;
+      }
+      stockNotesObj[s] = editorial[s];
     }
+    console.log(`[html] 本次待写入解读 ${Object.keys(stockNotesObj).length} 只：${Object.keys(stockNotesObj).join(', ') || '(无)'}${skipped ? `；跳过占位/失败 ${skipped} 只` : ''}`);
     // 空热度榜/空自选不注入，避免误清空；defaultStocks 基线始终按需刷新
     const injectOpts = {};
     if (hotList.length) injectOpts.hotStocks = hotList;
@@ -336,7 +397,12 @@ async function main() {
   console.log('\n完成。热度榜见 FUTU_* 配置；长文见 LLM_* 配置；二者缺失时已用占位/空兜底，管线不中断。');
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// 仅在被直接执行时跑主流程；被 import 时只暴露纯函数，便于离线测试而不触发网络/LLM。
+const isDirectRun = process.argv[1] &&
+  fileURLToPath(import.meta.url).toLowerCase() === resolve(process.argv[1]).toLowerCase();
+if (isDirectRun) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}

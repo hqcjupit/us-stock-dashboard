@@ -133,7 +133,7 @@ export async function fetchFutuHotList() {
 
 // 供独立运行调试：node scripts/futu.mjs
 import { pathToFileURL } from 'node:url';
-if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   fetchFutuHotList().then((list) => {
     console.log(JSON.stringify(list, null, 2));
   });

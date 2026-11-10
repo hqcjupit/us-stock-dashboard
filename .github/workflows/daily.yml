@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       stocks:
-        description: '要生成 LLM 长文的股票代码（空格或逗号分隔，如 GOOGL META）。留空=仅刷新默认基线。'
+        description: '额外生成解读的股票代码（空格/逗号分隔，如 META）。留空=按线上自选股列表全量重生成（推荐）。'
         required: false
         default: ''
         type: string
@@ -24,10 +24,26 @@ jobs:
         with:
           node-version: '20'
 
+      # —— 预取线上自选股列表（服务端 KV 是唯一真相源）——
+      # 若不读它，用户在网页上新加的股票永远等不到解读，已有解读也会一直冻结。
+      # curl 带重试；失败时 regenerate.mjs 会自行再拉一次，仍失败则保留现有解读、安全降级。
+      - name: Resolve current watchlist
+        run: |
+          CODES=$(curl -fsS --retry 3 --retry-delay 5 --max-time 20 \
+            "https://us-stock-dashboard-bxj.pages.dev/api/watchlist" \
+            | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{const j=JSON.parse(s);console.log((j.codes||[]).join(" "))}catch(e){}})' || true)
+          if [ -n "$CODES" ]; then
+            echo "WATCHLIST_CODES=$CODES" >> "$GITHUB_ENV"
+            echo "本次自选股：$CODES"
+          else
+            echo "::warning::未能读取线上自选股列表；脚本将自行重试，若仍失败则保留现有解读、不做全量刷新。"
+          fi
+
       # —— 读取真实凭证（未配置时优雅降级：热度榜空 + 长文占位，管线不中断）——
       # 默认走 OpenRouter（deepseek/deepseek-chat）。只需在仓库 Secrets 配置 LLM_API_KEY
       # （即 OpenRouter 的 sk-or-v1-... 密钥）；如需换模型/网关，再设 LLM_BASE_URL / LLM_MODEL。
-      # workflow_dispatch 输入 stocks 时，会为该股票生成 LLM 长文并合并注入 stockNotes（方案A）。
+      # 每次运行都会为 WATCHLIST_CODES 中的全部股票重生成解读并合并注入 stockNotes；
+      # workflow_dispatch 的 stocks 输入用于额外指定不在自选列表里的股票（方案A）。
       - name: Regenerate baselines + hot list + editorial
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}

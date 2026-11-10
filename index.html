@@ -1639,10 +1639,10 @@ function renderStockCard(stock, idx) {
 
   const latestLine = stock.latest
     ? stock.latest
-    : (chg != null ? `最近一个交易日 ${sign}${chg.toFixed(2)}%，${chg >= 0 ? '走势偏强' : '走势偏弱'}；深度解读将在每个工作日早上自动生成，可先点下方富途链接看最新消息。` : '实时行情暂未取到，正在自动重试；也可点击富途牛牛链接直接查看。');
+    : (chg != null ? `最近一个交易日 ${sign}${chg.toFixed(2)}%，${chg >= 0 ? '走势偏强' : '走势偏弱'}；深度解读将于次日 06:30（北京时间）自动生成并上线，可先点下方富途链接看最新消息。` : '实时行情暂未取到，正在自动重试；也可点击富途牛牛链接直接查看。');
   const fundLine = stock.fundamental
     ? stock.fundamental
-    : '深度解读将在每个工作日早上自动生成（已加入自选即进入更新队列）；最新财报与研报可点击下方富途/Investing.com 链接查看。';
+    : '该股解读尚未生成：加入自选后，次日 06:30（北京时间）会随每日管线自动生成并上线；也可在 GitHub Actions 手动触发立即生成。最新财报与研报可点击下方链接查看。';
   const valLine = (stock.peNote ? stock.peNote + ' ' : '') + (dynPos != null ? posText(dynPos) : '估值位置数据加载中，稍后自动刷新。');
 
   const card = document.createElement('div');
