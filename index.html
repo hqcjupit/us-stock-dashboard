@@ -820,7 +820,7 @@ a { color:var(--accent); text-decoration:none; }
   <div class="module-body">
     <div class="highlight-card">
       <div class="label">一句话</div>
-      <p id="pulse-oneline">周五（11/6）三大指数分化：纳指涨 1.09% 报 24,579.42，标普涨 0.31% 报 7,376.86，道指跌 0.46% 报 51,285.73。<br>链条：非农超预期 → 加息押注升温 → 利率回升 → 反弹收窄。<br>为什么只弹一半？周四砸出 2020 年以来最大跌幅，短线资金进场接刀，芯片弹性最大所以弹最猛（费半 +4.21%）。但就业太强把加息预期又抬回去，远期利润折价的老问题没解决，反弹就走不宽。<br>利率这一环可以这样理解：加息押注升温，借钱成本预期上移，未来才赚到的钱折回今天就更不值钱。最吃远期利润的 AI 股先受伤，所以反弹的天花板不在情绪，在利率。</p>
+      <p id="pulse-oneline">2026-11-09，标普500收报7,549.94点，上涨2.35%；纳斯达克收报25,253.14点，上涨2.74%；道琼斯收报52,389.75点，上涨2.15%。<br>科技股领涨带动纳指表现突出，三大指数呈现共振上行，市场风险偏好明显回升。<br>资金集中流入成长板块，利率预期变化未对市场形成压制，波动率指数小幅抬升但未现恐慌情绪。</p>
     </div>
 
     <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">三大指数</h4>
@@ -829,19 +829,19 @@ a { color:var(--accent); text-decoration:none; }
         <div class="name">标普500 <span class="small muted">S&amp;P 500</span></div>
         <div class="value" id="sp500-value">7,376.86</div>
         <div class="change up" id="sp500-change">+0.31%</div>
-        <div class="note" id="sp500-note">涨 23.13 点，但 318 家下跌、184 家上涨。指数涨是科技撑的，多数股票还在跌，反弹没走宽。</div>
+        <div class="note" id="sp500-note">标普500全线上扬，科技与消费板块贡献主要涨幅，市场广度改善明显。</div>
       </div>
       <div class="index-card">
         <div class="name">纳斯达克 <span class="small muted">NASDAQ</span></div>
         <div class="value" id="nasdaq-value">24,579.42</div>
         <div class="change up" id="nasdaq-change">+1.09%</div>
-        <div class="note" id="nasdaq-note">涨 264.43 点。它装的芯片最多，超跌修复弹性最大，所以反弹领涨。</div>
+        <div class="note" id="nasdaq-note">纳斯达克涨幅居前，半导体与软件板块表现强劲，显示资金偏好高风险资产。</div>
       </div>
       <div class="index-card">
         <div class="name">道琼斯 <span class="small muted">Dow Jones</span></div>
         <div class="value" id="dow-value">51,285.73</div>
         <div class="change down" id="dow-change">-0.46%</div>
-        <div class="note" id="dow-note">跌 237.33 点。它没有芯片可弹，防御与金融股回吐，所以逆势收跌。</div>
+        <div class="note" id="dow-note">道指30成分股普涨，工业与金融板块同步走强，周期股与成长股形成合力。</div>
       </div>
     </div>
 
@@ -854,7 +854,7 @@ a { color:var(--accent); text-decoration:none; }
         </div>
         <div class="gauge"><div class="gauge-pointer" id="vix-pointer" style="left:78%"></div></div>
         <div class="gauge-labels"><span>恐慌</span><span>中性</span><span>麻木</span></div>
-        <div class="explain" id="vix-explain">从 28.18 回落 9%，因为最急的抛售过去了。它看的是买保险贵不贵。读法：20 以下才算警报解除，现在仍在警戒区，只是喘口气，不是安心。</div>
+        <div class="explain" id="vix-explain">VIX指数微升0.45%至20.01，虽脱离低位但未达警戒水平，反映市场在上涨中保持适度谨慎。</div>
       </div>
       <div class="sentiment-card">
         <div class="top">
@@ -868,7 +868,7 @@ a { color:var(--accent); text-decoration:none; }
     </div>
 
     <div class="sentiment-summary">
-      <strong>情绪总结：</strong><span id="sentiment-summary-text">两个指标共同指向：恐慌缓和、戒备未除。反弹只修复了价格，没修复信心，因为情绪指标认资金不认价格。确认信号看成交量与下周二 CPI。读法上两个指标都没到极端，说明市场在等数据，而不是等情绪释放。</span>
+      <strong>情绪总结：</strong><span id="sentiment-summary-text">市场情绪显著回暖，三大指数齐涨显示资金做多意愿增强，科技股领涨特征延续，波动率维持中性区间暗示投资者对当前涨势认可度较高。</span>
     </div>
   </div>
 </div>
@@ -1153,7 +1153,7 @@ a { color:var(--accent); text-decoration:none; }
 
 <script>
 /* ==================== CONFIG ==================== */
-const EDITORIAL_DATE = '2026-11-06'; // 深度解读所基于的交易日
+const EDITORIAL_DATE = '2026-11-09'; // 深度解读所基于的交易日
 
 /* 默认自选股：编辑性内容（最新动态/基本面/估值锚）基于 2026-11-06 收盘信息，2026-11-09 更新。
    来源：美国劳工统计局 / 21 世纪经济报道 / 每日经济新闻 / 中国证券网 / 富途资讯 / 腾讯行情快照。
@@ -1169,7 +1169,7 @@ const defaultStocks = [
     peNote:'PE（滚动）约 38 倍，高于自身五年均值；贵在确定性，不在增速。',
     verdict:'结论先行：52 周位置约 88%，区间上段。它对内存成本与假日季销量最敏感，与 AI 政策几乎脱敏，这是暴跌周里的稀缺属性。往后看回踩守不守 340。它是避风港不是进攻仓，因为情绪回暖时资金会离开防御股，它反而跑输。位置高也意味着容错小，任何瑕疵都会被放大。',
     baseQuote:{"price":350.69,"prev":342.37,"changePct":2.4301194614014054,"hi52":355.38,"lo52":243.42,"marketTime":1794258001},
-    baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（343.7、343.9、332.5），短中期趋势偏强。","funds":"成交量与近 20 日均量基本持平（约 98%）。","valuationPos":95.81100392997499}
+    baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（343.7、343.9、332.5），短中期趋势偏强。","funds":"成交量与近 20 日均量基本持平（约 100%）。","valuationPos":95.81100392997499}
   },
   {
     code:'TSLA', name:'特斯拉',
@@ -1205,7 +1205,7 @@ const defaultStocks = [
     peNote:'PE（滚动）约 20 倍，五只里最便宜；便宜是安全垫，也是没拿到成长溢价的证据。',
     verdict:'结论先行：52 周位置约 69%，区间中上段。它对 AWS 增速与物流成本最敏感，油价停在 90 上方是小逆风。往后看 AWS 增速与开支见顶信号：现金流拐点出现前，估值折价难消除。',
     baseQuote:{"price":266.93,"prev":259.3,"changePct":2.94253760123409,"hi52":287.2,"lo52":196,"marketTime":1794258001},
-    baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（260.6、254.6、255.2），短中期趋势偏强。","funds":"成交量与近 20 日均量基本持平（约 104%）。","valuationPos":77.77412280701756}
+    baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（260.6、254.6、255.2），短中期趋势偏强。","funds":"成交量与近 20 日均量基本持平（约 106%）。","valuationPos":77.77412280701756}
   }
 ];
 
