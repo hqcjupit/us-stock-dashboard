@@ -820,7 +820,7 @@ a { color:var(--accent); text-decoration:none; }
   <div class="module-body">
     <div class="highlight-card">
       <div class="label">一句话</div>
-      <p>周五（11/6）三大指数分化：纳指涨 1.09% 报 24,579.42，标普涨 0.31% 报 7,376.86，道指跌 0.46% 报 51,285.73。<br>链条：非农超预期 → 加息押注升温 → 利率回升 → 反弹收窄。<br>为什么只弹一半？周四砸出 2020 年以来最大跌幅，短线资金进场接刀，芯片弹性最大所以弹最猛（费半 +4.21%）。但就业太强把加息预期又抬回去，远期利润折价的老问题没解决，反弹就走不宽。<br>利率这一环可以这样理解：加息押注升温，借钱成本预期上移，未来才赚到的钱折回今天就更不值钱。最吃远期利润的 AI 股先受伤，所以反弹的天花板不在情绪，在利率。</p>
+      <p id="pulse-oneline">周五（11/6）三大指数分化：纳指涨 1.09% 报 24,579.42，标普涨 0.31% 报 7,376.86，道指跌 0.46% 报 51,285.73。<br>链条：非农超预期 → 加息押注升温 → 利率回升 → 反弹收窄。<br>为什么只弹一半？周四砸出 2020 年以来最大跌幅，短线资金进场接刀，芯片弹性最大所以弹最猛（费半 +4.21%）。但就业太强把加息预期又抬回去，远期利润折价的老问题没解决，反弹就走不宽。<br>利率这一环可以这样理解：加息押注升温，借钱成本预期上移，未来才赚到的钱折回今天就更不值钱。最吃远期利润的 AI 股先受伤，所以反弹的天花板不在情绪，在利率。</p>
     </div>
 
     <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">三大指数</h4>
@@ -829,19 +829,19 @@ a { color:var(--accent); text-decoration:none; }
         <div class="name">标普500 <span class="small muted">S&amp;P 500</span></div>
         <div class="value" id="sp500-value">7,376.86</div>
         <div class="change up" id="sp500-change">+0.31%</div>
-        <div class="note">涨 23.13 点，但 318 家下跌、184 家上涨。指数涨是科技撑的，多数股票还在跌，反弹没走宽。</div>
+        <div class="note" id="sp500-note">涨 23.13 点，但 318 家下跌、184 家上涨。指数涨是科技撑的，多数股票还在跌，反弹没走宽。</div>
       </div>
       <div class="index-card">
         <div class="name">纳斯达克 <span class="small muted">NASDAQ</span></div>
         <div class="value" id="nasdaq-value">24,579.42</div>
         <div class="change up" id="nasdaq-change">+1.09%</div>
-        <div class="note">涨 264.43 点。它装的芯片最多，超跌修复弹性最大，所以反弹领涨。</div>
+        <div class="note" id="nasdaq-note">涨 264.43 点。它装的芯片最多，超跌修复弹性最大，所以反弹领涨。</div>
       </div>
       <div class="index-card">
         <div class="name">道琼斯 <span class="small muted">Dow Jones</span></div>
         <div class="value" id="dow-value">51,285.73</div>
         <div class="change down" id="dow-change">-0.46%</div>
-        <div class="note">跌 237.33 点。它没有芯片可弹，防御与金融股回吐，所以逆势收跌。</div>
+        <div class="note" id="dow-note">跌 237.33 点。它没有芯片可弹，防御与金融股回吐，所以逆势收跌。</div>
       </div>
     </div>
 
@@ -868,7 +868,7 @@ a { color:var(--accent); text-decoration:none; }
     </div>
 
     <div class="sentiment-summary">
-      <strong>情绪总结：</strong>两个指标共同指向：恐慌缓和、戒备未除。反弹只修复了价格，没修复信心，因为情绪指标认资金不认价格。确认信号看成交量与下周二 CPI。读法上两个指标都没到极端，说明市场在等数据，而不是等情绪释放。
+      <strong>情绪总结：</strong><span id="sentiment-summary-text">两个指标共同指向：恐慌缓和、戒备未除。反弹只修复了价格，没修复信心，因为情绪指标认资金不认价格。确认信号看成交量与下周二 CPI。读法上两个指标都没到极端，说明市场在等数据，而不是等情绪释放。</span>
     </div>
   </div>
 </div>
@@ -1946,7 +1946,7 @@ function updateTradingDateLabel(q) {
     }
   } catch(e) {}
   const label = document.getElementById('et-session-label');
-  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（美股盘中则为实时价，深度解读基于 ${EDITORIAL_DATE} 收盘）`;
+  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（盘中为实时价）· 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/主题/日程为编辑部快照（2026-11-06）`;
 }
 
 function updateHeaderDate() {
@@ -1962,7 +1962,7 @@ function updateFooterTimestamp() {
   if (!ft) return;
   const now = new Date();
   const et = now.toLocaleString('zh-CN', { timeZone:'America/New_York', hour12:false });
-  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 深度解读基于 ${EDITORIAL_DATE} 收盘信息`;
+  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/主题/日程为编辑部快照（2026-11-06）`;
 }
 
 /* ==================== NAV ACTIVE STATE ==================== */

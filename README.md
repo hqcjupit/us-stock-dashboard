@@ -121,6 +121,19 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
    - 已配置时：部署完成后工作流会自动拉取生产域名，校验本次 `stockNotes` 是否全部上线；不一致直接把 job 标红。
 4. 推送后 Actions 即按 cron 运行；也可在 Actions 页面手动 `Run workflow` 立即试跑。
 
+#### 每日到底更新什么（数据分层）
+
+| 层 | 内容 | 更新方式 |
+|---|---|---|
+| 实时层 | 三大指数 / 个股 / VIX 的**价格数字** | 每次打开页面经 `/api/quote` 拉 Yahoo |
+| 基线层 | `defaultStocks` 的 `baseQuote`/`baseDyn`、`baselines.json` | 每日管线刷新 |
+| 指数解读层 | 01 模块「一句话」、三大指数点评、VIX 与情绪解读、`EDITORIAL_DATE` | 每日管线用 `^GSPC/^IXIC/^DJI/^VIX` 真实行情 + LLM 生成并注入（`scripts/market_pulse.mjs`，产物 `market_pulse.json`） |
+| 个股长文 | `stockNotes`（AMD / GOOGL / NVDA…） | 方案A手动触发时生成并合并注入；默认股长文每日写入 `editorial.json` 备查 |
+| 热度榜 | `hotStocks` | 富途源；无源时保留现有内容 |
+| **静态编辑层** | 02「发生了什么大事」、03 主题、05 日程、CNN 贪婪指数卡片 | **不自动更新**：没有新闻/情绪数据源，页面标签已明确标注为 `2026-11-06` 编辑部快照；需要时人工改 HTML |
+
+> 修复记录：此前 01 模块整块是写死的 11/6 文案，导致「顶部日期是新的、解读还停留在上周五，且一句话里的点位与卡片实时价互相矛盾」。现在 01 模块每天随行情重写；LLM 输出还会经过**数字一致性校验**（必须复现至少两个真实收盘点位），不合格即回退到只复述真实数字的机械文案，绝不编造新闻或数字。
+
 #### 方案A：为指定股票一键生成 LLM 长文（推荐）
 仓库的 `Daily US Stock Dashboard Regenerate` 工作流支持手动触发输入：
 - 进入仓库 **Actions → Daily US Stock Dashboard Regenerate → Run workflow**；

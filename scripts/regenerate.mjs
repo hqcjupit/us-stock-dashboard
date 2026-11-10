@@ -28,6 +28,7 @@ import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { fetchFutuHotList } from './futu.mjs';
+import { buildMarketPulse, injectPulseIntoHtml } from './market_pulse.mjs';
 import { generateEditorial, generateHotWhy, placeholderEditorial, placeholderWhy } from './llm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -224,7 +225,7 @@ function injectDefaultBaselines(html, baselines) {
   return html.slice(0, dStart) + block + html.slice(dEnd);
 }
 
-function injectIntoHtml(opts, baselines) {
+function injectIntoHtml(opts, baselines, pulse) {
   if (!existsSync(HTML_PATH)) {
     console.warn(`[html] 找不到 ${HTML_PATH}，跳过注入。`);
     return;
@@ -249,6 +250,10 @@ function injectIntoHtml(opts, baselines) {
   if (baselines && Object.keys(baselines).length) {
     html = injectDefaultBaselines(html, baselines);
   }
+  // 01 模块市场脉搏：用真实指数/VIX 行情重写一句话、指数点评、情绪解读与 EDITORIAL_DATE
+  const beforePulse = html;
+  html = injectPulseIntoHtml(html, pulse);
+  if (html !== beforePulse) console.log('[html] 已注入市场脉搏文案与解读日期。');
   writeFileSync(HTML_PATH, html, 'utf8');
   console.log(`[html] 已写回 ${HTML_PATH}`);
 }
@@ -271,6 +276,18 @@ async function main() {
   }
   writeFileSync(resolve(ROOT, 'baselines.json'), JSON.stringify(baselines, null, 2), 'utf8');
   console.log('     已写出 baselines.json');
+
+  // 1.5) 市场脉搏：复用上面刷新的真实指数/VIX 行情，生成 01 模块文案
+  let marketPulse = null;
+  try {
+    marketPulse = await buildMarketPulse(baselines);
+    if (marketPulse) {
+      writeFileSync(resolve(ROOT, 'market_pulse.json'), JSON.stringify(marketPulse, null, 2), 'utf8');
+      console.log(`     已写出 market_pulse.json（解读基于 ${marketPulse.editorialDate || '最新交易日'}）`);
+    }
+  } catch (e) {
+    console.warn('[pulse] 生成失败，保留现有文案：', e.message);
+  }
 
   // 2) 热度榜（富途 + LLM why）
   console.log('\n[2/3] 取富途热度榜并生成 why…');
@@ -309,7 +326,7 @@ async function main() {
     const injectOpts = {};
     if (hotList.length) injectOpts.hotStocks = hotList;
     if (Object.keys(stockNotesObj).length) injectOpts.stockNotes = stockNotesObj;
-    injectIntoHtml(injectOpts, baselines);
+    injectIntoHtml(injectOpts, baselines, marketPulse);
   }
 
   if (REFRESH_DEFAULT_BASE) {
