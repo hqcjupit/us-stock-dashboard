@@ -8,6 +8,7 @@ us-stock-dashboard.html   # 前端单文件（已加固：转义股票名/代码
 functions/
   api/quote.js            # 自有行情中转，替代第三方 CORS 代理
   api/watchlist.js        # 自选股同步后端（KV 持久化）
+  api/notes.js            # 加入自选股即时生成 AI 解读（LLM + KV，跨设备共享）
 scripts/
   regenerate.mjs          # 每日管线：基线 + 富途热度榜 + LLM 长文
   futu.mjs                # 富途美股热度榜取数（OpenD 实时 / 本地 JSON 源）
@@ -37,6 +38,7 @@ futu_hot.json            # 富途热度榜原始数据（本地 futu_hot.mjs 生
 - **编辑层**：六大模块的中文长文解读（冻结在示例交易日，需每日重生成）。
 - **基线层**：`defaultStocks`/`hotStocks`/`extraBase` 内嵌的价格与动态基线，每天刷新一次。
 - **实时层**：打开页面经 `/api/quote` 拉 Yahoo，每 5 分钟自动刷新，失败则停在基线值。
+- **个股解读层**：`stockNotes` —— 加入自选股时由 `/api/notes` 即时生成（存 KV、跨设备）+ 每日 06:30 全量重生成，前端按 `generatedAt` 取较新者。
 
 ## 每日自动化（可选，完整管线）
 `scripts/regenerate.mjs` 一次跑完三层数据刷新，且**无凭证即可跑**（缺失时自动降级，不中断）：
@@ -128,22 +130,43 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 | 实时层 | 三大指数 / 个股 / VIX 的**价格数字** | 每次打开页面经 `/api/quote` 拉 Yahoo |
 | 基线层 | `defaultStocks` 的 `baseQuote`/`baseDyn`、`baselines.json` | 每日管线刷新 |
 | 指数解读层 | 01 模块「一句话」、三大指数点评、VIX 与情绪解读、`EDITORIAL_DATE` | 每日管线用 `^GSPC/^IXIC/^DJI/^VIX` 真实行情 + LLM 生成并注入（`scripts/market_pulse.mjs`，产物 `market_pulse.json`） |
-| 个股长文 | `stockNotes`（线上自选股里的每一只） | **每日全量重生成**：管线先读 `/api/watchlist` 的 codes，用当天行情 + LLM 重写四段式并合并注入；LLM 失败/占位时保留旧解读 |
+| 个股长文 | `stockNotes`（线上自选股里的每一只） | **两条来源**：① 加入自选股时由 `/api/notes` **即时生成**（写 KV、跨设备）；② 每日全量重生成：管线先读 `/api/watchlist` 的 codes，用当天行情 + LLM 重写四段式并合并注入。前端按 `generatedAt` 取较新者；LLM 失败/占位时保留旧解读 |
 | 热度榜 | `hotStocks` | 富途源；无源时保留现有内容 |
 | **静态编辑层** | 02「发生了什么大事」、03 主题、05 日程、CNN 贪婪指数卡片 | **不自动更新**：没有新闻/情绪数据源，页面标签已明确标注为 `2026-11-06` 编辑部快照；需要时人工改 HTML |
 
 > 修复记录：此前 01 模块整块是写死的 11/6 文案，导致「顶部日期是新的、解读还停留在上周五，且一句话里的点位与卡片实时价互相矛盾」。现在 01 模块每天随行情重写；LLM 输出还会经过**数字一致性校验**（必须复现至少两个真实收盘点位），不合格即回退到只复述真实数字的机械文案，绝不编造新闻或数字。
 
 #### 新加自选股，解读什么时候出现？
-网页上点「加入自选」后，代码存进服务端 KV。工作流每天 06:30（北京时间）会先读 `/api/watchlist` 拿到**当前全部自选股**，逐只调用 OpenRouter 生成四段式解读并合并注入 `stockNotes`，再提交、部署、回读校验。所以：
 
-- **新加的股票**：次日 06:30 自动出现解读（此前会显示"次日自动生成"的占位说明）。
+**现在：加入的当场就生成（约 20~60 秒），不用等次日。**
+
+链路：
+
+1. 网页点「加入自选」→ `POST /api/watchlist` 保存代码 → 前端紧接着 `POST /api/notes`（带上本次完整 codes，避免两次写入的并发窗口）。
+2. `functions/api/notes.js` 先向 Yahoo 取该股**真实行情**（取不到直接拒绝，不浪费 LLM 额度），再用服务端密钥调用 OpenRouter 生成四段式解读；输出经过禁词清洗与占位检测，禁止编造财报/新闻/评级。
+3. 结果写入 `WATCHLIST_KV` 的 `usDashboard_notes_v1` key。任意设备打开页面时 `GET /api/notes` 会把它合并进 `stockNotes`，因此**跨设备可见**。
+4. 卡片显示「⏳ AI 解读生成中… → ✅ 已生成」；失败时列出具体原因并提供「↻ 重试生成解读」按钮，**原有解读不会被覆盖**。
+
+每条解读都带 `generatedAt`。前端按时间戳比较 `/api/notes` 的即时解读与 HTML 内嵌的每日解读，取较新者，所以次日 06:30 的每日全量刷新不会被当天早些时候的即时解读反向覆盖。
+
+同时保留每日兜底：工作流每天 06:30（北京时间）读 `/api/watchlist` 拿到**当前全部自选股**，逐只重生成解读并注入 `stockNotes`，再提交、部署、回读校验。因此：
+
+- **新加的股票**：当场生成；即使即时生成失败，次日 06:30 也会自动补齐。
 - **已有的股票**：解读每天重写一次，不再冻结在首次生成那天。
-- **想立刻刷新**：Actions → `Daily US Stock Dashboard Regenerate` → **Run workflow**，`stocks` **留空**即为全量重生成。
+- **想手动全量刷新**：Actions → `Daily US Stock Dashboard Regenerate` → **Run workflow**，`stocks` **留空**即为全量重生成。
 - `stocks` 输入框只用于**额外指定不在自选列表里的股票**（空格/逗号分隔，如 `META COIN`），运行后同样会生成并注入。
 - 前端 `buildStocks` 对默认股也优先使用 `stockNotes`，因此默认 6 只同样每天更新，不再显示 11/6 的手写快照。
 
-> 安全边界：`/api/watchlist` 是公开可写的，脚本对代码做格式校验并限制最多 20 只；LLM 未返回真实内容时**跳过该股、保留已有解读**，不会用占位文本覆盖。
+#### 让「即时生成」生效（只需配置一次）
+
+**Cloudflare Pages 的环境变量与 GitHub Actions 的 Secrets 是两套独立配置**，每日任务能生成不代表网页端也能生成：
+
+1. Cloudflare Dashboard → **Workers & Pages** → `us-stock-dashboard` → **Settings → Environment variables → Production → Add variables**，添加 `LLM_API_KEY`（类型选 Secret / Encrypt），值为 OpenRouter 的 `sk-or-v1-...`；保存后**重新部署一次**（变量在部署时注入）。
+   CLI 等价命令：`wrangler pages secret put LLM_API_KEY --project-name us-stock-dashboard`（交互式输入，不落盘）。
+2. 可选变量：`LLM_BASE_URL`（默认 `https://openrouter.ai/api/v1`）、`LLM_MODEL`（默认 `deepseek/deepseek-chat`）。
+3. 自检：`GET https://us-stock-dashboard-bxj.pages.dev/api/notes` 应返回 `{"ok":true,"notes":{...}}`；未配置密钥时 `POST /api/notes` 返回 `HTTP 503 / NO_KEY`，页面会明确提示，不会伪装成已生成。
+
+> 安全边界：`/api/watchlist` 与 `/api/notes` 是公开可写的，两侧都做代码格式白名单校验；`/api/notes` 另有限流：同一只股票 30 分钟冷却、全局 60 次/天、代码必须在服务端自选列表或本次请求携带的 `codes` 中、必须能取到有效行情。LLM 密钥只存在服务端环境变量，前端永远拿不到；LLM 未返回真实内容时**跳过该股、保留已有解读**，不会用占位文本覆盖。
 > 本地等价操作：`WATCHLIST_CODES="AAPL TSLA NVDA MSFT AMZN AMD GOOGL INTC" node scripts/regenerate.mjs --write-html`，再把 `us-stock-dashboard.html` 复制为 `index.html` 后部署。也可不设该变量，让脚本自己拉线上列表（`WATCHLIST_API_URL` 可改地址）。
 
 ## 安全说明

@@ -569,6 +569,19 @@ a { color:var(--accent); text-decoration:none; }
   font-family:var(--sans);
 }
 .btn-remove:hover { color:var(--down); border-color:var(--down); background:rgba(0,135,76,0.04); }
+.btn-note {
+  background:transparent;
+  color:var(--accent);
+  border:1px dashed var(--accent);
+  padding:5px 12px;
+  font-size:12px;
+  cursor:pointer;
+  border-radius:6px;
+  font-family:var(--sans);
+}
+.btn-note:hover { background:rgba(139,29,61,0.06); }
+.btn-note:disabled { opacity:.55; cursor:progress; }
+.note-state { font-size:12px; font-weight:600; margin-right:10px; }
 .empty-tip { font-size:13px; color:var(--ink-sec); margin-bottom:14px; }
 .watchlist-status {
   font-size:13px;
@@ -1402,11 +1415,12 @@ function posText(p) {
 }
 
 /* ==================== WATCHLIST ==================== */
-/* stockNotes：用户新增自选股的深度解读（最新动态/基本面/估值点评/综合评估）。
-   由"美股看板每日重生成"任务在每天 06:30 读取 .workbuddy/watchlist.json
-   后为新增自选股生成并写回此处，格式：'代码': { name, latest, fundamental, peNote, verdict }。
-   页面刚添加、还没来得及生成正式解读时，服务端/边缘函数会返回 note（简版速览），
-   mergeExtras 只在正式解读缺失时填充，次日晨间正式版自动替换。 */
+/* stockNotes：个股深度解读（最新动态/基本面/估值点评/综合评估）。
+   两个来源，按 generatedAt 时间戳取较新者：
+   1) 每日管线（北京时间 06:30）读取线上自选股 codes，全量重生成后注入此处；
+   2) 网页加入自选股时调用 /api/notes 即时生成，写入服务端 KV，页面加载时由
+      loadRemoteNotes 合并进来（跨设备共享）。
+   格式：'代码': { name, latest, fundamental, peNote, verdict, generatedAt? }。 */
 const stockNotes = {
   "AMD": {
     "name": "AMD",
@@ -1470,6 +1484,80 @@ const stockNotes = {
 
 
 
+
+/* ==================== 即时 AI 解读（/api/notes） ====================
+   加入自选股后立刻由边缘函数调 LLM 生成四段式解读，结果写入服务端 KV，所有设备
+   下次打开页面都能拿到；每日管线重生成的解读带 generatedAt 时间戳，按时间戳比较
+   新旧，确保「每日全量刷新」不会被更早的即时解读反向覆盖。 */
+const noteBusy = new Set();
+function noteTs(n) {
+  const t = n && n.generatedAt ? Date.parse(n.generatedAt) : 0;
+  return Number.isFinite(t) ? t : 0;
+}
+function applyRemoteNotes(notes) {
+  if (!notes || typeof notes !== 'object') return false;
+  let changed = false;
+  for (const code of Object.keys(notes)) {
+    const n = notes[code];
+    if (!n || !n.latest || !n.verdict) continue;
+    const cur = stockNotes[code];
+    if (cur && noteTs(cur) >= noteTs(n)) continue;  // 内嵌的每日解读更新，不用旧内容覆盖
+    stockNotes[code] = n;  // const 对象可写属性，不破坏注入脚本的块定位
+    changed = true;
+  }
+  if (!changed) return false;
+  for (const s of currentStocks) {
+    const n = stockNotes[s.code];
+    if (!n) continue;
+    s.latest = n.latest;
+    s.fundamental = n.fundamental || null;
+    s.peNote = n.peNote || null;
+    s.verdict = n.verdict || null;
+    if (s.name === s.code && n.name) s.name = n.name;
+  }
+  return true;
+}
+async function loadRemoteNotes() {
+  try {
+    const r = await withTimeout(fetch('/api/notes', { cache: 'no-store' }), 12000);
+    const d = await r.json();
+    if (d && d.ok && d.notes && applyRemoteNotes(d.notes)) renderWatchlist();
+  } catch (e) { /* 边缘函数不可用：内嵌的每日解读照常显示 */ }
+}
+async function generateNoteFor(code, force) {
+  if (noteBusy.has(code)) return;
+  const stock = currentStocks.find(s => s.code === code);
+  if (!stock) return;
+  noteBusy.add(code);
+  stock.noteState = 'generating';
+  renderWatchlist();
+  showStatus(`⏳ 正在为 ${code} 生成 AI 深度解读（约 20~60 秒），完成后会自动更新卡片并同步到所有设备…`);
+  try {
+    const resp = await withTimeout(fetch('/api/notes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        code,
+        force: !!force,
+        codes: currentStocks.map(s => s.code)  // 覆盖 watchlist 的 POST 尚未落库的并发窗口
+      })
+    }), 100000);
+    const d = await resp.json().catch(() => null);
+    if (!resp.ok || !d || !d.ok || !d.note) {
+      throw new Error((d && d.error) || ('HTTP ' + resp.status));
+    }
+    applyRemoteNotes({ [code]: d.note });
+    stock.noteState = 'done';
+    renderWatchlist();
+    showStatus(`✅ ${code} 的 AI 深度解读已生成${d.cached ? '（使用 30 分钟内缓存）' : ''}${d.persisted === false ? '；注意服务端 KV 不可用，本次仅本机可见' : '，已同步到所有设备'}。每日 06:30 仍会随行情再刷新一次。`);
+  } catch (e) {
+    stock.noteState = 'failed';
+    renderWatchlist();
+    showStatus(`⚠ ${code} 解读生成失败：${e.message}。原有内容未被覆盖；次日 06:30 每日任务会自动补齐，也可点卡片里的「重试生成」。`, true);
+  } finally {
+    noteBusy.delete(code);
+  }
+}
 
 /* extraBase：服务端自动生成的新增自选股基线（价格 + 技术面/资金面/估值动态）。
    由 refresh_baseline.py 每次运行时刷新写回，保证新增自选股首屏即有数据，
@@ -1674,12 +1762,23 @@ function renderStockCard(stock, idx) {
     return card;
   }
 
+  const noNoteHint = stock.noteState === 'generating'
+    ? `⏳ 正在为 ${stock.code} 调用 AI 生成深度解读（约 20~60 秒），完成后本卡片自动刷新…`
+    : (stock.noteState === 'failed'
+      ? '⚠ 刚才的即时生成未成功，原有解读保持不变；可点下方「重试生成解读」，或等次日 06:30 每日任务补齐。'
+      : '该股还没有 AI 深度解读：点下方「⚡ 立即生成解读」可当场生成，或等次日 06:30 每日任务自动补齐。');
   const latestLine = stock.latest
     ? stock.latest
-    : (chg != null ? `最近一个交易日 ${sign}${chg.toFixed(2)}%，${chg >= 0 ? '走势偏强' : '走势偏弱'}；深度解读将于次日 06:30（北京时间）自动生成并上线，可先点下方富途链接看最新消息。` : '实时行情暂未取到，正在自动重试；也可点击富途牛牛链接直接查看。');
-  const fundLine = stock.fundamental
-    ? stock.fundamental
-    : '该股解读尚未生成：加入自选后，次日 06:30（北京时间）会随每日管线自动生成并上线；也可在 GitHub Actions 手动触发立即生成。最新财报与研报可点击下方链接查看。';
+    : (chg != null && stock.noteState !== 'generating'
+      ? `最近一个交易日 ${sign}${chg.toFixed(2)}%，${chg >= 0 ? '走势偏强' : '走势偏弱'}；${noNoteHint}`
+      : noNoteHint);
+  const fundLine = stock.fundamental ? stock.fundamental : noNoteHint;
+  const noteBadge = stock.noteState === 'generating'
+    ? '<span class="note-state" style="color:var(--accent);">⏳ AI 解读生成中…</span>'
+    : (stock.noteState === 'failed' ? '<span class="note-state" style="color:var(--down);">⚠ 解读生成失败</span>' : '');
+  const noteBtn = !stockNotes[stock.code]
+    ? `<button class="btn-note" data-gen-note="${esc(stock.code)}"${stock.noteState === 'generating' ? ' disabled' : ''}>${stock.noteState === 'generating' ? '生成中…' : (stock.noteState === 'failed' ? '↻ 重试生成解读' : '⚡ 立即生成解读')}</button>`
+    : '';
   const valLine = (stock.peNote ? stock.peNote + ' ' : '') + (dynPos != null ? posText(dynPos) : '估值位置数据加载中，稍后自动刷新。');
 
   const card = document.createElement('div');
@@ -1714,6 +1813,8 @@ function renderStockCard(stock, idx) {
       <div class="stock-summary"><strong>⚡ 综合评估：</strong>${buildVerdict(stock, chg, dynPos)}</div>
       <div class="stock-links">
         ${badge}
+        ${noteBadge}
+        ${noteBtn}
         <a href="https://www.futunn.com/stock/${esc(stock.code)}-US" target="_blank" rel="noopener">富途牛牛 · ${esc(stock.code)} 个股页</a>
         <a href="https://www.investing.com/equities/${esc(stock.code.toLowerCase())}" target="_blank" rel="noopener">Investing.com · 行情与估值</a>
       </div>
@@ -1725,7 +1826,10 @@ function renderStockCard(stock, idx) {
 function buildVerdict(stock, chg, pos) {
   /* 优先级：stockNotes 正式深度解读 > 服务端返回的简版速览(verdict) > 通用模板 */
   const note = stockNotes[stock.code];
-  if (note && note.verdict) return note.verdict + '（点评基于 ' + EDITORIAL_DATE + ' 收盘信息，价格数据实时自动更新）';
+  if (note && note.verdict) {
+    const tag = note.generatedAt ? String(note.generatedAt).slice(0, 10) : EDITORIAL_DATE;
+    return note.verdict + '（点评基于 ' + tag + ' 收盘信息，价格数据实时自动更新）';
+  }
   if (stock.verdict) return stock.verdict + '（点评基于 ' + EDITORIAL_DATE + ' 收盘信息，价格数据实时自动更新）';
   const parts = [];
   /* 注意：默认自选的评估写在上方 defaultStocks 各自的 verdict 字段里，随编辑层每日重写；
@@ -1790,6 +1894,9 @@ async function addStock() {
   }
   renderWatchlist();
   saveWatchlist();
+  /* 加入即生成：不再等次日 06:30。即使当前浏览器取不到 Yahoo 实时价，
+     边缘函数也会用服务端行情 + LLM 生成解读（请求里带上 codes 覆盖并发落库窗口）。 */
+  if (!stock.invalid) generateNoteFor(code, false);
 }
 
 function removeStockByCode(code) {
@@ -2024,6 +2131,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderWatchlist();
   renderHotList();
 
+  // 拉取在服务端即时生成过的解读（存在 KV），与 HTML 内嵌的每日解读按时间戳合并
+  loadRemoteNotes();
+
   // 打开页面即从服务端拉最新自选（跨设备同步）：服务端保存的代码列表是跨设备的唯一真相源。
   // 若本机 localStorage 与服务端不一致（在别处增删过自选），以服务端为准重建并同步回本地。
   withTimeout(fetch('/api/watchlist').then(r => r.ok ? r.json() : null), 10000)
@@ -2068,6 +2178,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 删除按钮：事件委托
   const wlContainer = document.getElementById('watchlist-container');
   if (wlContainer) wlContainer.addEventListener('click', e => {
+    const genBtn = e.target.closest('[data-gen-note]');
+    if (genBtn) { generateNoteFor(genBtn.dataset.genNote, true); return; }
     const btn = e.target.closest('[data-remove-idx]');
     if (!btn) return;
     const code = btn.closest('.stock-card')?.dataset.code;

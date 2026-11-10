@@ -373,6 +373,9 @@ async function main() {
     // 配合前端 buildStocks 的"stockNotes 优先"逻辑，可为任意股票（含默认股）重生成长文。
     const targets = [...new Set([...(autoTargets || []), ...symbols])];
     const stockNotesObj = {};
+    // 时间戳用于和「加入自选时由 /api/notes 即时生成并写入 KV」的解读比较新旧：
+    // 前端按 generatedAt 取较新者，保证每日全量刷新能覆盖当天早些时候的即时解读。
+    const generatedAt = new Date().toISOString();
     let skipped = 0;
     for (const s of targets) {
       if (isPlaceholderNote(editorial[s])) {
@@ -380,7 +383,7 @@ async function main() {
         console.warn(`[html] ${s} 本次未拿到真实 LLM 解读，保留已有内容（不覆盖）。`);
         continue;
       }
-      stockNotesObj[s] = editorial[s];
+      stockNotesObj[s] = { ...editorial[s], generatedAt };
     }
     console.log(`[html] 本次待写入解读 ${Object.keys(stockNotesObj).length} 只：${Object.keys(stockNotesObj).join(', ') || '(无)'}${skipped ? `；跳过占位/失败 ${skipped} 只` : ''}`);
     // 空热度榜/空自选不注入，避免误清空；defaultStocks 基线始终按需刷新
