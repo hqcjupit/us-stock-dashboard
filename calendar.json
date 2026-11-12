@@ -1,35 +1,5 @@
 [
   {
-    "kind": "earnings",
-    "title": "CSCO Cisco Systems, Inc. 财报",
-    "ts": 1794484800000,
-    "timeNote": "盘后",
-    "forecast": "每股预期 $1.15",
-    "previous": "去年同期 $0.81",
-    "source": "Nasdaq 财报日历",
-    "url": "https://www.nasdaq.com/market-activity/stocks/csco",
-    "zh": "思科(CSCO)财报",
-    "why": "思科财报反映企业网络设备及服务业务表现，公布后可核对营收、利润及细分业务数据，与市场预期对比。",
-    "dateLabel": "11/12",
-    "weekday": "周四",
-    "timeLabel": "盘后"
-  },
-  {
-    "kind": "macro",
-    "title": "Unemployment Claims",
-    "impact": "Medium",
-    "ts": 1794490200000,
-    "forecast": "194K",
-    "previous": "189K",
-    "source": "ForexFactory 经济日历",
-    "url": "https://www.forexfactory.com/calendar/11-us-unemployment-claims",
-    "zh": "美国初请失业金人数",
-    "why": "初请失业金人数反映美国劳动力市场状况，公布后可核对劳工部发布的就业报告，了解失业趋势和就业市场变化。",
-    "dateLabel": "11/12",
-    "weekday": "周四",
-    "timeLabel": "21:30"
-  },
-  {
     "kind": "macro",
     "title": "PPI m/m",
     "impact": "High",
@@ -39,7 +9,7 @@
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/86-us-ppi-mm",
     "zh": "PPI月率",
-    "why": "生产者价格指数（PPI）月率反映企业生产成本变化，公布后可对比工业品出厂价格走势及原材料价格波动情况。",
+    "why": "PPI（生产者价格指数）反映生产环节的价格变动，是衡量通胀的重要指标。公布后可核对工业品价格变化趋势，了解生产成本对经济的影响。",
     "dateLabel": "11/13",
     "weekday": "周五",
     "timeLabel": "21:30"
@@ -54,9 +24,24 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
     "zh": "英伟达(NVDA)财报",
-    "why": "英伟达财报反映其GPU与AI芯片业务表现，公布后可核对季度营收、利润与数据中心等业务增长情况。",
+    "why": "英伟达是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。公布后可核对营收、利润等关键财务数据与市场预期的差异。",
     "dateLabel": "11/17",
     "weekday": "周二",
+    "timeLabel": "盘后"
+  },
+  {
+    "kind": "earnings",
+    "title": "PANW Palo Alto Networks, Inc. 财报",
+    "ts": 1795003200000,
+    "timeNote": "盘后",
+    "forecast": "每股预期 $0.52",
+    "previous": "去年同期 $0.53",
+    "source": "Nasdaq 财报日历",
+    "url": "https://www.nasdaq.com/market-activity/stocks/panw",
+    "zh": "PANW Palo Alto Networks 财报",
+    "why": "Palo Alto Networks 财报反映公司在网络安全领域的最新业绩表现。公布后可核对公司收入、利润等财务数据，以及市场对其未来发展的预期。",
+    "dateLabel": "11/18",
+    "weekday": "周三",
     "timeLabel": "盘后"
   }
 ]
