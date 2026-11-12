@@ -230,7 +230,7 @@ export function placeholderMarketPulse(snap) {
   return {
     oneline: [
       `${snap.date || '最新交易日'} 收盘：${parts.join('，')}。`,
-      '以上为每日自动刷新的收盘行情快照；深度解读需配置 LLM 后自动生成。',
+      '以上为每日自动刷新的收盘行情快照；本次解读生成未成功，下次每日任务会自动重试。',
     ],
     indexNotes: Object.fromEntries(Object.entries(names).map(([k, n]) => [
       k,

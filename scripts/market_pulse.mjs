@@ -101,6 +101,7 @@ export async function buildMarketPulse(baselines) {
     return null;
   }
   let p = await generateMarketPulse(snap);
+  if (!p) p = await generateMarketPulse(snap); // 网关偶发 fetch failed：重试一次，避免回落到机械文案
   if (!pulseLooksValid(p, snap)) {
     if (p) console.warn('[pulse] LLM 输出未复现真实点位，回退到机械文案');
     else console.log('[pulse] LLM 不可用，使用含真实数字的机械文案');
