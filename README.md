@@ -43,12 +43,12 @@ futu_hot.json            # 富途热度榜原始数据（本地 futu_hot.mjs 生
 4. 部署后访问站点即可。前端会优先调用 `/api/quote`，无后端时自动回退第三方代理链。
 
 ## 数据架构
-- **编辑层**：六大模块的中文长文解读（冻结在示例交易日，需每日重生成）。
+- **编辑层**：01 / 02 / 03 / 05 / 06 全部模块的中文解读都由每日管线基于当日真实数据重写（`market_pulse.mjs` / `events.mjs` / `market_extra.mjs`），不再有冻结在示例交易日的静态快照；页脚只剩固定文案性质的数据来源说明。
 - **基线层**：`defaultStocks`/`hotStocks`/`extraBase` 内嵌的价格与动态基线，每天刷新一次。
 - **实时层**：打开页面经 `/api/quote` 拉 Yahoo，每 5 分钟自动刷新，失败则停在基线值。
 - **个股解读层**：`stockNotes` —— 加入自选股时由 `/api/notes` 即时生成（存 KV、跨设备）+ 每日 06:30 全量重生成，前端按 `generatedAt` 取较新者。
 
-## 每日自动化（可选，完整管线）
+## 每日自动化（全站更新的主链路）
 `scripts/regenerate.mjs` 一次跑完三层数据刷新，且**无凭证即可跑**（缺失时自动降级，不中断）：
 
 1. **基线层**：Yahoo 计算每只标的 `baseQuote` + `baseDyn` → `baselines.json`
@@ -196,7 +196,7 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 - **已有的股票**：解读每天重写一次，不再冻结在首次生成那天。
 - **想手动全量刷新**：Actions → `Daily US Stock Dashboard Regenerate` → **Run workflow**，`stocks` **留空**即为全量重生成。
 - `stocks` 输入框只用于**额外指定不在自选列表里的股票**（空格/逗号分隔，如 `META COIN`），运行后同样会生成并注入。
-- 前端 `buildStocks` 对默认股也优先使用 `stockNotes`，因此默认 6 只同样每天更新，不再显示 11/6 的手写快照。
+- 前端 `buildStocks` 对默认股优先使用 `stockNotes`；每日管线还会把 `defaultStocks` 内嵌的 `latest/fundamental/peNote/verdict` 一起同步覆盖（`injectDefaultEditorial`），因此即便走到兜底分支也不会再显示旧的手写快照。
 
 #### 让「即时生成」生效（只需配置一次）
 

@@ -26,7 +26,8 @@ jobs:
 
       # —— 预取线上自选股列表（服务端 KV 是唯一真相源）——
       # 若不读它，用户在网页上新加的股票永远等不到解读，已有解读也会一直冻结。
-      # curl 带重试；失败时 regenerate.mjs 会自行再拉一次，仍失败则保留现有解读、安全降级。
+      # curl 带重试；失败时 regenerate.mjs 会自行再拉 3 次，仍失败则退回页面已有 stockNotes
+      # 的代码列表继续全量刷新，保证个股解读不会因网络抖动冻结在前一天。
       - name: Resolve current watchlist
         run: |
           CODES=$(curl -fsS --retry 3 --retry-delay 5 --max-time 20 \
@@ -44,7 +45,9 @@ jobs:
       # （即 OpenRouter 的 sk-or-v1-... 密钥）；如需换模型/网关，再设 LLM_BASE_URL / LLM_MODEL。
       # 每次运行都会为 WATCHLIST_CODES 中的全部股票重生成解读并合并注入 stockNotes；
       # workflow_dispatch 的 stocks 输入用于额外指定不在自选列表里的股票（方案A）。
-      - name: Regenerate baselines + hot list + editorial
+      # 一次跑完：基线 / 个股长文 / 01 指数解读与情绪分 / 02 新闻 / 03 主题与热搜榜 /
+      # 05 日程 / 06 宏观仪表盘，并注入 us-stock-dashboard.html。
+      - name: Regenerate all daily modules
         env:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           LLM_BASE_URL: ${{ secrets.LLM_BASE_URL || 'https://openrouter.ai/api/v1' }}
