@@ -59,22 +59,27 @@ async function fetchLiveOnce() {
   return await r.text();
 }
 
-function eventsDate(html) {
-  const m = /const EVENTS_DATE = '([^']*)'/.exec(html);
+function constDate(html, name) {
+  const m = new RegExp(`const ${name} = '([^']*)'`).exec(html);
   return m ? m[1] : '';
 }
+const eventsDate = (html) => constDate(html, 'EVENTS_DATE');
+const extraDate = (html) => constDate(html, 'EXTRA_DATE');
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const src = readFileSync(srcPath, 'utf8');
 const want = stockNoteKeys(src);
 const wantDate = eventsDate(src);
-console.log(`[verify] 源文件 ${srcPath}：stockNotes = ${want.join(', ') || '(空)'}；02/05 更新时间 = ${wantDate || '(无)'}`);
+const wantExtra = extraDate(src);
+console.log(`[verify] 源文件 ${srcPath}：stockNotes = ${want.join(', ') || '(空)'}；02/05 = ${wantDate || '(无)'}；01/03/06 = ${wantExtra || '(无)'}`);
 
 let got = [];
 let gotDate = '';
+let gotExtra = '';
 let missing = want;
 let dateMismatch = false;
+let extraMismatch = false;
 for (let i = 1; i <= attempts; i++) {
   let live = '';
   try {
@@ -82,20 +87,25 @@ for (let i = 1; i <= attempts; i++) {
   } catch (err) {
     console.log(`[verify] 第 ${i}/${attempts} 次拉取失败：${err.message}`);
   }
-  if (live) { got = stockNoteKeys(live); gotDate = eventsDate(live); }
-  console.log(`[verify] 第 ${i}/${attempts} 次回读 ${livePath || url}：stockNotes = ${got.join(', ') || '(空)'}；02/05 更新时间 = ${gotDate || '(无)'}`);
+  if (live) { got = stockNoteKeys(live); gotDate = eventsDate(live); gotExtra = extraDate(live); }
+  console.log(`[verify] 第 ${i}/${attempts} 次回读 ${livePath || url}：stockNotes = ${got.join(', ') || '(空)'}；02/05 = ${gotDate || '(无)'}；01/03/06 = ${gotExtra || '(无)'}`);
   missing = want.filter((k) => !got.includes(k));
   dateMismatch = !!wantDate && gotDate !== wantDate;
-  if (!missing.length && !dateMismatch) {
-    console.log(`[verify] 线上已包含本次全部长文与 02/05 更新时间（第 ${i} 次回读确认）`);
+  extraMismatch = !!wantExtra && gotExtra !== wantExtra;
+  if (!missing.length && !dateMismatch && !extraMismatch) {
+    console.log(`[verify] 线上已包含本次全部长文与全部更新时间（第 ${i} 次回读确认）`);
     process.exit(0);
   }
   if (i < attempts) {
-    const why = [missing.length ? '尚缺 ' + missing.join(', ') : '', dateMismatch ? `02/05 时间不一致（本地 ${wantDate} / 线上 ${gotDate}）` : ''].filter(Boolean).join('；');
+    const why = [
+      missing.length ? '尚缺 ' + missing.join(', ') : '',
+      dateMismatch ? `02/05 时间不一致（本地 ${wantDate} / 线上 ${gotDate}）` : '',
+      extraMismatch ? `01/03/06 时间不一致（本地 ${wantExtra} / 线上 ${gotExtra}）` : '',
+    ].filter(Boolean).join('；');
     console.log(`[verify] ${why}，${waitMs / 1000}s 后重试（部署可能仍在边缘传播）…`);
     await sleep(waitMs);
   }
 }
 
-console.error(`::error::线上校验未通过：${missing.length ? '缺少 ' + missing.join(', ') : ''}${dateMismatch ? '；02/05 更新时间不一致' : ''} —— 部署未生效或 CDN 缓存未刷新`);
+console.error(`::error::线上校验未通过：${missing.length ? '缺少 ' + missing.join(', ') : ''}${dateMismatch ? '；02/05 更新时间不一致' : ''}${extraMismatch ? '；01/03/06 更新时间不一致' : ''} —— 部署未生效或 CDN 缓存未刷新`);
 process.exit(1);

@@ -834,7 +834,7 @@ a { color:var(--accent); text-decoration:none; }
   <div class="module-body">
     <div class="highlight-card">
       <div class="label">一句话</div>
-      <p id="pulse-oneline">2026-11-11，美股三大指数集体收涨：标普500报7,619.38点（+1.31%），纳斯达克报25,466.19点（+1.60%），道琼斯报52,486.49点（+0.49%）。<br>纳指领涨三大指数，涨幅超标普0.29个百分点，科技成长风格相对占优；道指涨幅不足0.5%，价值股表现滞后。<br>三大指数同步上行但分化明显，纳指/标普涨幅差值扩大至0.29个百分点，显示资金风险偏好温和提升。<br>VIX虽收涨4.86%仍低于20关口，市场对短期波动预期保持中性。</p>
+      <p id="pulse-oneline">2026年11月11日，美股三大指数集体收涨。标普500涨1.31%至7,619.38点，纳斯达克涨1.60%至25,466.19点，道琼斯涨0.49%至52,486.49点。<br>纳指涨幅领先标普与道指，成长风格相对占优。标普与道指涨幅相对温和，市场呈现结构性分化。<br>VIX恐慌指数上涨8.75%至19.02，仍低于20分界，市场风险偏好有所收敛但仍处中性区间。<br>三大指数同步上行但涨幅差异明显，资金对成长风格偏好更高，市场情绪整体偏积极但略显谨慎。</p>
     </div>
 
     <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">三大指数</h4>
@@ -843,19 +843,19 @@ a { color:var(--accent); text-decoration:none; }
         <div class="name">标普500 <span class="small muted">S&amp;P 500</span></div>
         <div class="value" id="sp500-value">7,376.86</div>
         <div class="change up" id="sp500-change">+0.31%</div>
-        <div class="note" id="sp500-note">标普500单日涨幅1.31%，跑赢道指但落后纳指，显示大盘股内部结构分化。</div>
+        <div class="note" id="sp500-note">标普500涨1.31%至7,619.38点，涨幅适中，表现介于纳指与道指之间。</div>
       </div>
       <div class="index-card">
         <div class="name">纳斯达克 <span class="small muted">NASDAQ</span></div>
         <div class="value" id="nasdaq-value">24,579.42</div>
         <div class="change up" id="nasdaq-change">+1.09%</div>
-        <div class="note" id="nasdaq-note">纳斯达克大涨1.60%领跑主要指数，科技股动能强劲支撑整体表现。</div>
+        <div class="note" id="nasdaq-note">纳斯达克涨1.60%至25,466.19点，领涨三大指数，成长风格相对占优。</div>
       </div>
       <div class="index-card">
         <div class="name">道琼斯 <span class="small muted">Dow Jones</span></div>
         <div class="value" id="dow-value">51,285.73</div>
         <div class="change down" id="dow-change">-0.46%</div>
-        <div class="note" id="dow-note">道指仅涨0.49%表现垫底，工业与金融等传统板块相对承压。</div>
+        <div class="note" id="dow-note">道琼斯涨0.49%至52,486.49点，涨幅最小，价值风格相对落后。</div>
       </div>
     </div>
 
@@ -868,21 +868,21 @@ a { color:var(--accent); text-decoration:none; }
         </div>
         <div class="gauge"><div class="gauge-pointer" id="vix-pointer" style="left:78%"></div></div>
         <div class="gauge-labels"><span>恐慌</span><span>中性</span><span>麻木</span></div>
-        <div class="explain" id="vix-explain">VIX指数升至18.34（+4.86%）但仍处20以下中性区间，反映投资者未显著押注短期市场波动加剧。</div>
+        <div class="explain" id="vix-explain">VIX恐慌指数上涨8.75%至19.02，仍低于20分界，显示市场风险偏好有所收敛但仍处中性区间。</div>
       </div>
       <div class="sentiment-card">
         <div class="top">
-          <span class="label">CNN 贪婪指数 <span class="muted small">（0=恐惧，100=贪婪）</span></span>
-          <span class="value down" id="fg-value">22</span>
+          <span class="label">市场情绪综合分 <span class="muted small">（0=恐惧，100=贪婪；本看板计算）</span></span>
+          <span class="value down" id="fg-value">54</span>
         </div>
-        <div class="gauge"><div class="gauge-pointer" id="fg-pointer" style="left:22%"></div></div>
+        <div class="gauge"><div class="gauge-pointer" id="fg-pointer" style="left:54%"></div></div>
         <div class="gauge-labels"><span>恐惧</span><span>中性</span><span>贪婪</span></div>
-        <div class="explain" id="fg-explain">CNN 贪婪指数无免费自动数据源，此卡片数值为 2026-11-06 编辑部静态快照，不随每日行情更新；实时情绪请参考左侧 VIX。</div>
+        <div class="explain" id="fg-explain">市场情绪综合分 54（中性），由 6 项公开行情分项等权计算，更新于 2026-11-12 21:47（北京时间）。分项得分：指数动能 52、板块宽度 91、波动率 65、避险需求 33、信用需求 43、指数动量 42。口径：SPY 较 125 日均线 +0.37%；11 个行业 ETF 中 10 个上涨；VIX 18.96；SPY 与 IEF 近 20 日相对收益 -2.64%；HYG 与 IEF 近 20 日相对收益 -0.67%；标普500 近 20 日 -1.29%。本分数由本看板基于 Yahoo Finance 行情自行计算，非 CNN 官方 Fear &amp; Greed 指数（其公开接口已下线）。</div>
       </div>
     </div>
 
     <div class="sentiment-summary">
-      <strong>情绪总结：</strong><span id="sentiment-summary-text">市场情绪谨慎乐观，纳指领涨显示成长股受青睐，但道指疲弱拖累整体强度；VIX温和反弹未改中性波动预期，三大指数分化暗示板块轮动持续。</span>
+      <strong>情绪总结：</strong><span id="sentiment-summary-text">市场情绪整体偏积极但略显谨慎，三大指数同步上行但涨幅差异明显，纳指领涨显示成长风格更受青睐，VIX上涨表明风险偏好有所收敛但仍处中性区间。</span>
     </div>
   </div>
 </div>
@@ -898,26 +898,26 @@ a { color:var(--accent); text-decoration:none; }
   </div>
   <div class="module-body" id="m2-body">
     <!-- BEGIN:DYNAMIC_EVENTS -->
-    <div class="module-update">自动更新于 2026-11-12 21:13（北京时间）· 新闻取自 Google News / CNBC / WSJ 公开 RSS，点击原文链接可核对</div>
+    <div class="module-update">自动更新于 2026-11-12 21:46（北京时间）· 新闻取自 Google News / CNBC / WSJ 公开 RSS，点击原文链接可核对</div>
 
     <div class="event-card">
-      <div class="event-title">1. 道指期货微涨近52550点 强劲财报抵消鹰派加息预期</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>报道称道指期货小幅上涨至52550点附近，企业强劲的财报表现部分抵消了市场对美联储激进加息的担忧。<span class="dim">（来源：FXLeaders · 11/12 16:42）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>企业财报与货币政策预期是影响股指期货的两大关键因素，投资者可关注后续公布的经济数据及美联储官员表态是否印证当前市场预期。</div>
+      <div class="event-title">1. 道指期货微涨近52,550，强劲财报抵消鹰派美联储加息预期</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>道指期货小幅上涨，接近52,550点。报道称，强劲的企业财报表现部分抵消了市场对美联储鹰派加息政策的担忧。<span class="dim">（来源：FXLeaders · 11/12 16:42）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>投资者关注美联储利率政策和企业盈利状况，这两者对股市走势有重要影响。未来可关注美联储会议纪要和更多企业财报，以评估市场趋势。</div>
       <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQeXFWZTQ2SlJEMFl0X3E2LVMwVjZ6OGxERkllYVU1S0RZN1hXZ2tNaHVLUFhUQmdFZmhRSk54ajI0ajQxLTVZSVRSZ0I1Sy1UemNwVUI0QjBPZ0JVWkZ2cFdyUnZBQ2Z3cFlqQ0tTck9YNXVwSE81ZV9TTmhRNGVlY0F5M1hyTUZ5UFhlVGdqWUpGSjhSbVZMRjRxcmRfbEhwRURUTXpjbWw2YWstUHowVUVONHQxUTQ3cTlsQ2U5akoxRWM?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Dow Futures Edge Higher Near 52,550 as Strong Earnings Offset Hawkish Fed Rate Bets</div>
     </div>
 
     <div class="event-card">
       <div class="event-title">2. 通胀数据与英伟达下跌后美股期货微升</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>雅虎财经报道，在最新通胀数据公布和英伟达股价下跌后，道指、标普500和纳斯达克指数期货小幅上涨。报道提及CRWV、TTWO、NLST和NBIS等股票受到关注，但未提供具体涨跌幅数据。<span class="dim">（来源：Yahoo Finance · 11/11 11:51）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>通胀数据直接影响美联储政策预期，进而影响市场流动性。英伟达作为科技股龙头，其走势对板块有指示作用。后续可关注美国劳工部CPI终值及英伟达财报细节。</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>报道称，在公布高于预期的通胀数据和英伟达股价下跌后，道指、标普500和纳斯达克指数期货小幅上涨。<span class="dim">（来源：Yahoo Finance · 11/11 11:51）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>通胀数据影响美联储政策预期，科技股波动反映市场情绪。后续可关注美联储会议纪要和英伟达财报细节。</div>
       <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxONlFSZXhHRzE0blVJRUpMNzJBTHR3SU1RM0ZJQlZGMzh3bm82Y3pIRFBadTBEN0RKVjBZODhVYl9hNldvYmxRWjZPNW5KSzI1TTZvRGxrMEJzUFU2M2FWVWM2MmdWcUh0dW90OFpCbkstNWhTVnk1RU0xb3ByajM4NThwd1VYSEF3ZHVIWk5YY213b2c?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Dow, S&amp;P 500, Nasdaq Futures Edge Higher After Red-Hot Inflation Data And Nvidia Losses: CRWV, TTWO, NLST, NBIS In Focus</div>
     </div>
 
     <div class="event-card">
-      <div class="event-title">3. 科技股上涨提振股市 债券因美联储预期下跌</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>报道指出科技股上涨推动股市整体走高，同时债券市场因投资者对美联储政策的预期而下跌。<span class="dim">（来源：Bloomberg.com · 11/11 06:32）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>科技板块走势常被视为市场风向标，其波动可能影响大盘指数；债券收益率变动反映市场对利率政策的预期，投资者可关注后续美联储公开会议纪要和通胀数据。</div>
+      <div class="event-title">3. 科技股上涨提振股市，债券因美联储预期下跌</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>根据彭博社报道，科技股的上涨推动了股市的整体表现，而债券市场则因市场对美联储政策的预期而下跌。报道未提供更多细节。<span class="dim">（来源：Bloomberg.com · 11/11 06:32）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>科技股的表现通常影响市场情绪和资金配置，债券市场的波动则反映了投资者对利率政策的预期。关注美联储的政策声明和经济数据，可以帮助投资者理解市场动态。</div>
       <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxQNFpBLVFiSmhuZGxNdjZ4WUE1eEZZVzlpcElqQ3FpX2hfRVVkaVdncm5Ic3J4TFdMVTVPODFqV1dYWTJORmx5c3lTMHg1ZUtiZml2ZUVOZm1WQnlCa2lKcUt3M0tjQUsyVVNxQlVySk5TbHRqZHczYVFDTnU0OGZjMjBBWUFqZ2JpNFNhb05nX01EU3dX?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Tech Gains Boost Stocks as Bonds Slide on Fed Bets: Markets Wrap</div>
     </div>
     <!-- END:DYNAMIC_EVENTS -->
@@ -935,48 +935,52 @@ a { color:var(--accent); text-decoration:none; }
     </div>
   </div>
   <div class="module-body">
-    <div class="module-update">本模块「市场主题」暂无自动数据源，以下为 2026-11-06 编辑部快照，不随每日行情更新；02 事件与 05 日程已改为每日自动刷新。</div>
+    <!-- BEGIN:DYNAMIC_THEME -->
+    <div class="module-update">自动更新于 2026-11-12 21:47（北京时间）· 板块涨跌取自 11 只 SPDR 行业 ETF（Yahoo Finance），主线与点评基于当日真实数字生成</div>
 
     <div class="theme-box">
-      <strong>主线：技术性反弹。</strong><br>
-      十一大板块七涨四跌，科技 +1.45% 领涨、通信服务 +0.43% 随后；材料 -0.73% 靠后。资金只回补周四砸得最深的芯片，其他地方没动。热度榜五只与上一榜完全相同，因为反弹的主角就是暴跌的主角。这意味着：市场没找到新方向，只是把周四的极端定价修回一半，方向等 CPI 定。超跌反弹的机制不复杂：周四的抛售里有一大块是杠杆盘被强制平仓，价格被砸穿价值。强制卖盘消失后价格自然回弹一段，因为没人接的刀现在有人接了。
+      <strong>主线：普涨。</strong><br>
+      科技板块领涨，XLK +3.23%，能源和工业板块紧随其后，XLE +1.87%，XLI +1.33%。标普500指数上涨1.31%，市场整体表现积极。
     </div>
 
     <div class="sector-grid">
       <div class="sector-col">
         <h4>领涨板块</h4>
         <div class="sector-item gain">
-          <span class="s-name">科技 <span class="small muted">芯片超跌修复弹性最大，抢反弹的资金先抢弹性</span></span>
-          <span class="s-pct up">+1.45%</span>
+          <span class="s-name">科技 <span class="small muted">科技板块涨幅居前，XLK上涨3.23%。</span></span>
+          <span class="s-pct up">+3.23%</span>
         </div>
         <div class="sector-item gain">
-          <span class="s-name">通信服务 <span class="small muted">跟着 AI 叙事回血，弹性次之</span></span>
-          <span class="s-pct up">+0.43%</span>
+          <span class="s-name">能源 <span class="small muted">当日 +1.87%，在 11 个行业 ETF 中相对靠前。</span></span>
+          <span class="s-pct up">+1.87%</span>
         </div>
       </div>
       <div class="sector-col">
         <h4>领跌板块</h4>
         <div class="sector-item loss">
-          <span class="s-name">必需消费 <span class="small muted">防御盘回吐：周四买它躲跌的钱，周五撤了</span></span>
-          <span class="s-pct down">-1.28%</span>
+          <span class="s-name">可选消费 <span class="small muted">当日 -0.05%，在 11 个行业 ETF 中相对靠后。</span></span>
+          <span class="s-pct down">-0.05%</span>
         </div>
-        <div class="sector-item loss">
-          <span class="s-name">材料 <span class="small muted">工业金属需求还没接上反弹，铜也只微涨</span></span>
-          <span class="s-pct down">-0.73%</span>
+        <div class="sector-item gain">
+          <span class="s-name">房地产 <span class="small muted">当日 +0.02%，在 11 个行业 ETF 中相对靠后。</span></span>
+          <span class="s-pct up">+0.02%</span>
         </div>
       </div>
     </div>
+    <!-- END:DYNAMIC_THEME -->
 
-    <div class="hot-section-title">🔥 今日热度最高的 5 只个股 <span class="badge">数据源：富途 OpenAPI 美股热度榜 · 交易/搜索/新闻三类热度加权 · 每日自动重取</span></div>
+    <div class="hot-section-title">🔥 今日热度最高的 5 只个股 <span class="badge">数据源：Yahoo Finance 美股热搜榜（trending）· 每日自动重取 · 富途热度榜可用时优先</span></div>
     <div id="hot-stocks-list"></div>
 
+    <!-- BEGIN:DYNAMIC_TIPS -->
     <div class="tip-box">
       <h4>两个提醒</h4>
       <ul>
-        <li>别把反弹当反转：318 家下跌、184 家上涨，宽度是负的。强制卖盘也有尽头，因为杠杆纪律决定了卖完即止。宽度不转正，因为机构没回流，反弹随时可能被下一份数据打断。</li>
-        <li>下周二 CPI 是试金石：加息概率已回到近八成。若通胀同步超预期，"更高更久"坐实，本轮修复被证伪；回落才给反弹续命，因为通胀是联储唯一的加息理由，物价低头利率才能松。</li>
+        <li>观察科技板块的强势是否能在未来几个交易日延续。</li>
+        <li>核对热搜股的表现是否与其所属板块的整体趋势一致。</li>
       </ul>
     </div>
+    <!-- END:DYNAMIC_TIPS -->
 
   </div>
 </div>
@@ -998,7 +1002,7 @@ a { color:var(--accent); text-decoration:none; }
       <button class="btn btn-ghost" id="btn-reset-watchlist">恢复默认</button>
     </div>
     <div class="watchlist-status" id="watchlist-status"></div>
-    <div class="empty-tip">💡 价格、涨跌幅、均线位置、成交量、52 周位置每次打开自动刷新；文字点评基于 11 月 6 日收盘信息。</div>
+    <div class="empty-tip">💡 价格、涨跌幅、均线位置、成交量、52 周位置每次打开自动刷新；文字点评每日 06:30（北京时间）自动重生成，基于 <span id="tip-editorial-date"></span> 收盘信息；新加自选股会当场生成解读，无需等待。</div>
 
     <div id="watchlist-container"></div>
 
@@ -1016,7 +1020,7 @@ a { color:var(--accent); text-decoration:none; }
   </div>
   <div class="module-body" id="m5-body">
     <!-- BEGIN:DYNAMIC_CALENDAR -->
-    <div class="module-update">自动更新于 2026-11-12 21:13（北京时间）· 日程取自 ForexFactory 经济日历（原始时间为 GMT，已换算北京时间）与 Nasdaq 财报日历</div>
+    <div class="module-update">自动更新于 2026-11-12 21:46（北京时间）· 日程取自 ForexFactory 经济日历（原始时间为 GMT，已换算北京时间）与 Nasdaq 财报日历</div>
 
     <ul class="cal-list">
       <li class="cal-item">
@@ -1024,7 +1028,7 @@ a { color:var(--accent); text-decoration:none; }
         <div class="cal-content">
           <div class="cal-title">思科(CSCO)财报</div>
           <div class="cal-desc">日历数据：每股预期 $1.15 · 去年同期 $0.81 · 原始条目：CSCO Cisco Systems, Inc. 财报</div>
-          <div class="cal-impact"><strong>所以呢：</strong>思科财报反映其网络设备及服务业务表现，公布后可核对营收、利润等财务数据与市场预期的差异。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
+          <div class="cal-impact"><strong>所以呢：</strong>思科财报反映企业网络设备及服务业务表现，公布后可核对营收、利润及细分业务数据，与市场预期对比。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
@@ -1032,7 +1036,7 @@ a { color:var(--accent); text-decoration:none; }
         <div class="cal-content">
           <div class="cal-title">美国初请失业金人数</div>
           <div class="cal-desc">日历数据：194K · 189K · 原始条目：Unemployment Claims</div>
-          <div class="cal-impact"><strong>所以呢：</strong>初请失业金人数反映美国劳动力市场状况，公布后可对比非农就业报告等数据，观察就业市场变化趋势。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
+          <div class="cal-impact"><strong>所以呢：</strong>初请失业金人数反映美国劳动力市场状况，公布后可核对劳工部发布的就业报告，了解失业趋势和就业市场变化。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
@@ -1040,7 +1044,7 @@ a { color:var(--accent); text-decoration:none; }
         <div class="cal-content">
           <div class="cal-title">PPI月率</div>
           <div class="cal-desc">日历数据：0.4% · 1.3% · 原始条目：PPI m/m</div>
-          <div class="cal-impact"><strong>所以呢：</strong>PPI反映生产者价格变动，是通胀先行指标。公布后可对比CPI数据，观察价格传导效应。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
+          <div class="cal-impact"><strong>所以呢：</strong>生产者价格指数（PPI）月率反映企业生产成本变化，公布后可对比工业品出厂价格走势及原材料价格波动情况。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
@@ -1048,7 +1052,7 @@ a { color:var(--accent); text-decoration:none; }
         <div class="cal-content">
           <div class="cal-title">英伟达(NVDA)财报</div>
           <div class="cal-desc">日历数据：每股预期 $2.49 · 去年同期 $1.24 · 原始条目：NVDA NVIDIA Corporation 财报</div>
-          <div class="cal-impact"><strong>所以呢：</strong>英伟达是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。公布后可核对营收、每股收益等关键财务数据。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
+          <div class="cal-impact"><strong>所以呢：</strong>英伟达财报反映其GPU与AI芯片业务表现，公布后可核对季度营收、利润与数据中心等业务增长情况。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
         </div>
       </li>
     </ul>
@@ -1066,28 +1070,30 @@ a { color:var(--accent); text-decoration:none; }
     </div>
   </div>
   <div class="module-body">
-    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin-bottom:10px;">第一组：资金成本与美元（股票贵不贵）</h4>
+    <!-- BEGIN:DYNAMIC_METRICS -->
+    <div class="module-update">自动更新于 2026-11-12 21:47（北京时间）· 9 张卡的数值、涨跌、解读与来源全部按 Yahoo Finance 当日行情重取；2 年期收益率取自 FRED DGS2（2026-11-09）</div>
+    <h4 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--ink-light);margin:0 0 10px;">第一组：资金成本与美元（股票贵不贵）</h4>
     <div class="metrics-grid" style="margin-bottom:8px;">
       <div class="metric-card">
         <div class="m-name">10 年期美债收益率 <span class="small muted">（全球资产的基准利率）</span></div>
-        <div class="m-value" id="metric-tnx">4.86%</div>
-        <div class="m-change up" id="metric-tnx-change">涨 2.6 个基点报 4.859%</div>
-        <div class="m-explain">它是全市场的贴现率（把未来才赚到的钱折成今天值的利率），涨是因为非农太强：经济热，联储就没理由松手。与周四合看：周四跌是恐惧买债，周五涨是数据压债，同一根收益率两天换了司机。读法：恐慌退潮后它跟数据走，看 CPI 公布当天的反应。读它的斜率比读点位有用，因为斜率代表预期变化的速度。</div>
-        <div class="m-source">来源：每日经济新闻（CMT 4.859%）／Yahoo Finance（^TNX）</div>
+        <div class="m-value" id="metric-tnx">5.048%</div>
+        <div class="m-change up" id="metric-tnx-change">+5.0bp（较前一交易日）</div>
+        <div class="m-explain">10年期美债收益率衡量美国政府长期借贷成本，今日5.048%，+5.0bp，可核对长期利率与通胀预期。</div>
+        <div class="m-source">来源：Yahoo Finance ^TNX（每日重取）</div>
       </div>
       <div class="metric-card macro">
-        <div class="m-name">30 年期美债收益率 <span class="small muted">（"美债风暴"的风暴眼）</span></div>
-        <div class="m-value" id="metric-tyx">5.27%</div>
-        <div class="m-change up" id="metric-tyx-change">涨 1.2 个基点报 5.265%</div>
-        <div class="m-explain">它是财政信用温度计（市场信不信美国几十年后还得起债）。只微涨，因为长端看的是长期通胀与发债供给，单日就业数据推不动它。它也是海外买家的主战场，发债供给算的是几十年的账。读法：守在 5.3 下方，财政这条压制就还在缓解。</div>
-        <div class="m-source">来源：每日经济新闻（CMT 5.265%）／美财政部 CMT</div>
+        <div class="m-name">30 年期美债收益率 <span class="small muted">（长端财政与通胀定价）</span></div>
+        <div class="m-value" id="metric-tyx">5.389%</div>
+        <div class="m-change up" id="metric-tyx-change">+3.3bp（较前一交易日）</div>
+        <div class="m-explain">30年期美债收益率反映超长期借贷成本，今日5.389%，+3.3bp，可核对房贷利率锚定值。</div>
+        <div class="m-source">来源：Yahoo Finance ^TYX（每日重取）</div>
       </div>
       <div class="metric-card">
         <div class="m-name">美元指数 DXY <span class="small muted">（美元强弱）</span></div>
-        <div class="m-value" id="metric-dxy">102.28</div>
-        <div class="m-change up" id="metric-dxy-change">涨 0.72%，连涨两日</div>
-        <div class="m-explain">美元涨因为非农强：利率越高，美元存款越有吸引力，钱往高息货币走。周四避险买、周五加息预期买，两股力同向，所以连涨。读法：102 上方站稳，会持续抽走无息资产的钱。美元要跟美股连着看，因为美元太强会抽走风险资产的水。</div>
-        <div class="m-source">来源：ICE 美元指数（经 stockcast、the closing print）</div>
+        <div class="m-value" id="metric-dxy">102.94</div>
+        <div class="m-change up" id="metric-dxy-change">+0.03%（较前一交易日）</div>
+        <div class="m-explain">美元指数衡量美元对一篮子货币汇率，今日102.94，+0.03%，可核对非美货币压力。</div>
+        <div class="m-source">来源：Yahoo Finance DX-Y.NYB（ICE 美元指数）</div>
       </div>
     </div>
 
@@ -1095,24 +1101,24 @@ a { color:var(--accent); text-decoration:none; }
     <div class="metrics-grid" style="margin-bottom:8px;">
       <div class="metric-card macro">
         <div class="m-name">2Y-10Y 美债利差 <span class="small muted">（衰退预警灯）</span></div>
-        <div class="m-value" id="metric-yieldcurve">+0.35%</div>
-        <div class="m-change down" id="metric-yieldcurve-change">10 年期 4.859% 减 2 年期 4.514%；上日约 +0.37%</div>
-        <div class="m-explain">算法直白：10 年期减 2 年期。变负叫倒挂（短期利率高过长期），倒挂通常领先衰退，现在仍正且宽。周五收窄是因为加息预期先打短端。短端为什么先动？因为加息直接影响短期资金成本，长端要靠通胀和增长慢慢改变。读法：收窄到零以下是警报，当前仍在正常区间。</div>
-        <div class="m-source">来源：10Y(^TNX) 实时 − 2Y 基线 4.51%（每日按美财政部 CMT 更新）</div>
+        <div class="m-value" id="metric-yieldcurve">+0.49%</div>
+        <div class="m-change up" id="metric-yieldcurve-change">曲线未倒挂 · 10Y 5.05% − 2Y 4.56%</div>
+        <div class="m-explain">2Y-10Y美债利差+0.49%（10Y5.05%-2Y4.56%），曲线未倒挂，可核对经济周期预期。</div>
+        <div class="m-source">来源：Yahoo ^TNX − FRED DGS2（2026-11-09）</div>
       </div>
       <div class="metric-card macro">
-        <div class="m-name">12 月加息概率 <span class="muted small">（政策预期）</span></div>
-        <div class="m-value" id="metric-fedprob">78%</div>
-        <div class="m-change up" id="metric-fedprob-change">从 70% 回升</div>
-        <div class="m-explain">它来自利率期货，等于市场用真金白银押出来的概率。回升是因为非农太强，联储更有底气加息（鹰指偏收紧，鸽指偏宽松）。读法：11/10 CPI 是下一个改票的口，通胀超预期它就再上台阶。概率的用处在于把模糊的态度变成可交易的数字，因为期货里每张合约都是真金白银。</div>
-        <div class="m-source">来源：LSEG（经 21 世纪经济报道）／CME FedWatch</div>
+        <div class="m-name">2 年期美债收益率 <span class="small muted">（政策预期最敏感的一端）</span></div>
+        <div class="m-value" id="metric-ust2y">4.56%</div>
+        <div class="m-change flat" id="metric-ust2y-change">FRED 公布日 2026-11-09</div>
+        <div class="m-explain">2年期美债收益率反映短期政策预期，4.56%（11月9日数据），可核对美联储政策定价。</div>
+        <div class="m-source">来源：FRED / 美国财政部 DGS2（每个工作日更新，滞后约 1 个交易日）</div>
       </div>
       <div class="metric-card macro">
         <div class="m-name">铜金比 <span class="small muted">（增长 vs 避险）</span></div>
-        <div class="m-value" id="metric-cugold">0.00153</div>
-        <div class="m-change up" id="metric-cugold-change">铜涨 0.18%（6.26 美元/磅）；金跌 0.94%</div>
-        <div class="m-explain">铜是经济体温计（工厂和电网都要用），金是避难所。铜涨金跌，因为避险盘撤退、工业需求修复，与反弹日的风险偏好一致。读法：比值回升延续，说明市场在定价"不衰退"。</div>
-        <div class="m-source">来源：COMEX 期铜／COMEX 期金（经 stockcast）</div>
+        <div class="m-value" id="metric-cugold">0.00158</div>
+        <div class="m-change flat" id="metric-cugold-change">铜 $6.20 / 金 $3911</div>
+        <div class="m-explain">铜金比0.00158（铜$6.20/金$3911），反映工业需求与避险平衡，可核对周期/防御切换。</div>
+        <div class="m-source">来源：Yahoo Finance HG=F（COMEX 铜）/ GC=F（COMEX 金）</div>
       </div>
     </div>
 
@@ -1120,35 +1126,36 @@ a { color:var(--accent); text-decoration:none; }
     <div class="metrics-grid">
       <div class="metric-card">
         <div class="m-name">WTI 原油 <span class="small muted">（通胀与地缘供给）</span></div>
-        <div class="m-value" id="metric-wti">$90.83</div>
-        <div class="m-change up" id="metric-wti-change">涨 0.34%；全周跌 12.8%</div>
-        <div class="m-explain">它是通胀链最上游的阀门：油贵，运输制造发电跟着贵。单日微涨，因为霍尔木兹的断供风险还在；全周大跌是中期选举后地缘溢价（断供风险的价格）在退潮。油价回落给下周 CPI 留了下行空间。读法：90 守住，通胀的刺就没拔净。看油价要看全周方向，因为单日的涨跌常被突发新闻扭曲。</div>
-        <div class="m-source">来源：NYMEX（澎湃新闻、stockcast）</div>
+        <div class="m-value" id="metric-wti">$87.31</div>
+        <div class="m-change up" id="metric-wti-change">+0.90%（较前一交易日）</div>
+        <div class="m-explain">WTI原油衡量能源价格，今日$87.31，+0.90%，可核对通胀压力与供需平衡。</div>
+        <div class="m-source">来源：Yahoo Finance CL=F（NYMEX WTI）</div>
       </div>
       <div class="metric-card">
         <div class="m-name">黄金 <span class="small muted">（避险/抗通胀）</span></div>
-        <div class="m-value" id="metric-gold">$4,075</div>
-        <div class="m-change down" id="metric-gold-change">期货跌 0.94% 报 4,074.90</div>
-        <div class="m-explain">实际利率（名义利率减通胀预期）是它的对手盘：这个数升，不生息的黄金就吃亏。周五非农推高名义利率，金价应声回落。金不生息，所以利率越高它越吃亏，这是它跟利率反着走的原因。但周一亚市现货已重回 4,100 上方，避险需求没走远。读法看的是 4,100：反复得而复失，因为多空还在拉锯。</div>
-        <div class="m-source">来源：COMEX 期金（Yahoo、stockcast）／现货金（中国证券网）</div>
+        <div class="m-value" id="metric-gold">$3911.00</div>
+        <div class="m-change down" id="metric-gold-change">-2.24%（较前一交易日）</div>
+        <div class="m-explain">黄金价格反映避险需求，今日$3911.00，-2.24%，可核对实际利率变化。</div>
+        <div class="m-source">来源：Yahoo Finance GC=F（COMEX 期金）</div>
       </div>
       <div class="metric-card">
         <div class="m-name">比特币 BTC <span class="small muted">（风险偏好/流动性）</span></div>
-        <div class="m-value" id="metric-btc">$75,073</div>
-        <div class="m-change down" id="metric-btc-change">约 7.5 万一线，企稳待方向</div>
-        <div class="m-explain">它是风险温度计，只看流动性（市场上的钱多不多、贵不贵）。周五美股反弹它没跟涨，说明反弹靠平仓回补、没有新增资金进场——真回暖时它通常先动。它对资金的进出最敏感，因为没有分红没有利润，全靠流动性撑着。读法：守不住 7.5 万，风险偏好就还在下修。</div>
-        <div class="m-source">来源：加密行情（the closing print）／腾讯行情快照（盘中自动刷新）</div>
+        <div class="m-value" id="metric-btc">$72,514</div>
+        <div class="m-change down" id="metric-btc-change">-1.64%（较前一交易日）</div>
+        <div class="m-explain">比特币价格$72,514，-1.64%，可核对高风险资产情绪。</div>
+        <div class="m-source">来源：Yahoo Finance BTC-USD</div>
       </div>
     </div>
 
     <div class="macro-summary" id="macro-summary">
       <div class="label">三句话串起来看</div>
-      <p><strong>第一组：钱变贵了，而且短端变得更快。</strong>10 年期只涨 2.6 个基点，2 年期涨 5.6 个基点。差别在各自的钟：2 年期盯近一两年，它急涨说明近期还要加息。10 年期盯更长期，它微动说明大家不信利率会长期高。短端硬、长端软（鹰指偏收紧，鸽指偏宽松），是紧缩延续期的典型形态。验证看 11/10 CPI：超预期，短端再上一截。</p>
-      <p><strong>第二组：市场一边买反弹、一边降 AI 的账。</strong>反弹在二级（股市），降价在一级（私募）：两大 AI 公司的估值预期都砍了三成以上。一级没有散户接盘，定价最诚实，它先降，二级的估值就悬在半空。所以这轮反弹是修复不是反转，确认看 Anthropic 认购倍数与产业链财报。</p>
-      <p><strong>第三组：油、金、铜、比特币各走各路，说的却是同一件事——恐慌在退潮。</strong>油价全周大跌，是怕断供的人在变少；金跌，是不需要躲了；铜涨，是敢押工厂开工了；比特币不跟涨，是新增的钱还没进场。前三个指向"不慌了"，第四个提醒"但也没人冲进来"。</p>
-      <p><strong>记一条链就够了：</strong>非农超预期 → 加息预期回温 → 短端利率上行 → 成长股估值受压。反弹只能靠超跌修复撑着，方向悬而未决。下周两道闸门：11/10 CPI 定利率路径，Anthropic 认购与产业链财报定 AI 估值。两道都松，修复变反转；两道都紧，周四的剧本重演。</p>
-      <p class="dim">（解读基于美东时间 2026-11-06 收盘信息，2026-11-09 更新；上方指标数值每次打开页面会自动刷新至最近一个交易日。）</p>
+      <p><strong>第一组：钱的价格。</strong>资金成本与美元：长端利率上行（10Y+5bp/30Y+3.3bp）而美元微升0.03%，2Y数据滞后未更新。</p>
+      <p><strong>第二组：期限与政策预期。</strong>经济周期与政策预期：收益率曲线陡峭化（2Y-10Y利差+49bp），铜金比0.00158显示工业需求。</p>
+      <p><strong>第三组：通胀与风险偏好。</strong>通胀与风险偏好：油价涨0.9%至$87.31，黄金跌2.24%而比特币跌1.64%，风险资产承压。</p>
+      <p><strong>记一条链就够了：</strong>长端利率与油价同升，美元微涨，黄金比特币齐跌，显示通胀交易强化而风险偏好回落。</p>
+      <p class="dim">（以上文字每日基于当日真实指标自动生成，更新于 2026-11-12 21:47 北京时间；页面打开时上方数值还会再向 Yahoo 刷新一次。）</p>
     </div>
+    <!-- END:DYNAMIC_METRICS -->
   </div>
 </div>
 </div>
@@ -1159,89 +1166,121 @@ a { color:var(--accent); text-decoration:none; }
     <strong>风险提示：</strong>本看板仅为信息整理与市场科普，不构成任何投资建议。股市有风险，投资需谨慎。所有数据来自公开信息源，可能存在延迟。本页面不提供买入/卖出/加仓/减仓建议，也不预测具体价格。
   </div>
   <div class="sources">
-    <strong>数据来源：</strong>富途牛牛（个股热度、资讯、个股动态点评）、Investing.com（大宗商品与美债行情核对）、Yahoo Finance（指数/个股/ETF 实时行情，经代理自动刷新）、腾讯自选股（板块 ETF 行情）、CBOE / MacroMicro（VIX）、Mortgage News Daily（美债收益率）、TradingEconomics（美元指数、WTI）、USA TODAY（金价）、CoinGecko（比特币）、CNN Fear &amp; Greed Index、CME FedWatch（利率概率，经媒体转引）、Google News / CNBC / WSJ（02 模块公开报道 RSS）、ForexFactory（05 模块经济日历，原始时间为 GMT）、Nasdaq（05 模块财报日历）。个股详情可跳转
+    <strong>数据来源：</strong>Yahoo Finance（指数 / 个股 / 11 只 SPDR 行业 ETF / 美债收益率 / 美元指数 / 商品 / 比特币 / 热搜榜，经服务端中转自动刷新）、FRED 美国财政部 DGS2（2 年期美债收益率，工作日更新）、Google News / CNBC / WSJ（02 模块公开报道 RSS）、ForexFactory（05 模块经济日历，原始时间为 GMT）、Nasdaq（05 模块财报日历）、富途牛牛（个股链接，热度榜可用时优先）。「市场情绪综合分」为本看板基于上述 Yahoo 行情自行计算，非 CNN 官方 Fear &amp; Greed 指数；CNN 官方公开接口已下线，故不再展示其静态数值。个股详情可跳转
     <a href="https://www.futunn.com/stock" target="_blank" rel="noopener">富途牛牛</a> 或
     <a href="https://www.investing.com/" target="_blank" rel="noopener">Investing.com</a> 核实。
   </div>
   <div class="timestamp" id="footer-timestamp">
-    数据截至：美东时间 2026-11-06 收盘 · 价格数据每次打开自动刷新 · 深度解读基于 2026-11-06 收盘信息
+    全站内容每日自动更新 · 价格数据每次打开自动刷新 · 指数/个股解读、事件、日程、主题、宏观解读均按各自数据源每日重生成
   </div>
 </div>
 
 <script>
 /* ==================== CONFIG ==================== */
 const EDITORIAL_DATE = '2026-11-11'; // 指数/个股深度解读所基于的交易日
-const EVENTS_DATE = '2026-11-12 21:13'; // 02 事件 / 05 日程最近一次自动更新时间（北京时间）
+const EVENTS_DATE = '2026-11-12 21:46'; // 02 事件 / 05 日程最近一次自动更新时间（北京时间）
+const EXTRA_DATE = '2026-11-12 21:47'; // 01 情绪分 / 03 主题 / 06 宏观解读最近一次自动更新时间（北京时间）
+const YIELD_2Y_BASE = 4.56; // FRED DGS2 最近一个公布值，由每日管线更新；用于计算 2Y-10Y 利差
 
-/* 默认自选股：编辑性内容（最新动态/基本面/估值锚）基于 2026-11-06 收盘信息，2026-11-09 更新。
-   来源：美国劳工统计局 / 21 世纪经济报道 / 每日经济新闻 / 中国证券网 / 富途资讯 / 腾讯行情快照。
-   baseQuote / baseDyn 为页面打开时的基线数据，Yahoo 接口失败时也能保证不显示"—"。
-   v7.2 表达标准：latest <= 110 字、fundamental <= 130 字、peNote <= 65 字、verdict <= 175 字。
-   四段的分工：latest 讲当天涨跌与原因；fundamental 讲生意怎么赚钱、关键变量是什么；
+/* 默认自选股：latest / fundamental / peNote / verdict 四段每天由 stockNotes 同步覆盖
+   （scripts/regenerate.mjs → injectDefaultEditorial），前端 buildStocks 也优先读 stockNotes，
+   这里的文字只是兜底，不再有固定日期的静态快照。
+   baseQuote / baseDyn 为页面打开时的基线数据，Yahoo 接口失败时也能保证不显示"—"，
+   同样由每日管线刷新。
+   四段的分工：latest 讲当天涨跌与位置；fundamental 讲生意怎么赚钱、关键变量是什么；
    peNote 讲贵不贵、贵在哪；verdict 结论先行，写"位置 + 对什么敏感 + 往后看什么"。 */
 const defaultStocks = [
   {
     code:'AAPL', name:'苹果',
-    latest:'跌 0.52% 收 342.37 美元，反弹日它逆势小跌。因为避险资金撤了：周四买它躲跌的钱，周五风险缓和就撤走，防御属性反着用。',
-    fundamental:'服务业务是利润奶牛：App Store 抽成、订阅、搜索分成，毛利率远高于卖硬件。它对政策风波免疫，因为增长不押 AI 算力，靠存量设备慢慢收钱。自己的 AI 走端侧路线，不参加机房军备赛。',
-    peNote:'PE（滚动）约 38 倍，高于自身五年均值；贵在确定性，不在增速。',
-    verdict:'结论先行：52 周位置约 88%，区间上段。它对内存成本与假日季销量最敏感，与 AI 政策几乎脱敏，这是暴跌周里的稀缺属性。往后看回踩守不守 340。它是避风港不是进攻仓，因为情绪回暖时资金会离开防御股，它反而跑输。位置高也意味着容错小，任何瑕疵都会被放大。',
+    latest:"苹果股价今日上涨2.04%，收于355.63美元，接近52周高点355.91美元，当日波动较大。",
+    fundamental:"苹果主要收入来自硬件与软件生态，包括iPhone、Mac、iPad等设备及App Store、iCloud等服务。关键变量包括产品创新、市场需求及供应链管理。",
+    peNote:"苹果当前估值处于较高水平，反映了市场对其品牌和技术生态的认可。",
+    verdict:"苹果股价接近52周高点，对产品发布周期和市场需求高度敏感。往后需关注其新产品表现及供应链稳定性。",
     baseQuote:{"price":355.63,"prev":348.51,"changePct":2.0429829847063226,"hi52":355.91,"lo52":243.42,"marketTime":1794430801},
     baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（348.3、344.9、334.0），短中期趋势偏强。","funds":"成交量只有近 20 日均量的 69%，明显缩量。","valuationPos":99.75108898568759}
   },
   {
     code:'TSLA', name:'特斯拉',
-    latest:'涨 4.23% 收 358.22 美元，巨头里反弹最猛。因为它估值几乎全靠预期：周四预期被抽走时跌最深，周五修复时也弹最凶。',
-    fundamental:'卖车主业毛利率承压，价格战没停，估值靠自动驾驶与机器人撑。关键变量是交付量：交付上不去，故事就只是故事。远期故事对利率与情绪最敏感，因为利率回升时远期利润折价更重，它的地基先晃。',
-    peNote:'PE（滚动）约 378 倍，几乎全靠预期定价。',
-    verdict:'结论先行：52 周位置约 30%，仍在区间下段。它对交付量与自动驾驶监管最敏感，得州审批是新增变量。往后看 11 月交付数据与 340 平台：高贝塔反弹是情绪修复的影子，意味着站稳要等基本面接棒。反弹里它弹性最大，因为空头最集中的股票回补最猛。',
+    latest:"特斯拉股价今日微涨0.46%，收于379.78美元，当前价格处于52周区间41%分位，介于历史高低点之间波动。",
+    fundamental:"特斯拉通过电动汽车销售、能源存储系统及软件订阅服务盈利，其核心变量包括交付量、工厂产能利用率及电池技术迭代速度。",
+    peNote:"当前估值处于52周区间中下沿，反映市场对其增长预期有所回调。",
+    verdict:"股价处于近一年中间位置，对交付量数据和供应链成本敏感，需关注新车型投产进度与毛利率变化。",
     baseQuote:{"price":390.84,"prev":379.78,"changePct":2.912212333456212,"hi52":498.83,"lo52":297.38,"marketTime":1794430801},
     baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（370.1、381.8、370.2），短中期趋势偏强。","funds":"成交量只有近 20 日均量的 68%，明显缩量。","valuationPos":46.39364606602134}
   },
   {
     code:'NVDA', name:'英伟达',
-    latest:'涨 2.78% 收 186.64 美元，跟着费半修复周四的深坑。全周仍跌 8.8%，一天的反弹只收回一小半。',
-    fundamental:'数据中心订单能见度高，护城河是 CUDA 这个写代码的入口。风险在下游节奏：客户买芯片的前提是机房建得起来，因为审批一紧订单兑现就慢，这个前提仍在被考验。',
-    peNote:'PE（滚动）约 23 倍；风险在预期密度，不在估值本身。',
-    verdict:'结论先行：52 周位置约 29%，区间下段。它对云厂开支口径与 11/17 财报最敏感，后者是全场唯一的锚。往后看 190 关口与指引：数据中心指引强，回调就只是估值重置，因为需求没被证伪；弱，抛售逻辑升级。',
+    latest:"英伟达股价今日上涨2.92%，收于173.73美元，位于52周区间低点附近，约12%位置。当日波动较大。",
+    fundamental:"英伟达主要收入来自GPU芯片，广泛应用于游戏、数据中心和人工智能领域。关键变量包括半导体周期、AI需求和技术迭代速度。",
+    peNote:"当前估值处于相对低位，主要反映市场对半导体行业周期下行的担忧。",
+    verdict:"股价位于52周低位，对半导体周期和AI需求敏感。往后需关注行业复苏信号和AI领域进展。",
     baseQuote:{"price":173.73,"prev":168.796,"changePct":2.9230550486978353,"hi52":243.37,"lo52":164.27,"marketTime":1794430800},
     baseDyn:{"tech":"股价跌破 5/20/60 日所有均线（177.9、203.8、217.0），趋势偏弱。","funds":"最新交易日成交量是近 20 日平均的 2.0 倍，明显放量。","valuationPos":11.959544879898838}
   },
   {
     code:'MSFT', name:'微软',
-    latest:'跌 0.99% 收 530.61 美元，反弹日继续阴跌。它是机构持有量最大的股票，降风险仓位还没减完，抛压来自减总仓而非看空。',
-    fundamental:'Azure 与 AI 收入持续兑现，云按用量收钱，用量涨得比价格快，等于把通胀转嫁给客户。它对开支口径敏感是结构性的：既是最大买家又是最大卖家，开支减速对它是省成本、对供应商是砍订单。它是最大算力买家，开支口径是全场焦点。',
-    peNote:'PE（滚动）约 28 倍；有真利润托底，不靠故事支撑。',
-    verdict:'结论先行：52 周位置约 86%，区间上段。它对资本开支（盖机房买设备的钱）口径最敏感。往后看下季云指引：若开支减速而收入不减，利润率反而受益；短期看的是机构仓位出清进度，卖干净才谈方向。买卖双重身份让它比别的巨头更难猜方向。',
+    latest:"微软股价收于521.125美元，下跌2.26%，当日波动较大。当前股价位于52周高点的82%位置，接近区间上沿。",
+    fundamental:"微软主要收入来自硬件与软件生态，包括Windows操作系统、Office办公软件、Azure云服务等。关键变量在于云业务增长、企业软件需求以及AI技术应用。",
+    peNote:"微软当前估值处于历史较高水平，主要反映其云业务和AI技术的前景。",
+    verdict:"微软股价位于52周区间高位，对云业务和AI技术进展敏感。往后需关注云服务增长和企业软件需求变化。",
     baseQuote:{"price":521.125,"prev":533.16,"changePct":-2.257296121239397,"hi52":559.15,"lo52":349.2,"marketTime":1794430800},
     baseDyn:{"tech":"股价在均线之间拉锯（533.2、530.5、514.3），方向未明。","funds":"成交量较近 20 日均量温和放大（约 1.1 倍）。","valuationPos":81.88854489164088}
   },
   {
     code:'AMZN', name:'亚马逊',
-    latest:'跌 0.35% 收 259.30 美元，波动最小。电商与云各占一半，因为 AI 恐慌与防御回吐两股力在它身上对冲。',
-    fundamental:'AWS 加广告双引擎，零售利润率在修复。它自研芯片自建云，把算力成本留在体内，代价是自由现金流先变紧，因为买设备的钱远超经营现金流。',
-    peNote:'PE（滚动）约 20 倍，五只里最便宜；便宜是安全垫，也是没拿到成长溢价的证据。',
-    verdict:'结论先行：52 周位置约 69%，区间中上段。它对 AWS 增速与物流成本最敏感，油价停在 90 上方是小逆风。往后看 AWS 增速与开支见顶信号：现金流拐点出现前，估值折价难消除。',
+    latest:"亚马逊当日收跌1.74%至266.17美元，股价位于52周区间77%分位，接近年内高点但未突破前收盘价270.87美元。",
+    fundamental:"公司核心收入来自电商平台佣金与AWS云计算服务，规模效应摊薄物流成本是关键。业务增长依赖全球线上消费渗透率及企业IT支出强度。",
+    peNote:"当前估值处于52周较高区间，反映市场对其云服务持续增长的溢价预期。",
+    verdict:"股价处于52周偏高位，对利率敏感度高于零售同行，需关注AWS营收增速与Prime会员留存率的边际变化。",
     baseQuote:{"price":266.17,"prev":270.87,"changePct":-1.7351497028094618,"hi52":287.2,"lo52":196,"marketTime":1794430801},
     baseDyn:{"tech":"股价运行在 5/20/60 日所有均线上方（264.7、255.9、255.4），短中期趋势偏强。","funds":"成交量与近 20 日均量基本持平（约 75%）。","valuationPos":76.94078947368423}
   }
 ];
 
-/* 模块三：当日热度 Top5 —— 数据源：富途 OpenAPI 美股热度榜（Qot_GetHotList）。
-   富途按【交易热度 / 搜索热度 / 新闻热度】加权算出综合热度，覆盖当日有效美股样本（周一盘前口径 3,446 只），每天自动变化。
-   取数脚本：.workbuddy/futu_hot.py（已内置"剔除 ETF/停牌/不可报价"过滤），运行后写 .workbuddy/futu_hot.json。
-   代码列表会被 refresh_baseline.py 自动读取并刷新 basePrice/baseChg（勿写死在其他地方）。
-   2026-11-06 榜（11-09 10:03 取数，全市场 3,446 只，取前 5）：
-     NVDA 999.99万(+0) / SPCX 136.36万(-1) / MU 86.59万(-1) / SNDK 62.99万(-1) / INTC 54.70万(+0)。
-   五只与上一榜完全相同、无换血，仅 SPCX 与 MU 排名对调；NVDA 热度破千万封顶，榜单被反弹与财报预期主导。
-   v7.2：单只 why <= 110 字，写"为什么被关注（结合 news_title 与热度/涨幅）+ 可用来看什么信号"。 */
+/* 模块三：当日热度 Top5 —— 数据源：Yahoo Finance 美股热搜榜（/v1/finance/trending/US）。
+   每日管线 scripts/market_extra.mjs 取前 5 名，再用 Yahoo spark 批量补最新价与当日涨跌幅，
+   通过 scripts/regenerate.mjs 的注入写回本数组（富途 OpenD 可用时保留为兜底）。
+   why 为不含新闻归因的机械短评：热搜榜只提供排名与行情，任何"因某消息上榜"都属编造。
+   价格每次打开页面还会经 /api/quote 再刷新一次。 */
 const hotStocks = [
-  { code:'NVDA', name:'英伟达', basePrice:186.64, baseChg:2.78, why:'热度第一（约 1,000 万，封顶持平）。涨 2.78%，"货物失踪"传闻再添关注度。11/17 财报是全场唯一锚，赌的人最多，因为订单数据直接决定这轮回调的定性。' },
-  { code:'SPCX', name:'SpaceX', basePrice:134.27, baseChg:8.62, why:'热度第二（136.4 万，升 1 位）。涨 8.62% 领涨热度榜，马斯克抛出明年 5,000 亿美元年收入目标。远期目标没有现金流验证，看的是算力订单能否落地。' },
-  { code:'MU', name:'美光科技', basePrice:690.00, baseChg:5.12, why:'热度第三（86.6 万，降 1 位）。涨 5.12% 修复周四深坑，存储涨价与产能担忧并存。因为 DRAM 现货价方向决定涨价的可持续性。' },
-  { code:'SNDK', name:'闪迪', basePrice:835.06, baseChg:3.55, why:'热度第四（63.0 万，降 1 位）。涨 3.55%，换手率 12.7% 仍高，筹码没稳。看的是 800 美元平台收不收得住，收不住还有第二只脚。' },
-  { code:'INTC', name:'英特尔', basePrice:56.28, baseChg:7.71, why:'热度第五（54.7 万，持平）。涨 7.71% 弹得猛，因为周四砸得深、又没有独立利空。看 60 美元整数位，收复说明板块情绪修复到位。' }
+  {
+    "code": "NVDA",
+    "name": "英伟达",
+    "basePrice": 173.73,
+    "baseChg": 2.92,
+    "why": "Yahoo 美股热搜第 1 名，最新 $173.73，当日 +2.92%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+  },
+  {
+    "code": "MSTR",
+    "name": "Strategy",
+    "basePrice": 122.35,
+    "baseChg": 1.06,
+    "why": "Yahoo 美股热搜第 2 名，最新 $122.35，当日 +1.06%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+  },
+  {
+    "code": "BABA",
+    "name": "阿里巴巴",
+    "basePrice": 101.52,
+    "baseChg": -1.17,
+    "why": "Yahoo 美股热搜第 3 名，最新 $101.52，当日 -1.17%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+  },
+  {
+    "code": "GOOGM",
+    "name": "Alphabet Inc. - Depositary Shar",
+    "basePrice": 42.74,
+    "baseChg": 1.81,
+    "why": "Yahoo 美股热搜第 4 名，最新 $42.74，当日 +1.81%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+  },
+  {
+    "code": "NBIS",
+    "name": "Nebius",
+    "basePrice": 154.69,
+    "baseChg": 15.44,
+    "why": "Yahoo 美股热搜第 5 名，最新 $154.69，当日 +15.44%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+  }
 ];
+
+
 
 let currentStocks = [];
 let storageOK = true;
@@ -1429,35 +1468,35 @@ function posText(p) {
 const stockNotes = {
   "AMD": {
     "name": "AMD",
-    "latest": "AMD 当日上涨 7.32%，收于 552.9 美元，波动较大。当前股价位于 52 周区间高位附近，约为 78% 分位。",
-    "fundamental": "AMD 主要从事半导体设计与销售，核心产品包括 CPU、GPU 等。其盈利依赖于技术迭代、市场份额及供应链效率，关键变量包括产品竞争力与市场需求。",
-    "peNote": "当前估值位于 52 周区间较高位置，反映市场对其技术领先地位的认可。",
-    "verdict": "股价处于 52 周高位附近，对技术迭代与市场需求敏感。往后需关注其新品发布表现及行业竞争格局变化。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "AMD 今日大涨 7.32%，收于 $552.9，盘中波动较大，当前股价位于 52 周高低的 78% 分位。",
+    "fundamental": "AMD 主要收入来自 CPU 和 GPU 等半导体产品，其业绩与 PC、服务器和数据中心市场需求密切相关。关键变量包括芯片出货量、制程技术领先度和竞争对手表现。",
+    "peNote": "当前估值处于 52 周区间较高位置，反映市场对其技术优势和增长潜力的认可。",
+    "verdict": "AMD 股价处于 52 周区间高位，对半导体行业周期和技术竞争敏感，后续需关注市场需求变化和下一代产品表现。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "GOOGL": {
     "name": "GOOGL",
-    "latest": "GOOGL 当日上涨 2.11%，收于 293.45 美元，接近 52 周低点，位于 52 周区间约 16% 的位置。",
-    "fundamental": "谷歌主要通过广告业务盈利，其核心产品包括搜索引擎、YouTube 和 Android 系统。广告收入受全球经济和广告主预算影响较大，同时云计算和硬件业务也在逐步增长。",
-    "peNote": "当前估值处于较低区间，主要因市场对其广告业务增长放缓的担忧。",
-    "verdict": "GOOGL 目前处于 52 周低位，对宏观经济和广告市场敏感，后续需关注广告收入恢复情况及云业务增长表现。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "GOOGL 当日上涨 2.11% 至 293.45 美元，当前股价位于 52 周区间低 16% 分位，接近 270.7 美元的 52 周低点。",
+    "fundamental": "谷歌母公司 Alphabet 主要收入来自数字广告与云计算服务，核心变量是广告主预算分配、搜索流量增长及云业务利润率。安卓生态与 YouTube 贡献额外变现渠道。",
+    "peNote": "当前估值处于 52 周低位，反映市场对在线广告行业周期性压力的定价。",
+    "verdict": "股价处于 52 周低位区间，对广告行业景气度敏感。需关注搜索业务市占率稳定性及云业务增速能否对冲广告波动。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "NVDA": {
     "name": "NVDA",
-    "latest": "英伟达当日上涨2.92%至173.73美元，当前股价位于52周区间下沿12%分位，较前收盘168.80美元波动较大。",
-    "fundamental": "公司主营GPU芯片设计，通过游戏显卡、数据中心加速卡及自动驾驶芯片获利。关键变量包括半导体周期、AI算力需求及台积电代工产能。",
-    "peNote": "当前估值处于历史低位，反映市场对芯片行业库存调整的担忧。",
-    "verdict": "股价处于52周低位区间，对AI服务器资本开支和游戏显卡库存敏感，需观察三季度数据中心订单能否扭转下行趋势。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "英伟达股价今日上涨2.92%，收于173.73美元，位于52周区间低点附近，约12%位置。当日波动较大。",
+    "fundamental": "英伟达主要收入来自GPU芯片，广泛应用于游戏、数据中心和人工智能领域。关键变量包括半导体周期、AI需求和技术迭代速度。",
+    "peNote": "当前估值处于相对低位，主要反映市场对半导体行业周期下行的担忧。",
+    "verdict": "股价位于52周低位，对半导体周期和AI需求敏感。往后需关注行业复苏信号和AI领域进展。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "AAPL": {
     "name": "AAPL",
-    "latest": "苹果股价当日上涨2.04%，收于355.63美元，接近52周高点355.91美元，处于52周区间顶部位置。",
-    "fundamental": "苹果主要收入来自硬件销售（iPhone、Mac等）与软件服务生态。关键变量包括产品迭代周期、全球消费电子需求及服务业务增速。",
-    "peNote": "当前股价接近历史峰值，反映市场对其生态粘性和高利润服务的溢价。",
-    "verdict": "股价处于52周绝对高位，对硬件销售增速和服务业务利润率敏感，需观察新机发布周期与订阅服务增长情况。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "苹果股价今日上涨2.04%，收于355.63美元，接近52周高点355.91美元，当日波动较大。",
+    "fundamental": "苹果主要收入来自硬件与软件生态，包括iPhone、Mac、iPad等设备及App Store、iCloud等服务。关键变量包括产品创新、市场需求及供应链管理。",
+    "peNote": "苹果当前估值处于较高水平，反映了市场对其品牌和技术生态的认可。",
+    "verdict": "苹果股价接近52周高点，对产品发布周期和市场需求高度敏感。往后需关注其新产品表现及供应链稳定性。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "TSLA": {
     "name": "TSLA",
@@ -1469,37 +1508,38 @@ const stockNotes = {
   },
   "MSFT": {
     "name": "MSFT",
-    "latest": "微软当日下跌2.26%，收于521.125美元，位于52周区间82%分位，距历史高点559.15美元尚有约7%空间。",
-    "fundamental": "微软主要收入来自企业软件订阅、云计算服务和硬件生态。关键变量包括Azure云业务增速、Office 365用户留存率及企业IT支出周期。",
-    "peNote": "当前估值处于52周高位区间，反映市场对其云业务持续增长的溢价认可。",
-    "verdict": "股价处于历史高位区间，对云计算增速和企业IT预算敏感，需观察Azure市场份额变化及宏观环境影响。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "微软股价收于521.125美元，下跌2.26%，当日波动较大。当前股价位于52周高点的82%位置，接近区间上沿。",
+    "fundamental": "微软主要收入来自硬件与软件生态，包括Windows操作系统、Office办公软件、Azure云服务等。关键变量在于云业务增长、企业软件需求以及AI技术应用。",
+    "peNote": "微软当前估值处于历史较高水平，主要反映其云业务和AI技术的前景。",
+    "verdict": "微软股价位于52周区间高位，对云业务和AI技术进展敏感。往后需关注云服务增长和企业软件需求变化。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "AMZN": {
     "name": "AMZN",
-    "latest": "亚马逊股价当日下跌1.74%，收于266.17美元，位于52周价格区间的高位（约77%分位），较前收盘价270.87美元有所回落。",
-    "fundamental": "亚马逊主要通过电商零售、云计算服务（AWS）和订阅业务盈利。关键变量包括在线销售增长、AWS市场份额及企业IT支出。",
-    "peNote": "当前股价接近52周高点，估值处于相对高位。",
-    "verdict": "股价处于52周区间高位，对零售需求及云服务增速敏感，需关注消费趋势与企业IT预算变化。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "亚马逊当日收跌1.74%至266.17美元，股价位于52周区间77%分位，接近年内高点但未突破前收盘价270.87美元。",
+    "fundamental": "公司核心收入来自电商平台佣金与AWS云计算服务，规模效应摊薄物流成本是关键。业务增长依赖全球线上消费渗透率及企业IT支出强度。",
+    "peNote": "当前估值处于52周较高区间，反映市场对其云服务持续增长的溢价预期。",
+    "verdict": "股价处于52周偏高位，对利率敏感度高于零售同行，需关注AWS营收增速与Prime会员留存率的边际变化。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "INTC": {
     "name": "INTC",
-    "latest": "英特尔当日大幅上涨7.52%，收于62.5美元，当前股价位于52周区间下沿27%分位，较前收盘58.13美元明显反弹。",
-    "fundamental": "英特尔主要收入来自半导体芯片设计与制造，关键变量包括制程技术领先性、产能利用率及数据中心与PC市场需求。重资产模式需持续投入研发与晶圆厂建设。",
-    "peNote": "当前股价接近52周低点区间，反映市场对其制程落后与份额流失的担忧。",
-    "verdict": "股价处于52周低位，对制程追赶进度与行业需求变化敏感，需观察其代工业务进展及PC市场回暖信号。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "英特尔当日上涨7.52%，收于62.5美元，波动较大。当前股价位于52周区间约27%的位置，接近低位。",
+    "fundamental": "英特尔是半导体行业的领军企业，主要收入来自处理器和芯片组的设计与销售。其盈利能力与PC和数据中心市场需求密切相关，技术迭代和产能扩张是影响业绩的关键变量。",
+    "peNote": "当前估值处于52周区间较低位置，但需关注行业周期波动对公司盈利的潜在影响。",
+    "verdict": "股价接近52周低位，对行业需求和竞争格局敏感。往后需关注半导体市场复苏进展以及公司在先进制程领域的突破。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   },
   "AVGO": {
     "name": "AVGO",
-    "latest": "AVGO当日上涨3.99%至345.22美元，当前股价位于52周区间（289.77-495美元）的27%分位，接近区间下沿。",
-    "fundamental": "AVGO主营半导体与基础设施软件业务，收入来自芯片销售和软件授权。关键变量包括数据中心建设周期、企业IT支出和5G部署进度。",
-    "peNote": "当前股价接近52周低点，估值处于历史较低区间。",
-    "verdict": "低位+对科技支出周期敏感+往后看企业资本开支动向。半导体行业景气度与云服务商资本支出是关键观测指标。",
-    "generatedAt": "2026-11-12T13:13:05.329Z"
+    "latest": "AVGO 当日上涨 3.99% 至 345.22 美元，当前股价位于 52 周区间 27% 分位，较 52 周低点反弹约 19%。",
+    "fundamental": "作为半导体与基础设施软件供应商，主要收入来自数据中心芯片、网络设备及企业软件授权。行业景气度与资本开支周期是关键变量。",
+    "peNote": "当前估值处于 52 周区间偏低位置，反映市场对半导体行业库存调整的担忧。",
+    "verdict": "中低位震荡 + 对数据中心投资周期敏感 + 需关注企业 IT 支出回暖信号与行业库存去化进度。",
+    "generatedAt": "2026-11-12T13:46:48.085Z"
   }
 };
+
 
 
 
@@ -2041,8 +2081,8 @@ async function updateVix() {
 }
 
 async function updateYields() {
-  // 10Y / 30Y 并行；2Y 用每日任务维护的基线常量，利差 = 10Y实时 − 2Y基线，避免 ^IRX（13周券）冒充 2 年期
-  const YIELD_2Y = 4.51;
+  // 10Y / 30Y 并行；2Y 用每日管线从 FRED DGS2 更新的常量，利差 = 10Y实时 − 2Y，避免 ^IRX（13周券）冒充 2 年期
+  const YIELD_2Y = YIELD_2Y_BASE;
   const [tnx, tyx] = await Promise.all([
     withTimeout(getQuote('^TNX'), 7000).catch(() => null),
     withTimeout(getQuote('^TYX'), 7000).catch(() => null)
@@ -2052,14 +2092,14 @@ async function updateYields() {
     tnxPrice = tnx.price;
     const mel = document.getElementById('metric-tnx');
     const mcel = document.getElementById('metric-tnx-change');
-    const chgBp = (tnx.price - tnx.prev);
+    const chgBp = (tnx.price - tnx.prev) * 100; // ^TNX 单位是百分点，×100 才是基点(bp)
     if (mel) mel.textContent = tnx.price.toFixed(3) + '%';
     if (mcel) { mcel.textContent = (chgBp>=0?'+':'') + chgBp.toFixed(1) + 'bp'; mcel.className='m-change ' + (chgBp<=0?'down':'up'); }
   }
   if (tyx) {
     const mel = document.getElementById('metric-tyx');
     const mcel = document.getElementById('metric-tyx-change');
-    const chgBp = (tyx.price - tyx.prev);
+    const chgBp = (tyx.price - tyx.prev) * 100; // ^TYX 单位是百分点，×100 才是基点(bp)
     if (mel) mel.textContent = tyx.price.toFixed(3) + '%';
     if (mcel) { mcel.textContent = (chgBp>=0?'+':'') + chgBp.toFixed(1) + 'bp'; mcel.className='m-change ' + (chgBp<=0?'down':'up'); }
   }
@@ -2117,7 +2157,7 @@ function updateTradingDateLabel(q) {
     }
   } catch(e) {}
   const label = document.getElementById('et-session-label');
-  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（盘中为实时价）· 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/日程更新于 ${EVENTS_DATE} · 03 主题为编辑部快照`;
+  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（盘中为实时价）· 指数/个股解读基于 ${EDITORIAL_DATE} 收盘 · 全站每日更新于 ${EXTRA_DATE}（北京时间）`;
 }
 
 function updateHeaderDate() {
@@ -2126,6 +2166,8 @@ function updateHeaderDate() {
   const now = new Date();
   const cn = now.toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'long' });
   el.textContent = cn;
+  const tip = document.getElementById('tip-editorial-date');
+  if (tip) tip.textContent = EDITORIAL_DATE;
 }
 
 function updateFooterTimestamp() {
@@ -2133,7 +2175,7 @@ function updateFooterTimestamp() {
   if (!ft) return;
   const now = new Date();
   const et = now.toLocaleString('zh-CN', { timeZone:'America/New_York', hour12:false });
-  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/日程更新于 ${EVENTS_DATE} · 03 主题为编辑部快照`;
+  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 指数/个股解读基于 ${EDITORIAL_DATE} 收盘 · 全站每日更新于 ${EXTRA_DATE}（北京时间）`;
 }
 
 /* ==================== NAV ACTIVE STATE ==================== */

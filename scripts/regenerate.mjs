@@ -33,6 +33,7 @@ import { dirname, resolve } from 'node:path';
 import { fetchFutuHotList } from './futu.mjs';
 import { buildMarketPulse, injectPulseIntoHtml } from './market_pulse.mjs';
 import { buildModules, injectModulesIntoHtml } from './events.mjs';
+import { buildExtra, injectExtraIntoHtml } from './market_extra.mjs';
 import { generateEditorial, generateHotWhy, placeholderEditorial, placeholderWhy } from './llm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -69,22 +70,29 @@ async function fetchWatchlistCodes() {
     console.log(`[watchlist] 使用 WATCHLIST_CODES（${codes.length} 只）：${codes.join(', ') || '(空)'}`);
     return codes;
   }
-  try {
-    const resp = await fetch(WATCHLIST_API_URL, {
-      signal: AbortSignal.timeout(12000),
-      headers: { 'User-Agent': 'us-stock-dashboard-regenerate/1.0' },
-    });
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const j = await resp.json();
-    if (!Array.isArray(j?.codes)) throw new Error('响应缺少 codes 数组');
-    const codes = sanitizeCodes(j.codes);
-    console.log(`[watchlist] 读取线上自选股（${codes.length} 只）：${codes.join(', ') || '(空)'}`);
-    return codes;
-  } catch (e) {
-    // 拉取失败时不做全量刷新，保留已有解读，绝不因网络抖动清空内容
-    console.warn(`[watchlist] 读取失败（${e.message}）；本次跳过全量解读刷新，保留现有解读。`);
-    return null;
+  let last = null;
+  for (let i = 0; i < 3; i++) {
+    try {
+      const resp = await fetch(WATCHLIST_API_URL, {
+        signal: AbortSignal.timeout(20000),
+        headers: { 'User-Agent': 'us-stock-dashboard-regenerate/1.0', 'Cache-Control': 'no-cache' },
+      });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const j = await resp.json();
+      if (!Array.isArray(j?.codes)) throw new Error('响应缺少 codes 数组');
+      const codes = sanitizeCodes(j.codes);
+      console.log(`[watchlist] 读取线上自选股（${codes.length} 只）：${codes.join(', ') || '(空)'}`);
+      return codes;
+    } catch (e) {
+      last = e;
+      console.warn(`[watchlist] 第 ${i + 1}/3 次读取失败：${e.message}`);
+      if (i < 2) await new Promise((r) => setTimeout(r, 1500 * (i + 1)));
+    }
   }
+  // 拉取失败时不猜列表；main() 会退回 HTML 内嵌 stockNotes 的 keys 继续全量刷新，
+  // 绝不因网络抖动让个股解读冻结在上一次成功的那天。
+  console.warn(`[watchlist] 三次读取均失败（${last?.message}），将改用页面已有解读列表继续刷新。`);
+  return null;
 }
 
 // 占位文本 / 失败结果绝不能覆盖已有的真实 LLM 解读（例如密钥临时失效时）
@@ -275,16 +283,53 @@ function injectDefaultBaselines(html, baselines) {
   return html.slice(0, dStart) + block + html.slice(dEnd);
 }
 
-export function injectIntoHtml(opts, baselines, pulse, modules) {
+/**
+ * 用 stockNotes 的每日解读同步覆盖 defaultStocks 内嵌的编辑性字段，
+ * 让「前端读到 defaultStocks 兜底」时也不会拿到 11/6 的手写死文本。
+ * 只改 latest/fundamental/peNote/verdict 四个字段，baseQuote/baseDyn 由另一函数维护。
+ */
+function injectDefaultEditorial(html, notes) {
+  const dStart = html.indexOf('const defaultStocks = [');
+  if (dStart < 0) return html;
+  const dEnd = html.indexOf('\n];', dStart);
+  if (dEnd < 0) return html;
+  let block = html.slice(dStart, dEnd);
+  let n = 0;
+  for (const sym of Object.keys(notes || {})) {
+    const note = notes[sym];
+    if (!note || !note.latest || !note.verdict || isPlaceholderNote(note)) continue;
+    const anchor = `code:'${sym}'`;
+    const i = block.indexOf(anchor);
+    if (i < 0) continue;
+    const ni = block.indexOf("code:'", i + anchor.length);
+    const segEnd = ni < 0 ? block.length : ni;
+    let seg = block.slice(i, segEnd);
+    for (const k of ['latest', 'fundamental', 'peNote', 'verdict']) {
+      if (!note[k]) continue;
+      const re = new RegExp("(\\b" + k + ":\\s*)'(?:[^'\\\\]|\\\\.)*'");
+      seg = seg.replace(re, (_m, p1) => p1 + JSON.stringify(String(note[k])));
+    }
+    block = block.slice(0, i) + seg + block.slice(segEnd);
+    n++;
+  }
+  if (n) console.log(`[html] 已同步 defaultStocks 编辑性字段（${n} 只）。`);
+  return html.slice(0, dStart) + block + html.slice(dEnd);
+}
+
+export function injectIntoHtml(opts, baselines, pulse, modules, extra) {
   if (!existsSync(HTML_PATH)) {
     console.warn(`[html] 找不到 ${HTML_PATH}，跳过注入。`);
     return;
   }
   let html = readFileSync(HTML_PATH, 'utf8');
+  // 热度榜以 market_extra.mjs 的 Yahoo 热搜榜为准（富途 OpenD 在 CI 里不可用，
+  // 其 hotList 通常为空）；富途源可用时仍可作为兜底。
+  const hot = Array.isArray(extra?.hotStocks) && extra.hotStocks.length
+    ? extra.hotStocks : opts.hotStocks;
   // 注意：空数组/空对象不注入，保留 HTML 中现有内容，避免误清空热度榜或自选解读
-  if (Array.isArray(opts.hotStocks) && opts.hotStocks.length) {
-    html = setConstBlock(html, 'hotStocks', JSON.stringify(opts.hotStocks, null, 2));
-    console.log(`[html] 已注入 hotStocks（${opts.hotStocks.length} 条）。`);
+  if (Array.isArray(hot) && hot.length) {
+    html = setConstBlock(html, 'hotStocks', JSON.stringify(hot, null, 2));
+    console.log(`[html] 已注入 hotStocks（${hot.length} 条，来源：${extra?.hotStocks?.length ? 'Yahoo 热搜榜' : '富途热度榜'}）。`);
   } else {
     console.log('[html] hotStocks 为空，保留现有热度榜（未写回）。');
   }
@@ -293,9 +338,14 @@ export function injectIntoHtml(opts, baselines, pulse, modules) {
     const existing = readStockNotes(html);
     const merged = existing ? { ...existing, ...opts.stockNotes } : { ...opts.stockNotes };
     html = setConstBlock(html, 'stockNotes', JSON.stringify(merged, null, 2));
+    html = injectDefaultEditorial(html, merged);
     console.log(`[html] 已合并 stockNotes（共 ${Object.keys(merged).length} 条，本次新增/更新 ${Object.keys(opts.stockNotes).length} 条）。`);
   } else {
     console.log('[html] stockNotes 为空（无新增自选），保留现有解读（未写回）。');
+    // 即便本次没有新解读，也让默认股的兜底文字与最近一次解读保持一致，
+    // 避免 11/6 的手写快照残留在 defaultStocks 里。
+    const existing = readStockNotes(html);
+    if (existing) html = injectDefaultEditorial(html, existing);
   }
   if (baselines && Object.keys(baselines).length) {
     html = injectDefaultBaselines(html, baselines);
@@ -310,6 +360,12 @@ export function injectIntoHtml(opts, baselines, pulse, modules) {
     html = injectModulesIntoHtml(html, modules);
     if (html !== beforeModules) console.log('[html] 已重写 02/05 模块并更新 EVENTS_DATE。');
   }
+  // 01 情绪分 / 03 主题 / 06 宏观仪表盘：真实行情每日重算并重写（此前 03/06 是 11/6 静态快照）
+  if (extra) {
+    const beforeExtra = html;
+    html = injectExtraIntoHtml(html, extra);
+    if (html !== beforeExtra) console.log('[html] 已重写 01 情绪分 / 03 主题 / 06 宏观解读并更新 EXTRA_DATE。');
+  }
   writeFileSync(HTML_PATH, html, 'utf8');
   console.log(`[html] 已写回 ${HTML_PATH}`);
 }
@@ -317,8 +373,21 @@ export function injectIntoHtml(opts, baselines, pulse, modules) {
 /* ===================== 主流程 ===================== */
 async function main() {
   const watchlist = await fetchWatchlistCodes();
-  // 拉取成功 → 以线上自选股为长文目标；失败 → 只生成默认列表 editorial 备查，不注入
-  const autoTargets = watchlist && watchlist.length ? watchlist : null;
+  // 拉取成功 → 以线上自选股为长文目标；失败 → 退回页面已有 stockNotes 的 keys，
+  // 保证网络抖动时个股解读仍会按当天行情重写，而不是冻结在上一次成功的那天。
+  let autoTargets = watchlist && watchlist.length ? watchlist : null;
+  if (!autoTargets) {
+    try {
+      const cur = readStockNotes(readFileSync(HTML_PATH, 'utf8'));
+      const keys = cur ? Object.keys(cur) : [];
+      if (keys.length) {
+        autoTargets = keys;
+        console.log(`[watchlist] 兜底：按页面已有解读列表全量刷新 ${keys.length} 只：${keys.join(', ')}`);
+      }
+    } catch (e) {
+      console.warn('[watchlist] 读取页面已有解读失败：' + e.message);
+    }
+  }
   const list = [...new Set([...DEFAULT_SYMBOLS, ...symbols, ...(autoTargets || [])])];
 
   // 1) 基线层
@@ -408,7 +477,24 @@ async function main() {
     } catch (e) {
       console.warn('[events] 02/05 刷新失败，保留现有内容：' + e.message);
     }
-    injectIntoHtml(injectOpts, baselines, marketPulse, modulesData);
+
+    // 01 情绪分 / 03 主题 / 06 宏观仪表盘：Yahoo 板块 ETF + 宏观行情 + FRED DGS2 + 热搜榜
+    let extraData = null;
+    try {
+      extraData = await buildExtra();
+      writeFileSync(resolve(ROOT, 'market_extra.json'), JSON.stringify({
+        updatedAt: extraData.updatedAt,
+        sentiment: extraData.sentiment,
+        ust2y: extraData.ust2y,
+        sectors: extraData.sectors,
+        hotStocks: extraData.hotStocks,
+        metrics: extraData.metrics?.map((r) => ({ id: r.id, value: r.value, change: r.change })),
+      }, null, 2), 'utf8');
+      console.log(`[extra] 情绪分 ${extraData.sentiment?.score ?? '—'} / 板块 ${extraData.sectors?.length ?? 0} 个 / 热搜 ${extraData.hotStocks?.length ?? 0} 只 / 宏观卡 ${extraData.metrics?.length ?? 0} 张，更新于 ${extraData.updatedAt}`);
+    } catch (e) {
+      console.warn('[extra] 01/03/06 刷新失败，保留现有内容：' + e.message);
+    }
+    injectIntoHtml(injectOpts, baselines, marketPulse, modulesData, extraData);
   }
 
   if (REFRESH_DEFAULT_BASE) {

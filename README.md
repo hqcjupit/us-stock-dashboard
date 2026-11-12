@@ -10,8 +10,11 @@ functions/
   api/watchlist.js        # 自选股同步后端（KV 持久化）
   api/notes.js            # 加入自选股即时生成 AI 解读（LLM + KV，跨设备共享）
 scripts/
-  regenerate.mjs          # 每日管线：基线 + 富途热度榜 + LLM 长文 + 02/05 模块
+  regenerate.mjs          # 每日总管线：基线 + 个股长文 + 01/02/03/05/06 全模块重写 + 注入
   events.mjs              # 02 新闻 + 05 日程：RSS / 经济日历 / 财报日历取数与中文生成
+  market_pulse.mjs        # 01 指数解读：当日指数/VIX 行情 + LLM 文案
+  market_extra.mjs        # 01 情绪分 / 03 主题 / 06 宏观：Yahoo 板块+宏观行情、FRED、热搜榜
+  verify-live.mjs         # 部署后回读线上，比对 stockNotes / EVENTS_DATE / EXTRA_DATE
   futu.mjs                # 富途美股热度榜取数（OpenD 实时 / 本地 JSON 源）
   futu_hot.mjs            # 本地连 OpenD 产出 futu_hot.json（供 CI/脚本消费）
   llm.mjs                 # LLM 长文生成（OpenAI 兼容，纯 fetch）
@@ -22,6 +25,8 @@ hot_list.json            # 脚本产出：富途热度 Top5（hotStocks 形状�
 editorial.json           # 脚本产出：默认股 + 新增自选的四段式解读（stockNotes 形状）
 events.json              # 脚本产出：02 模块新闻卡片（含来源、时间、原文链接）
 calendar.json            # 脚本产出：05 模块日程（宏观数据 + 重点财报，北京时间）
+market_pulse.json        # 脚本产出：01 模块指数解读与解读日期
+market_extra.json        # 脚本产出：情绪分项、11 个板块涨跌、9 张宏观卡、热搜榜
 futu_hot.json            # 富途热度榜原始数据（本地 futu_hot.mjs 生成后提交；CI 直接消费）
 ```
 
@@ -134,9 +139,11 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 | 基线层 | `defaultStocks` 的 `baseQuote`/`baseDyn`、`baselines.json` | 每日管线刷新 |
 | 指数解读层 | 01 模块「一句话」、三大指数点评、VIX 与情绪解读、`EDITORIAL_DATE` | 每日管线用 `^GSPC/^IXIC/^DJI/^VIX` 真实行情 + LLM 生成并注入（`scripts/market_pulse.mjs`，产物 `market_pulse.json`） |
 | 个股长文 | `stockNotes`（线上自选股里的每一只） | **两条来源**：① 加入自选股时由 `/api/notes` **即时生成**（写 KV、跨设备）；② 每日全量重生成：管线先读 `/api/watchlist` 的 codes，用当天行情 + LLM 重写四段式并合并注入。前端按 `generatedAt` 取较新者；LLM 失败/占位时保留旧解读 |
-| 热度榜 | `hotStocks` | 富途源；无源时保留现有内容 |
+| 热度榜 | `hotStocks` | **每日自动更新**：Yahoo Finance 美股热搜榜（trending）取前 5，再用 Yahoo 行情补价格/涨跌（`scripts/market_extra.mjs`）；富途 OpenD 可用时保留为兜底，CI 无 OpenD 也不再冻结榜单 |
 | 02 事件 / 05 日程 | 真实报道 RSS + 经济/财报日历 | **每日管线重写**（`scripts/events.mjs`），模块顶部与页脚显示「自动更新于 X（北京时间）」；数据源失败时保留上次内容并显式提示 |
-| **静态编辑层** | 03 主题、CNN 贪婪指数卡片、06 三句话串讲 | **仍不自动更新**：暂无板块/情绪数据源，页面已标注为 `2026-11-06` 编辑部快照 |
+| 01 情绪综合分 | `fg-value` / 指针 / 口径说明 | **每日重算**：指数动能、板块宽度、VIX、避险需求、信用需求、指数动量六分项等权（`scripts/market_extra.mjs`）。CNN 官方 Fear & Greed 接口已下线，卡片已改名为「市场情绪综合分（本看板计算）」并写明口径，不再展示假的静态数字 |
+| 03 市场主题 | 主线、领涨/落后板块、两个提醒 | **每日重写**：11 只 SPDR 行业 ETF 当日涨跌 + 热搜榜，LLM 只做基于给定数字的叙述 |
+| 06 核心指标 | 9 张卡的数值 / 涨跌 / 解读 / 来源 + 三句话串讲 | **每日整体重写**：Yahoo `^TNX/^TYX/DX-Y.NYB/CL=F/GC=F/HG=F/BTC-USD/^GSPC` + FRED `DGS2`。原「12 月加息概率 78%」无可靠免费数据源，已替换为真实的「2 年期美债收益率（FRED DGS2）」，并同步作为 2Y-10Y 利差的计算输入（`YIELD_2Y_BASE`） |
 
 > 修复记录：此前 01 模块整块是写死的 11/6 文案，导致「顶部日期是新的、解读还停留在上周五，且一句话里的点位与卡片实时价互相矛盾」。现在 01 模块每天随行情重写；LLM 输出还会经过**数字一致性校验**（必须复现至少两个真实收盘点位），不合格即回退到只复述真实数字的机械文案，绝不编造新闻或数字。
 
@@ -153,6 +160,22 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 - 公开接口偶发 429 / 代理抖动：取数重试 3 次，FF 依次尝试 HTTPS / HTTP / 带查询串三个地址，新闻与日程串行抓取；单模块彻底失败时保留上次内容并在模块顶部明确提示，不静默留过期内容。
 - 每次成功刷新都会写入 `EVENTS_DATE`，模块顶部与页脚都显示「自动更新于 YYYY-MM-DD HH:mm（北京时间）」，可直接判断有没有更新。
 - 本地单独验证/刷新：`node scripts/events.mjs --write-html`（会同时注入 `us-stock-dashboard.html` 与 `index.html`）。
+
+#### 01 情绪分 / 03 主题 / 06 仪表盘怎么更新
+
+全站已无「11/6 编辑部快照」模块。`scripts/market_extra.mjs` 在每日管线里串行抓取，一次 Yahoo `spark` 批量请求即可拿多只标的的日线，避免逐只请求被限流：
+
+| 内容 | 数据源 | 说明 |
+|---|---|---|
+| 11 个行业 ETF 当日涨跌 | Yahoo `XLK/XLC/XLY/XLP/XLB/XLE/XLF/XLV/XLI/XLU/XLRE` | 03 领涨/落后板块、板块宽度分项 |
+| 9 个宏观指标 | Yahoo `^TNX ^TYX DX-Y.NYB CL=F GC=F HG=F BTC-USD ^GSPC ^VIX` | 06 九张卡；10Y/30Y 的差值换算成 bp 时要 ×100（原始单位是百分点） |
+| 2 年期美债收益率 | FRED `DGS2` CSV（工作日更新，约滞后 1 日） | 06 新卡 + `YIELD_2Y_BASE`，前端 2Y-10Y 利差也用它 |
+| 情绪六分项 | Yahoo `SPY`（125 日均线）、`HYG`/`IEF`（20 日相对收益）、`^GSPC`、`^VIX`、板块宽度 | 0~100 等权合成，页面列出每项得分与原始数字 |
+| 热搜榜 Top5 | Yahoo `v1/finance/trending/US` + `spark` 行情 | 03 热搜卡；短评为纯机械模板，避免给陌生代码编造行业/新闻 |
+
+- LLM 只写文字，数值全部来自上述接口；prompt 禁止编造财报、新闻、政策、评级与宏观状态判断，输出再经禁词清洗。无 `LLM_API_KEY` 时降级为「真实数字 + 中性模板」，**依然每天更新**。
+- 任一模块取数失败 → 保留上次内容并在模块顶部插入醒目提示，不静默留过期内容；成功刷新写入 `EXTRA_DATE`，顶部/页脚/`verify-live` 都会核对。
+- 本地单独刷新：`node scripts/market_extra.mjs --write-html`（同时注入两份 HTML）；跑完整管线用 `LLM_API_KEY=... node scripts/regenerate.mjs --write-html`。
 
 #### 新加自选股，解读什么时候出现？
 

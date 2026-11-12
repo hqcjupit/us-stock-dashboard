@@ -1,0 +1,195 @@
+{
+  "updatedAt": "2026-11-12 21:47",
+  "sentiment": {
+    "score": 54,
+    "label": "中性",
+    "parts": [
+      {
+        "label": "指数动能",
+        "score": 52,
+        "raw": "SPY 较 125 日均线 +0.37%"
+      },
+      {
+        "label": "板块宽度",
+        "score": 91,
+        "raw": "11 个行业 ETF 中 10 个上涨"
+      },
+      {
+        "label": "波动率",
+        "score": 65,
+        "raw": "VIX 18.96"
+      },
+      {
+        "label": "避险需求",
+        "score": 33,
+        "raw": "SPY 与 IEF 近 20 日相对收益 -2.64%"
+      },
+      {
+        "label": "信用需求",
+        "score": 43,
+        "raw": "HYG 与 IEF 近 20 日相对收益 -0.67%"
+      },
+      {
+        "label": "指数动量",
+        "score": 42,
+        "raw": "标普500 近 20 日 -1.29%"
+      }
+    ]
+  },
+  "ust2y": {
+    "date": "2026-11-09",
+    "value": 4.56
+  },
+  "sectors": [
+    {
+      "sym": "XLK",
+      "zh": "科技",
+      "chgPct": 3.23,
+      "price": 174.36
+    },
+    {
+      "sym": "XLC",
+      "zh": "通信服务",
+      "chgPct": 0.78,
+      "price": 108.6
+    },
+    {
+      "sym": "XLY",
+      "zh": "可选消费",
+      "chgPct": -0.05,
+      "price": 120.99
+    },
+    {
+      "sym": "XLP",
+      "zh": "必需消费",
+      "chgPct": 0.46,
+      "price": 91.45
+    },
+    {
+      "sym": "XLB",
+      "zh": "材料",
+      "chgPct": 0.32,
+      "price": 53.02
+    },
+    {
+      "sym": "XLE",
+      "zh": "能源",
+      "chgPct": 1.87,
+      "price": 63.37
+    },
+    {
+      "sym": "XLF",
+      "zh": "金融",
+      "chgPct": 0.58,
+      "price": 58.63
+    },
+    {
+      "sym": "XLV",
+      "zh": "医疗",
+      "chgPct": 0.04,
+      "price": 188.95
+    },
+    {
+      "sym": "XLI",
+      "zh": "工业",
+      "chgPct": 1.33,
+      "price": 170.97
+    },
+    {
+      "sym": "XLU",
+      "zh": "公用事业",
+      "chgPct": 0.21,
+      "price": 43.82
+    },
+    {
+      "sym": "XLRE",
+      "zh": "房地产",
+      "chgPct": 0.02,
+      "price": 44.59
+    }
+  ],
+  "hotStocks": [
+    {
+      "code": "NVDA",
+      "name": "英伟达",
+      "basePrice": 173.73,
+      "baseChg": 2.92,
+      "why": "Yahoo 美股热搜第 1 名，最新 $173.73，当日 +2.92%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "MSTR",
+      "name": "Strategy",
+      "basePrice": 122.35,
+      "baseChg": 1.06,
+      "why": "Yahoo 美股热搜第 2 名，最新 $122.35，当日 +1.06%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "BABA",
+      "name": "阿里巴巴",
+      "basePrice": 101.52,
+      "baseChg": -1.17,
+      "why": "Yahoo 美股热搜第 3 名，最新 $101.52，当日 -1.17%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "GOOGM",
+      "name": "Alphabet Inc. - Depositary Shar",
+      "basePrice": 42.74,
+      "baseChg": 1.81,
+      "why": "Yahoo 美股热搜第 4 名，最新 $42.74，当日 +1.81%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "NBIS",
+      "name": "Nebius",
+      "basePrice": 154.69,
+      "baseChg": 15.44,
+      "why": "Yahoo 美股热搜第 5 名，最新 $154.69，当日 +15.44%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "tnx",
+      "value": "5.048%",
+      "change": "+5.0bp（较前一交易日）"
+    },
+    {
+      "id": "tyx",
+      "value": "5.389%",
+      "change": "+3.3bp（较前一交易日）"
+    },
+    {
+      "id": "dxy",
+      "value": "102.94",
+      "change": "+0.03%（较前一交易日）"
+    },
+    {
+      "id": "yieldcurve",
+      "value": "+0.49%",
+      "change": "曲线未倒挂 · 10Y 5.05% − 2Y 4.56%"
+    },
+    {
+      "id": "ust2y",
+      "value": "4.56%",
+      "change": "FRED 公布日 2026-11-09"
+    },
+    {
+      "id": "cugold",
+      "value": "0.00158",
+      "change": "铜 $6.20 / 金 $3911"
+    },
+    {
+      "id": "wti",
+      "value": "$87.31",
+      "change": "+0.90%（较前一交易日）"
+    },
+    {
+      "id": "gold",
+      "value": "$3911.00",
+      "change": "-2.24%（较前一交易日）"
+    },
+    {
+      "id": "btc",
+      "value": "$72,514",
+      "change": "-1.64%（较前一交易日）"
+    }
+  ]
+}

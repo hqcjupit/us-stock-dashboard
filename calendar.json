@@ -9,7 +9,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/csco",
     "zh": "思科(CSCO)财报",
-    "why": "思科财报反映其网络设备及服务业务表现，公布后可核对营收、利润等财务数据与市场预期的差异。",
+    "why": "思科财报反映企业网络设备及服务业务表现，公布后可核对营收、利润及细分业务数据，与市场预期对比。",
     "dateLabel": "11/12",
     "weekday": "周四",
     "timeLabel": "盘后"
@@ -24,7 +24,7 @@
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/11-us-unemployment-claims",
     "zh": "美国初请失业金人数",
-    "why": "初请失业金人数反映美国劳动力市场状况，公布后可对比非农就业报告等数据，观察就业市场变化趋势。",
+    "why": "初请失业金人数反映美国劳动力市场状况，公布后可核对劳工部发布的就业报告，了解失业趋势和就业市场变化。",
     "dateLabel": "11/12",
     "weekday": "周四",
     "timeLabel": "21:30"
@@ -39,7 +39,7 @@
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/86-us-ppi-mm",
     "zh": "PPI月率",
-    "why": "PPI反映生产者价格变动，是通胀先行指标。公布后可对比CPI数据，观察价格传导效应。",
+    "why": "生产者价格指数（PPI）月率反映企业生产成本变化，公布后可对比工业品出厂价格走势及原材料价格波动情况。",
     "dateLabel": "11/13",
     "weekday": "周五",
     "timeLabel": "21:30"
@@ -54,7 +54,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
     "zh": "英伟达(NVDA)财报",
-    "why": "英伟达是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。公布后可核对营收、每股收益等关键财务数据。",
+    "why": "英伟达财报反映其GPU与AI芯片业务表现，公布后可核对季度营收、利润与数据中心等业务增长情况。",
     "dateLabel": "11/17",
     "weekday": "周二",
     "timeLabel": "盘后"
