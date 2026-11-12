@@ -241,6 +241,7 @@ a { color:var(--accent); text-decoration:none; }
   line-height:1.3;
 }
 .module-body { padding:24px 26px; }
+.module-update { font-size:12px; color:var(--ink-light); margin:0 0 14px; line-height:1.6; }
 
 /* ========== HIGHLIGHT CARD ========== */
 .highlight-card {
@@ -895,25 +896,31 @@ a { color:var(--accent); text-decoration:none; }
       <div class="module-title">发生了什么大事？</div>
     </div>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="m2-body">
+    <!-- BEGIN:DYNAMIC_EVENTS -->
+    <div class="module-update">自动更新于 2026-11-12 21:06（北京时间）· 新闻取自 Google News / CNBC / WSJ 公开 RSS，点击原文链接可核对</div>
 
     <div class="event-card">
-      <div class="event-title">1. 非农大超预期，加息押注急升</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>10 月非农新增 16.5 万人，预期只有 6.5 万；失业率降到 4.1%，时薪环比涨 0.4%。8、9 两月合计上修 8.4 万，就业比想的还结实。工资是物价的先行指标：企业抢人就得加薪，因为劳动力紧了；加薪落到消费上，物价就压不下来。数据一出，12 月加息概率从 70% 跳到 78%，美元指数涨 0.72% 报 102.28。<span class="dim">（来源：美国劳工统计局、21 世纪经济报道）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>就业强对工人是好事，对股市是压力。因为联储 9 月刚重启加息（就是靠抬高借钱成本压物价），而加息的理由正是经济太热。概率一升，2 年期收益率立刻涨 5.6 个基点（基点即 0.01 个百分点）报 4.514%。对股市的传导是两步：利率上行先压估值，经济过热再抬盈利预期，最后看哪股力赢。短端先动，因为市场在改近期预期。为什么先看短端？因为加息加的是近期资金的价格，短端对政策预期最敏感。下周二 CPI 是第二只靴子，验证看 CPI 公布当天的 2 年期收益率。<span class="dim">（来源：LSEG、每日经济新闻）</span></div>
+      <div class="event-title">1. 道指期货微涨近52550点 强劲财报抵消鹰派加息预期</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>报道称道指期货小幅上涨接近52550点，因企业财报表现强劲部分抵消了市场对美联储激进加息的担忧。<span class="dim">（来源：FXLeaders · 11/12 16:42）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>企业财报与货币政策预期是影响股指期货的两大关键因素，投资者可关注后续公布的重要企业财报及美联储官员讲话，以判断市场情绪变化。</div>
+      <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMiwwFBVV95cUxQeXFWZTQ2SlJEMFl0X3E2LVMwVjZ6OGxERkllYVU1S0RZN1hXZ2tNaHVLUFhUQmdFZmhRSk54ajI0ajQxLTVZSVRSZ0I1Sy1UemNwVUI0QjBPZ0JVWkZ2cFdyUnZBQ2Z3cFlqQ0tTck9YNXVwSE81ZV9TTmhRNGVlY0F5M1hyTUZ5UFhlVGdqWUpGSjhSbVZMRjRxcmRfbEhwRURUTXpjbWw2YWstUHowVUVONHQxUTQ3cTlsQ2U5akoxRWM?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Dow Futures Edge Higher Near 52,550 as Strong Earnings Offset Hawkish Fed Rate Bets</div>
     </div>
 
     <div class="event-card">
-      <div class="event-title">2. 芯片超跌反弹，但 AI 的估值锚被下调</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>费城半导体指数涨 4.21%，AMD 涨 11%、英特尔涨 7.71%、美光涨 5.12%。白宫经济委员会主任哈塞特喊话：数据中心建设仍有很大空间，项目该由当地社区决定。但一级市场在降价：Anthropic 的 IPO 估值预期从最高 2 万亿美元降到 1.2-1.3 万亿。OpenAI 融资估值也从 1.5 万亿降到 1.25 万亿。降幅三五成，通常出现在增长故事被证伪之后；这次证伪还没发生，所以更像提前挤水分。<span class="dim">（来源：21 世纪经济报道）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>反弹与降价同时发生，说明市场分得清两件事：短期跌幅太大需要修复，长期值多少钱要重算。一级市场（未上市公司的私下定价）先打折，因为私募没有散户接盘，定价最诚实。一级砍三成，二级的 AI 估值就悬在半空。下周 Anthropic 启动路演，认购冷，二级跟着降；认购热，说明恐慌没伤到长钱。哈塞特的喊话也在链条里：白宫怕 AI 停摆拖累经济，所以口径在安抚；但审批权在州和社区手里，安抚归安抚，钱看不看开工数据。<span class="dim">（来源：21 世纪经济报道）</span></div>
+      <div class="event-title">2. 通胀数据与英伟达亏损后，美股期货小幅走高</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>据报道，尽管发布了火热的通胀数据和英伟达的亏损，道琼斯、标普500和纳斯达克期货仍小幅上涨。报道还提到CRWV、TTWO、NLST和NBIS等公司受到关注，但未提供更多细节。<span class="dim">（来源：Yahoo Finance · 11/11 11:51）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>通胀数据和科技巨头财报是投资者关注的重点，因为它们影响市场情绪和美联储政策预期。投资者可以关注后续发布的官方通胀报告和公司财报，以评估市场趋势。</div>
+      <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMikwFBVV95cUxONlFSZXhHRzE0blVJRUpMNzJBTHR3SU1RM0ZJQlZGMzh3bm82Y3pIRFBadTBEN0RKVjBZODhVYl9hNldvYmxRWjZPNW5KSzI1TTZvRGxrMEJzUFU2M2FWVWM2MmdWcUh0dW90OFpCbkstNWhTVnk1RU0xb3ByajM4NThwd1VYSEF3ZHVIWk5YY213b2c?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Dow, S&amp;P 500, Nasdaq Futures Edge Higher After Red-Hot Inflation Data And Nvidia Losses: CRWV, TTWO, NLST, NBIS In Focus</div>
     </div>
 
     <div class="event-card">
-      <div class="event-title">3. 反弹极窄，防御股反而领跌</div>
-      <div class="event-row"><span class="ev-label">发生了什么：</span>十一大板块七涨四跌，科技涨 1.45% 领涨，必需消费跌 1.28% 垫底。全周标普跌 2.68%，创 2025 年 4 月以来最差单周。伯克希尔三季度营业利润 127.05 亿美元，同比降 5.8%，投资收益也在缩水。<span class="dim">（来源：the closing print、中国证券网）</span></div>
-      <div class="event-row"><span class="ev-label">所以呢：</span>健康的反弹是普涨，这次只涨 AI 一串。必需消费下跌是防御盘回吐：周四买它躲跌的钱，周五见风险缓和就撤，因为资金在打游击、没建长期仓。巴菲特那边是同一逻辑的实体版：高利率环境压利润，"利率更高更久"不只压股价，也压企业。验证看本周板块宽度能不能转正。宽度为什么重要？因为指数是被几只权重股抬起来的，多数股票在跌意味着钱没有回到市场，只是在权重股里挪窝。<span class="dim">（来源：the closing print）</span></div>
+      <div class="event-title">3. 科技股上涨提振股市 债券因联储预期下跌</div>
+      <div class="event-row"><span class="ev-label">发生了什么：</span>彭博社报道显示，科技股上涨推动股市整体走高，而债券市场因投资者对美联储政策的预期出现下跌。报道未提供具体个股或债券品种表现细节。<span class="dim">（来源：Bloomberg.com · 11/11 06:32）</span></div>
+      <div class="event-row"><span class="ev-label">所以呢：</span>科技板块对股指影响显著，其波动常引发市场关注；债券收益率变化反映利率预期，投资者可后续关注美联储会议纪要和通胀数据验证市场预期合理性。</div>
+      <div class="event-row dim"><a href="https://news.google.com/rss/articles/CBMilAFBVV95cUxQNFpBLVFiSmhuZGxNdjZ4WUE1eEZZVzlpcElqQ3FpX2hfRVVkaVdncm5Ic3J4TFdMVTVPODFqV1dYWTJORmx5c3lTMHg1ZUtiZml2ZUVOZm1WQnlCa2lKcUt3M0tjQUsyVVNxQlVySk5TbHRqZHczYVFDTnU0OGZjMjBBWUFqZ2JpNFNhb05nX01EU3dX?oc=5" target="_blank" rel="noopener">阅读原文核对 ↗</a> · 原标题：Tech Gains Boost Stocks as Bonds Slide on Fed Bets: Markets Wrap</div>
     </div>
+    <!-- END:DYNAMIC_EVENTS -->
 
   </div>
 </div>
@@ -928,6 +935,7 @@ a { color:var(--accent); text-decoration:none; }
     </div>
   </div>
   <div class="module-body">
+    <div class="module-update">本模块「市场主题」暂无自动数据源，以下为 2026-11-06 编辑部快照，不随每日行情更新；02 事件与 05 日程已改为每日自动刷新。</div>
 
     <div class="theme-box">
       <strong>主线：技术性反弹。</strong><br>
@@ -1006,49 +1014,45 @@ a { color:var(--accent); text-decoration:none; }
       <div class="module-title">接下来要注意什么？</div>
     </div>
   </div>
-  <div class="module-body">
+  <div class="module-body" id="m5-body">
+    <!-- BEGIN:DYNAMIC_CALENDAR -->
+    <div class="module-update">自动更新于 2026-11-12 21:06（北京时间）· 日程取自 ForexFactory 经济日历（原始时间为 GMT，已换算北京时间）与 Nasdaq 财报日历</div>
+
     <ul class="cal-list">
       <li class="cal-item">
-        <div class="cal-date"><div class="monthday">11/10</div><span class="weekday">周二晚（北京）</span></div>
+        <div class="cal-date"><div class="monthday">11/12</div><span class="weekday">周四 盘后</span></div>
         <div class="cal-content">
-          <div class="cal-title">10 月 CPI：利率路径的分水岭</div>
-          <div class="cal-desc">通胀数据此前断档，市场手里只有 8 月旧账：年增 3.13%；油价已从 104 美元跌到 91 附近。</div>
-          <div class="cal-impact"><strong>所以呢：</strong>它决定"更高更久"是不是现实。高于 3.33%，加息预期再加码，成长股再挨估值压缩；低于 2.93%，恐慌加速退潮。加息概率悬在近八成，这份 CPI 就是改票的口。传导链条是：CPI 超预期 → 联储更鹰 → 利率上行 → 成长股估值再压缩。<span class="dim">（来源：美国劳工统计局、stockcast）</span></div>
+          <div class="cal-title">思科系统公司财报</div>
+          <div class="cal-desc">日历数据：每股预期 $1.15 · 去年同期 $0.81 · 原始条目：CSCO Cisco Systems, Inc. 财报</div>
+          <div class="cal-impact"><strong>所以呢：</strong>思科财报反映其网络设备和软件业务的盈利状况，公布后可核对营收、净利润等财务数据，了解公司在通信技术市场的表现。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
-        <div class="cal-date"><div class="monthday">11/11-13</div><span class="weekday">周三到周五</span></div>
+        <div class="cal-date"><div class="monthday">11/12</div><span class="weekday">周四 21:30</span></div>
         <div class="cal-content">
-          <div class="cal-title">AI 资本开支链财报密集</div>
-          <div class="cal-desc">思科、应用材料、CoreWeave、Cerebras 相继放榜，全是数据中心链条上的公司。</div>
-          <div class="cal-impact"><strong>所以呢：</strong>政策只是质疑，订单才是证据，因为收入不会说谎。应用材料的设备订单反映晶圆厂还建不建，CoreWeave 的收入反映算力租赁真不真。集体印证需求，回调就定性为估值重置。这些公司是 AI 链条的收银台，订单数据比任何表态都硬。<span class="dim">（来源：21 世纪经济报道、Nasdaq 行事历）</span></div>
+          <div class="cal-title">失业救济申请人数</div>
+          <div class="cal-desc">日历数据：194K · 189K · 原始条目：Unemployment Claims</div>
+          <div class="cal-impact"><strong>所以呢：</strong>该数据反映美国劳动力市场状况，公布后可核对就业市场趋势和劳动力需求变化。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
-        <div class="cal-date"><div class="monthday">11/13</div><span class="weekday">周五</span></div>
+        <div class="cal-date"><div class="monthday">11/13</div><span class="weekday">周五 21:30</span></div>
         <div class="cal-content">
-          <div class="cal-title">10 月 PPI：通胀的上游读数</div>
-          <div class="cal-desc">生产者价格指数（工厂出货价的涨幅），先于 CPI 反映成本变化。</div>
-          <div class="cal-impact"><strong>所以呢：</strong>PPI 先动、CPI 后动，因为工厂成本早晚转嫁给消费者，PPI 相当于 CPI 的预告片。若 PPI 高于预期，CPI 回落就是缓不济急，"更高更久"延长；两份同向回落，利率路径就提前定了。<span class="dim">（来源：美国劳工统计局）</span></div>
+          <div class="cal-title">PPI 月率</div>
+          <div class="cal-desc">日历数据：0.4% · 1.3% · 原始条目：PPI m/m</div>
+          <div class="cal-impact"><strong>所以呢：</strong>PPI（生产者价格指数）月率反映生产者销售商品和服务的价格变动。公布后可与 CPI 等通胀指标对比，评估价格传导机制和经济通胀压力。<span class="dim">（来源：ForexFactory 经济日历）</span></div>
         </div>
       </li>
       <li class="cal-item">
-        <div class="cal-date"><div class="monthday">下周</div><span class="weekday">路演启动</span></div>
+        <div class="cal-date"><div class="monthday">11/17</div><span class="weekday">周二 盘后</span></div>
         <div class="cal-content">
-          <div class="cal-title">Anthropic IPO 路演：AI 估值的公开定价</div>
-          <div class="cal-desc">估值预期已从最高 2 万亿美元降到 1.2-1.3 万亿，缩水三到四成。</div>
-          <div class="cal-impact"><strong>所以呢：</strong>它是 AI 估值的定价仪式：认购冷淡，二级 AI 板块的折价坐实；认购火爆，说明恐慌没伤到长期钱。因为它的定价会成为所有 AI 资产的新参照系。看认购倍数与最终定价。<span class="dim">（来源：21 世纪经济报道）</span></div>
-        </div>
-      </li>
-      <li class="cal-item">
-        <div class="cal-date"><div class="monthday">11/17</div><span class="weekday">周二盘后</span></div>
-        <div class="cal-content">
-          <div class="cal-title">英伟达财报：AI 需求是否还在的唯一实证</div>
-          <div class="cal-desc">数据中心收入与指引，直接回答"AI 需求是否还在"这一个问题。</div>
-          <div class="cal-impact"><strong>所以呢：</strong>它是本轮唯一能一锤定音的实证。指引强，回调定性为估值重置；指引弱，抛售逻辑升级。财报前的反弹都算抢跑，因为它一票定方向。<span class="dim">（来源：英伟达财报日程、富途资讯）</span></div>
+          <div class="cal-title">NVIDIA Corporation 财报</div>
+          <div class="cal-desc">日历数据：每股预期 $2.49 · 去年同期 $1.24 · 原始条目：NVDA NVIDIA Corporation 财报</div>
+          <div class="cal-impact"><strong>所以呢：</strong>NVIDIA 财报反映其图形处理器和数据中心业务的业绩表现。公布后可核对营收、利润等财务数据，以及市场对其产品的需求情况。<span class="dim">（来源：Nasdaq 财报日历）</span></div>
         </div>
       </li>
     </ul>
+    <!-- END:DYNAMIC_CALENDAR -->
   </div>
 </div>
 
@@ -1155,7 +1159,7 @@ a { color:var(--accent); text-decoration:none; }
     <strong>风险提示：</strong>本看板仅为信息整理与市场科普，不构成任何投资建议。股市有风险，投资需谨慎。所有数据来自公开信息源，可能存在延迟。本页面不提供买入/卖出/加仓/减仓建议，也不预测具体价格。
   </div>
   <div class="sources">
-    <strong>数据来源：</strong>富途牛牛（个股热度、资讯、个股动态点评）、Investing.com（大宗商品与美债行情核对）、Yahoo Finance（指数/个股/ETF 实时行情，经代理自动刷新）、腾讯自选股（板块 ETF 行情）、CBOE / MacroMicro（VIX）、Mortgage News Daily（美债收益率）、TradingEconomics（美元指数、WTI）、USA TODAY（金价）、CoinGecko（比特币）、CNN Fear &amp; Greed Index、CME FedWatch（利率概率，经媒体转引）。个股详情可跳转
+    <strong>数据来源：</strong>富途牛牛（个股热度、资讯、个股动态点评）、Investing.com（大宗商品与美债行情核对）、Yahoo Finance（指数/个股/ETF 实时行情，经代理自动刷新）、腾讯自选股（板块 ETF 行情）、CBOE / MacroMicro（VIX）、Mortgage News Daily（美债收益率）、TradingEconomics（美元指数、WTI）、USA TODAY（金价）、CoinGecko（比特币）、CNN Fear &amp; Greed Index、CME FedWatch（利率概率，经媒体转引）、Google News / CNBC / WSJ（02 模块公开报道 RSS）、ForexFactory（05 模块经济日历，原始时间为 GMT）、Nasdaq（05 模块财报日历）。个股详情可跳转
     <a href="https://www.futunn.com/stock" target="_blank" rel="noopener">富途牛牛</a> 或
     <a href="https://www.investing.com/" target="_blank" rel="noopener">Investing.com</a> 核实。
   </div>
@@ -1166,7 +1170,8 @@ a { color:var(--accent); text-decoration:none; }
 
 <script>
 /* ==================== CONFIG ==================== */
-const EDITORIAL_DATE = '2026-11-09'; // 深度解读所基于的交易日
+const EDITORIAL_DATE = '2026-11-09'; // 指数/个股深度解读所基于的交易日
+const EVENTS_DATE = '2026-11-12 21:06'; // 02 事件 / 05 日程最近一次自动更新时间（北京时间）
 
 /* 默认自选股：编辑性内容（最新动态/基本面/估值锚）基于 2026-11-06 收盘信息，2026-11-09 更新。
    来源：美国劳工统计局 / 21 世纪经济报道 / 每日经济新闻 / 中国证券网 / 富途资讯 / 腾讯行情快照。
@@ -2095,7 +2100,7 @@ function updateTradingDateLabel(q) {
     }
   } catch(e) {}
   const label = document.getElementById('et-session-label');
-  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（盘中为实时价）· 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/主题/日程为编辑部快照（2026-11-06）`;
+  if (label) label.textContent = `价格数据基于${lastTradingDateLabel}收盘（盘中为实时价）· 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/日程更新于 ${EVENTS_DATE} · 03 主题为编辑部快照`;
 }
 
 function updateHeaderDate() {
@@ -2111,7 +2116,7 @@ function updateFooterTimestamp() {
   if (!ft) return;
   const now = new Date();
   const et = now.toLocaleString('zh-CN', { timeZone:'America/New_York', hour12:false });
-  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/主题/日程为编辑部快照（2026-11-06）`;
+  ft.textContent = `本页打开于北京时间 ${now.toLocaleString('zh-CN', {hour12:false})} · 行情对应${lastTradingDateLabel} · 价格每次打开自动刷新 · 指数解读基于 ${EDITORIAL_DATE} 收盘 · 事件/日程更新于 ${EVENTS_DATE} · 03 主题为编辑部快照`;
 }
 
 /* ==================== NAV ACTIVE STATE ==================== */

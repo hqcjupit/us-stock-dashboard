@@ -1,0 +1,62 @@
+[
+  {
+    "kind": "earnings",
+    "title": "CSCO Cisco Systems, Inc. 财报",
+    "ts": 1794484800000,
+    "timeNote": "盘后",
+    "forecast": "每股预期 $1.15",
+    "previous": "去年同期 $0.81",
+    "source": "Nasdaq 财报日历",
+    "url": "https://www.nasdaq.com/market-activity/stocks/csco",
+    "zh": "思科系统公司财报",
+    "why": "思科财报反映其网络设备和软件业务的盈利状况，公布后可核对营收、净利润等财务数据，了解公司在通信技术市场的表现。",
+    "dateLabel": "11/12",
+    "weekday": "周四",
+    "timeLabel": "盘后"
+  },
+  {
+    "kind": "macro",
+    "title": "Unemployment Claims",
+    "impact": "Medium",
+    "ts": 1794490200000,
+    "forecast": "194K",
+    "previous": "189K",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/11-us-unemployment-claims",
+    "zh": "失业救济申请人数",
+    "why": "该数据反映美国劳动力市场状况，公布后可核对就业市场趋势和劳动力需求变化。",
+    "dateLabel": "11/12",
+    "weekday": "周四",
+    "timeLabel": "21:30"
+  },
+  {
+    "kind": "macro",
+    "title": "PPI m/m",
+    "impact": "High",
+    "ts": 1794576600000,
+    "forecast": "0.4%",
+    "previous": "1.3%",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/86-us-ppi-mm",
+    "zh": "PPI 月率",
+    "why": "PPI（生产者价格指数）月率反映生产者销售商品和服务的价格变动。公布后可与 CPI 等通胀指标对比，评估价格传导机制和经济通胀压力。",
+    "dateLabel": "11/13",
+    "weekday": "周五",
+    "timeLabel": "21:30"
+  },
+  {
+    "kind": "earnings",
+    "title": "NVDA NVIDIA Corporation 财报",
+    "ts": 1794916800000,
+    "timeNote": "盘后",
+    "forecast": "每股预期 $2.49",
+    "previous": "去年同期 $1.24",
+    "source": "Nasdaq 财报日历",
+    "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
+    "zh": "NVIDIA Corporation 财报",
+    "why": "NVIDIA 财报反映其图形处理器和数据中心业务的业绩表现。公布后可核对营收、利润等财务数据，以及市场对其产品的需求情况。",
+    "dateLabel": "11/17",
+    "weekday": "周二",
+    "timeLabel": "盘后"
+  }
+]

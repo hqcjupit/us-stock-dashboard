@@ -50,7 +50,7 @@ function cfg() {
 /**
  * 调一次 chat/completions，返回解析后的 JSON（必须是合法 JSON，否则返回 null）。
  */
-async function chatJson(systemPrompt, userPrompt, c = cfg()) {
+export async function chatJson(systemPrompt, userPrompt, c = cfg()) {
   if (!c.apiKey) return null;
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), c.timeout);

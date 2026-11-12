@@ -10,7 +10,8 @@ functions/
   api/watchlist.js        # 自选股同步后端（KV 持久化）
   api/notes.js            # 加入自选股即时生成 AI 解读（LLM + KV，跨设备共享）
 scripts/
-  regenerate.mjs          # 每日管线：基线 + 富途热度榜 + LLM 长文
+  regenerate.mjs          # 每日管线：基线 + 富途热度榜 + LLM 长文 + 02/05 模块
+  events.mjs              # 02 新闻 + 05 日程：RSS / 经济日历 / 财报日历取数与中文生成
   futu.mjs                # 富途美股热度榜取数（OpenD 实时 / 本地 JSON 源）
   futu_hot.mjs            # 本地连 OpenD 产出 futu_hot.json（供 CI/脚本消费）
   llm.mjs                 # LLM 长文生成（OpenAI 兼容，纯 fetch）
@@ -19,6 +20,8 @@ wrangler.toml            # Pages + KV 绑定配置
 baselines.json           # 脚本产出：每只标的的 baseQuote + baseDyn（每日更新）
 hot_list.json            # 脚本产出：富途热度 Top5（hotStocks 形状）
 editorial.json           # 脚本产出：默认股 + 新增自选的四段式解读（stockNotes 形状）
+events.json              # 脚本产出：02 模块新闻卡片（含来源、时间、原文链接）
+calendar.json            # 脚本产出：05 模块日程（宏观数据 + 重点财报，北京时间）
 futu_hot.json            # 富途热度榜原始数据（本地 futu_hot.mjs 生成后提交；CI 直接消费）
 ```
 
@@ -132,9 +135,24 @@ FUTU_TOPN=10 node scripts/futu_hot.mjs    # 取 Top10
 | 指数解读层 | 01 模块「一句话」、三大指数点评、VIX 与情绪解读、`EDITORIAL_DATE` | 每日管线用 `^GSPC/^IXIC/^DJI/^VIX` 真实行情 + LLM 生成并注入（`scripts/market_pulse.mjs`，产物 `market_pulse.json`） |
 | 个股长文 | `stockNotes`（线上自选股里的每一只） | **两条来源**：① 加入自选股时由 `/api/notes` **即时生成**（写 KV、跨设备）；② 每日全量重生成：管线先读 `/api/watchlist` 的 codes，用当天行情 + LLM 重写四段式并合并注入。前端按 `generatedAt` 取较新者；LLM 失败/占位时保留旧解读 |
 | 热度榜 | `hotStocks` | 富途源；无源时保留现有内容 |
-| **静态编辑层** | 02「发生了什么大事」、03 主题、05 日程、CNN 贪婪指数卡片 | **不自动更新**：没有新闻/情绪数据源，页面标签已明确标注为 `2026-11-06` 编辑部快照；需要时人工改 HTML |
+| 02 事件 / 05 日程 | 真实报道 RSS + 经济/财报日历 | **每日管线重写**（`scripts/events.mjs`），模块顶部与页脚显示「自动更新于 X（北京时间）」；数据源失败时保留上次内容并显式提示 |
+| **静态编辑层** | 03 主题、CNN 贪婪指数卡片、06 三句话串讲 | **仍不自动更新**：暂无板块/情绪数据源，页面已标注为 `2026-11-06` 编辑部快照 |
 
 > 修复记录：此前 01 模块整块是写死的 11/6 文案，导致「顶部日期是新的、解读还停留在上周五，且一句话里的点位与卡片实时价互相矛盾」。现在 01 模块每天随行情重写；LLM 输出还会经过**数字一致性校验**（必须复现至少两个真实收盘点位），不合格即回退到只复述真实数字的机械文案，绝不编造新闻或数字。
+
+#### 02「发生了什么大事」/ 05「接下来要注意什么」怎么更新
+
+此前这两块是 11/6 的手写快照，每日管线完全不碰——指数和个股每天变，事件却永远停在 11/6（还写着已经过去的 11/10 CPI）。现在改为每日重写：
+
+| 模块 | 真实数据源 | 处理 |
+|---|---|---|
+| 02 | Google News RSS（两组查询）、CNBC Top News、WSJ Markets | 合并去重，按主题相关度与时效打分取 3 条；卡片给出中文改写、来源、北京时间、原文链接与英文原标题 |
+| 05 | ForexFactory 本周经济日历（USD，High/Medium，原始时间 GMT）、Nasdaq 财报日历（仅知名美股） | 换算为北京时间、同场次去重，按时间排序取 4~5 条；附市场预期/前值与可核对的看点 |
+
+- LLM 只做翻译与常识性「看点」，prompt 硬性禁止编造数字、新闻、政策与预测；输出再做禁词清洗。无 `LLM_API_KEY` 时降级为「中文事件名 + 真实英文原标题 + 模板化看点」，**依然每天更新**。
+- 公开接口偶发 429 / 代理抖动：取数重试 3 次，FF 依次尝试 HTTPS / HTTP / 带查询串三个地址，新闻与日程串行抓取；单模块彻底失败时保留上次内容并在模块顶部明确提示，不静默留过期内容。
+- 每次成功刷新都会写入 `EVENTS_DATE`，模块顶部与页脚都显示「自动更新于 YYYY-MM-DD HH:mm（北京时间）」，可直接判断有没有更新。
+- 本地单独验证/刷新：`node scripts/events.mjs --write-html`（会同时注入 `us-stock-dashboard.html` 与 `index.html`）。
 
 #### 新加自选股，解读什么时候出现？
 

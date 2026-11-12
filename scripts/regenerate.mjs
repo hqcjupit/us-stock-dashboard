@@ -32,6 +32,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 import { fetchFutuHotList } from './futu.mjs';
 import { buildMarketPulse, injectPulseIntoHtml } from './market_pulse.mjs';
+import { buildModules, injectModulesIntoHtml } from './events.mjs';
 import { generateEditorial, generateHotWhy, placeholderEditorial, placeholderWhy } from './llm.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -274,7 +275,7 @@ function injectDefaultBaselines(html, baselines) {
   return html.slice(0, dStart) + block + html.slice(dEnd);
 }
 
-export function injectIntoHtml(opts, baselines, pulse) {
+export function injectIntoHtml(opts, baselines, pulse, modules) {
   if (!existsSync(HTML_PATH)) {
     console.warn(`[html] 找不到 ${HTML_PATH}，跳过注入。`);
     return;
@@ -303,6 +304,12 @@ export function injectIntoHtml(opts, baselines, pulse) {
   const beforePulse = html;
   html = injectPulseIntoHtml(html, pulse);
   if (html !== beforePulse) console.log('[html] 已注入市场脉搏文案与解读日期。');
+  // 02 事件 / 05 日程：用真实新闻 RSS + 经济/财报日历每日重写（此前是 11/6 编辑部静态快照）
+  if (modules) {
+    const beforeModules = html;
+    html = injectModulesIntoHtml(html, modules);
+    if (html !== beforeModules) console.log('[html] 已重写 02/05 模块并更新 EVENTS_DATE。');
+  }
   writeFileSync(HTML_PATH, html, 'utf8');
   console.log(`[html] 已写回 ${HTML_PATH}`);
 }
@@ -390,7 +397,18 @@ async function main() {
     const injectOpts = {};
     if (hotList.length) injectOpts.hotStocks = hotList;
     if (Object.keys(stockNotesObj).length) injectOpts.stockNotes = stockNotesObj;
-    injectIntoHtml(injectOpts, baselines, marketPulse);
+
+    // 02/05 模块：抓真实新闻与财经日历，交给 LLM 翻译/写看点（无 key 时降级为原标题 + 中文模板）
+    let modulesData = null;
+    try {
+      modulesData = await buildModules();
+      writeFileSync(resolve(ROOT, 'events.json'), JSON.stringify(modulesData.news, null, 2), 'utf8');
+      writeFileSync(resolve(ROOT, 'calendar.json'), JSON.stringify(modulesData.calendar, null, 2), 'utf8');
+      console.log(`[events] 02 新闻 ${modulesData.news.length} 条 / 05 日程 ${modulesData.calendar.length} 条，更新于 ${modulesData.updatedAt}`);
+    } catch (e) {
+      console.warn('[events] 02/05 刷新失败，保留现有内容：' + e.message);
+    }
+    injectIntoHtml(injectOpts, baselines, marketPulse, modulesData);
   }
 
   if (REFRESH_DEFAULT_BASE) {
