@@ -1,20 +1,5 @@
 [
   {
-    "kind": "macro",
-    "title": "PPI m/m",
-    "impact": "High",
-    "ts": 1794576600000,
-    "forecast": "0.4%",
-    "previous": "1.3%",
-    "source": "ForexFactory 经济日历",
-    "url": "https://www.forexfactory.com/calendar/86-us-ppi-mm",
-    "zh": "PPI月率",
-    "why": "PPI（生产者价格指数）反映生产环节的价格变动，是衡量通胀的重要指标。公布后可核对工业品价格变化趋势，了解生产成本对经济的影响。",
-    "dateLabel": "11/13",
-    "weekday": "周五",
-    "timeLabel": "21:30"
-  },
-  {
     "kind": "earnings",
     "title": "NVDA NVIDIA Corporation 财报",
     "ts": 1794916800000,
@@ -23,8 +8,8 @@
     "previous": "去年同期 $1.24",
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
-    "zh": "英伟达(NVDA)财报",
-    "why": "英伟达是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。公布后可核对营收、利润等关键财务数据与市场预期的差异。",
+    "zh": "NVDA NVIDIA公司财报",
+    "why": "NVIDIA财报反映其在图形处理器和人工智能芯片市场的表现。公布后可与市场预期和去年同期数据进行对比，评估公司业绩变化。",
     "dateLabel": "11/17",
     "weekday": "周二",
     "timeLabel": "盘后"
@@ -39,7 +24,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/panw",
     "zh": "PANW Palo Alto Networks 财报",
-    "why": "Palo Alto Networks 财报反映公司在网络安全领域的最新业绩表现。公布后可核对公司收入、利润等财务数据，以及市场对其未来发展的预期。",
+    "why": "PANW 财报反映公司网络安全业务的经营状况，公布后可核对收入、利润等财务数据，以及市场对其产品的需求变化。",
     "dateLabel": "11/18",
     "weekday": "周三",
     "timeLabel": "盘后"
