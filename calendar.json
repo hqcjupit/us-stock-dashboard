@@ -8,8 +8,8 @@
     "previous": "去年同期 $1.24",
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
-    "zh": "NVDA NVIDIA公司财报",
-    "why": "NVIDIA财报反映其在图形处理器和人工智能芯片市场的表现。公布后可与市场预期和去年同期数据进行对比，评估公司业绩变化。",
+    "zh": "英伟达(NVDA)财报",
+    "why": "英伟达是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。投资者可关注其营收、利润及业务部门增长情况。",
     "dateLabel": "11/17",
     "weekday": "周二",
     "timeLabel": "盘后"
@@ -24,7 +24,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/panw",
     "zh": "PANW Palo Alto Networks 财报",
-    "why": "PANW 财报反映公司网络安全业务的经营状况，公布后可核对收入、利润等财务数据，以及市场对其产品的需求变化。",
+    "why": "Palo Alto Networks 财报反映其网络安全业务的财务表现，公布后可核对其营收、利润等关键财务数据，以及业务增长情况。",
     "dateLabel": "11/18",
     "weekday": "周三",
     "timeLabel": "盘后"

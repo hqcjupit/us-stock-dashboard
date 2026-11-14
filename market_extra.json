@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14 07:08",
+  "updatedAt": "2026-11-15 07:00",
   "sentiment": {
     "score": 53,
     "label": "中性",
@@ -110,39 +110,39 @@
   ],
   "hotStocks": [
     {
-      "code": "UAL",
-      "name": "United Airlines Holdings, Inc.",
-      "basePrice": 109.31,
-      "baseChg": -1.74,
-      "why": "Yahoo 美股热搜第 1 名，最新 $109.31，当日 -1.74%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "BTC-USD",
+      "name": "Bitcoin USD",
+      "basePrice": 63668.96,
+      "baseChg": -6.62,
+      "why": "Yahoo 美股热搜第 1 名，最新 $63668.96，当日 -6.62%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "basePrice": 13.17,
-      "baseChg": -1.05,
-      "why": "Yahoo 美股热搜第 2 名，最新 $13.17，当日 -1.05%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "XRP-USD",
+      "name": "XRP USD",
+      "basePrice": 0.9,
+      "baseChg": -10.42,
+      "why": "Yahoo 美股热搜第 2 名，最新 $0.90，当日 -10.42%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "SPCE",
-      "name": "Virgin Galactic Holdings, Inc.",
-      "basePrice": 1.84,
-      "baseChg": -31.09,
-      "why": "Yahoo 美股热搜第 3 名，最新 $1.84，当日 -31.09%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "SPCX",
+      "name": "SpaceX",
+      "basePrice": 139.11,
+      "baseChg": -0.59,
+      "why": "Yahoo 美股热搜第 3 名，最新 $139.11，当日 -0.59%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "MOD",
-      "name": "Modine Manufacturing Company",
-      "basePrice": 135.66,
-      "baseChg": 27.86,
-      "why": "Yahoo 美股热搜第 4 名，最新 $135.66，当日 +27.86%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "ETH-USD",
+      "name": "Ethereum USD",
+      "basePrice": 1750.64,
+      "baseChg": -9.2,
+      "why": "Yahoo 美股热搜第 4 名，最新 $1750.64，当日 -9.20%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "DAL",
-      "name": "Delta Air Lines, Inc.",
-      "basePrice": 86.25,
-      "baseChg": -0.35,
-      "why": "Yahoo 美股热搜第 5 名，最新 $86.25，当日 -0.35%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "LHX",
+      "name": "L3Harris Technologies, Inc.",
+      "basePrice": 272.35,
+      "baseChg": 0.19,
+      "why": "Yahoo 美股热搜第 5 名，最新 $272.35，当日 +0.19%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
@@ -159,7 +159,7 @@
     {
       "id": "dxy",
       "value": "103.41",
-      "change": "+0.23%（较前一交易日）"
+      "change": "-0.00%（较前一交易日）"
     },
     {
       "id": "yieldcurve",
@@ -173,23 +173,23 @@
     },
     {
       "id": "cugold",
-      "value": "0.00156",
-      "change": "铜 $6.06 / 金 $3888"
+      "value": "0.00157",
+      "change": "铜 $6.09 / 金 $3886"
     },
     {
       "id": "wti",
-      "value": "$88.92",
-      "change": "+0.20%（较前一交易日）"
+      "value": "$88.56",
+      "change": "-0.20%（较前一交易日）"
     },
     {
       "id": "gold",
-      "value": "$3887.60",
-      "change": "+0.06%（较前一交易日）"
+      "value": "$3886.30",
+      "change": "+0.03%（较前一交易日）"
     },
     {
       "id": "btc",
-      "value": "$67,992",
-      "change": "-4.73%（较前一交易日）"
+      "value": "$63,669",
+      "change": "-6.62%（较前一交易日）"
     }
   ]
 }
