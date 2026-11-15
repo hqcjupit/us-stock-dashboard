@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-15 07:00",
+  "updatedAt": "2026-11-16 07:01",
   "sentiment": {
     "score": 53,
     "label": "中性",
@@ -110,39 +110,39 @@
   ],
   "hotStocks": [
     {
-      "code": "BTC-USD",
-      "name": "Bitcoin USD",
-      "basePrice": 63668.96,
-      "baseChg": -6.62,
-      "why": "Yahoo 美股热搜第 1 名，最新 $63668.96，当日 -6.62%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "NVDA",
+      "name": "英伟达",
+      "basePrice": 162.85,
+      "baseChg": -2.01,
+      "why": "Yahoo 美股热搜第 1 名，最新 $162.85，当日 -2.01%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "XRP-USD",
-      "name": "XRP USD",
-      "basePrice": 0.9,
-      "baseChg": -10.42,
-      "why": "Yahoo 美股热搜第 2 名，最新 $0.90，当日 -10.42%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "BE",
+      "name": "Bloom Energy Corporation",
+      "basePrice": 191.99,
+      "baseChg": -4.92,
+      "why": "Yahoo 美股热搜第 2 名，最新 $191.99，当日 -4.92%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "SPCX",
-      "name": "SpaceX",
-      "basePrice": 139.11,
-      "baseChg": -0.59,
-      "why": "Yahoo 美股热搜第 3 名，最新 $139.11，当日 -0.59%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "TTWO",
+      "name": "Take-Two Interactive Software, ",
+      "basePrice": 227.82,
+      "baseChg": 0.38,
+      "why": "Yahoo 美股热搜第 3 名，最新 $227.82，当日 +0.38%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "ETH-USD",
-      "name": "Ethereum USD",
-      "basePrice": 1750.64,
-      "baseChg": -9.2,
-      "why": "Yahoo 美股热搜第 4 名，最新 $1750.64，当日 -9.20%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "SMMT",
+      "name": "Summit Therapeutics Inc.",
+      "basePrice": 14.15,
+      "baseChg": -6.14,
+      "why": "Yahoo 美股热搜第 4 名，最新 $14.15，当日 -6.14%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "LHX",
-      "name": "L3Harris Technologies, Inc.",
-      "basePrice": 272.35,
-      "baseChg": 0.19,
-      "why": "Yahoo 美股热搜第 5 名，最新 $272.35，当日 +0.19%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "MU",
+      "name": "美光科技",
+      "basePrice": 778.31,
+      "baseChg": -2.52,
+      "why": "Yahoo 美股热搜第 5 名，最新 $778.31，当日 -2.52%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
@@ -188,8 +188,8 @@
     },
     {
       "id": "btc",
-      "value": "$63,669",
-      "change": "-6.62%（较前一交易日）"
+      "value": "$65,384",
+      "change": "+2.97%（较前一交易日）"
     }
   ]
 }
