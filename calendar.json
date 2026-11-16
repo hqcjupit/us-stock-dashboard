@@ -1,20 +1,5 @@
 [
   {
-    "kind": "macro",
-    "title": "Fed Chairman Warsh Speaks",
-    "impact": "High",
-    "ts": 1794848400000,
-    "forecast": "",
-    "previous": "",
-    "source": "ForexFactory 经济日历",
-    "url": "https://www.forexfactory.com/calendar/129-us-fed-chairman-warsh-speaks",
-    "zh": "美联储理事沃什讲话",
-    "why": "美联储官员讲话通常透露货币政策动向，市场关注其对经济形势和利率政策的表态，可能影响美元汇率和全球资产价格。",
-    "dateLabel": "11/17",
-    "weekday": "周二",
-    "timeLabel": "01:00"
-  },
-  {
     "kind": "earnings",
     "title": "NVDA NVIDIA Corporation 财报",
     "ts": 1794916800000,
@@ -23,8 +8,8 @@
     "previous": "去年同期 $1.24",
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/nvda",
-    "zh": "NVDA NVIDIA 公司财报",
-    "why": "NVIDIA 财报反映其图形处理器和数据中心业务的表现，公布后可核对公司营收、利润及每股收益等财务数据。",
+    "zh": "NVIDIA财报",
+    "why": "NVIDIA是全球领先的GPU制造商，财报反映其游戏、数据中心和专业可视化等业务表现。公布后可核对营收、利润与市场预期差异，及业务板块增长情况。",
     "dateLabel": "11/17",
     "weekday": "周二",
     "timeLabel": "盘后"
@@ -34,12 +19,12 @@
     "title": "Retail Sales m/m",
     "impact": "High",
     "ts": 1794922200000,
-    "forecast": "0.2%",
+    "forecast": "0.1%",
     "previous": "0.8%",
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/102-us-retail-sales-mm",
     "zh": "零售销售月率",
-    "why": "该数据反映美国消费者支出变化，公布后可对比非农就业、消费者信心指数等，评估消费对GDP的贡献。",
+    "why": "零售销售月率反映消费者支出变化，是衡量经济消费动力的重要指标。公布后可对比历史数据及消费者信心指数等。",
     "dateLabel": "11/17",
     "weekday": "周二",
     "timeLabel": "21:30"
@@ -53,8 +38,8 @@
     "previous": "去年同期 $0.53",
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/panw",
-    "zh": "Palo Alto Networks(PANW)财报",
-    "why": "该公司为网络安全领域龙头企业，财报可反映企业级IT支出趋势。公布后可核对实际每股收益与市场预期的差异。",
+    "zh": "PANW Palo Alto Networks, Inc. 财报",
+    "why": "Palo Alto Networks, Inc. 是一家网络安全公司，其财报反映公司在网络安全市场的表现。公布后可以核对公司收入、利润等财务数据，以及市场对其产品的需求和竞争情况。",
     "dateLabel": "11/18",
     "weekday": "周三",
     "timeLabel": "盘后"
@@ -68,10 +53,25 @@
     "previous": "",
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/304-us-fomc-meeting-minutes",
-    "zh": "FOMC 会议纪要",
-    "why": "FOMC 会议纪要记录了美联储公开市场委员会的讨论内容，反映了美联储对经济和货币政策的看法。公布后可以核对美联储官员的公开讲话和经济预测报告。",
+    "zh": "FOMC会议纪要",
+    "why": "FOMC会议纪要记录了美联储最近一次政策会议的讨论内容，包括对经济形势的评估和未来货币政策的考虑。公布后，市场参与者可以核对美联储官员对通胀、就业和经济增长的看法，以及可能的政策调整方向。",
     "dateLabel": "11/19",
     "weekday": "周四",
     "timeLabel": "03:00"
+  },
+  {
+    "kind": "macro",
+    "title": "Philly Fed Manufacturing Index",
+    "impact": "Medium",
+    "ts": 1795095000000,
+    "forecast": "19.2",
+    "previous": "20.9",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/325-us-philly-fed-manufacturing-index",
+    "zh": "费城联储制造业指数",
+    "why": "该指数反映美国费城地区制造业活动状况，公布后可核对制造业增长趋势及经济健康状况。",
+    "dateLabel": "11/19",
+    "weekday": "周四",
+    "timeLabel": "21:30"
   }
 ]
