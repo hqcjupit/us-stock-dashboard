@@ -1,8 +1,8 @@
 [
   {
-    "title": "美股期货下跌，投资者等待英伟达财报和美联储信号",
-    "what": "报道称，在美国股市开盘前，道琼斯、标普500和纳斯达克指数的期货均出现下跌。市场关注焦点集中在即将发布的英伟达公司财报以及美联储可能释放的政策信号上。报道未提供更多细节。",
-    "why": "英伟达作为重要科技股，其财报可能影响相关板块表现；美联储政策信号对市场流动性预期有指引作用。后续可关注财报实际数据及美联储官员公开讲话内容。",
+    "title": "美股期货下跌 投资者等待英伟达财报和美联储信号",
+    "what": "雅虎财经报道，美国三大股指期货在英伟达财报发布前下跌，投资者同时关注美联储即将释放的政策信号。报道未提及具体涨跌幅数据。",
+    "why": "英伟达作为AI芯片龙头股，其财报被视为科技行业风向标；美联储政策信号可能影响市场流动性预期。后续可核对财报实际数据及美联储会议纪要内容。",
     "source": "Yahoo Finance",
     "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNZ3loNDRFRS1qcXRkNU4zd2dEbEt0VEpENld4UU9ES3pEOXNhMzkteGVfYXVaaHc1ZUZqRWtwckFiT1NfX3BJTHZzQmtGMUV0MmwzT1p0a1FsNFUxQTZMSmlWWVVqa25FNlNxMXFBM1BRc2E3S2hxYnc3WEdiWThDRzRfNEZfUkg0ZVAxMllvdzJmTlZiNUo3WlRjRQ?oc=5",
     "time": "11/16 17:56",
@@ -10,20 +10,20 @@
   },
   {
     "title": "道指、标普500、纳指期货小幅下跌，市场关注英伟达财报、Anthropic IPO和美联储会议纪要",
-    "what": "道指、标普500和纳指期货小幅下跌，市场正关注英伟达即将发布的财报、Anthropic的IPO计划以及美联储会议纪要。报道未提供更多细节。",
-    "why": "英伟达财报和美联储会议纪要通常会影响市场情绪和投资者决策，Anthropic的IPO可能吸引市场关注。投资者可关注这些事件的最新进展，以及相关公司的公开信息。",
+    "what": "道指、标普500和纳指期货小幅下跌，市场正关注英伟达即将发布的财报、Anthropic公司的IPO计划以及美联储会议纪要的公布。报道未提供更多细节。",
+    "why": "英伟达财报反映科技行业表现，Anthropic IPO可能影响AI领域投资，美联储会议纪要则提供货币政策线索。投资者可关注相关公司财报、IPO进展及美联储政策动向，以评估市场趋势。",
     "source": "Yahoo Finance",
     "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPd2FWcktJLVd2aW9ObWxWUGJ4MVBiNDJ6clFlSmRTSjhNSVZrbHlCamNBYUZfeTJ2cjdtZVFZMU40a1Q0dkdRcHlibDJjS20zdW1jYmtOcnkweEx0QzFOUGpFZ2JWN3Jmc1dNakJITW45VG4waDNGU285TlN3el93ZUxzYWxXdUg3eVk0U2NSUGJySFE?oc=5",
-    "time": "11/16 10:04",
+    "time": "11/16 10:15",
     "rawTitle": "Dow, S&P 500, Nasdaq Futures Edge Lower As Markets Brace For Nvidia Earnings, Anthropic IPO, Fed Minutes: SMMT, NBIS, HELP, MSTR In Focus"
   },
   {
-    "title": "美联储官员：AI若未达预期或致股市大幅回调",
-    "what": "美联储理事米歇尔·鲍曼表示，如果人工智能技术的发展未能达到市场预期，股市可能面临大幅回调的风险。报道未提供更多细节。",
-    "why": "人工智能是当前科技和投资领域的热点，其发展前景直接影响相关行业和公司的估值。投资者关注此类言论，可以后续跟踪AI技术进展、相关企业财报以及市场情绪变化，以评估潜在风险。",
-    "source": "The Motley Fool",
-    "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNQVlpSktzNWlnSWJnMkhOY1phZ0FLQlpmUDJ1bEVXLU5BZ0hIclJZdFZPUk1YT1hhMHkxRXFCMGJrdDZUbkxCNmxnS1VlcGc4eFZ1cTdpdzRERTQ1SmRwZzhobTUtczV4eDZ5cW5BSzEzNHIwUEFHc3R6UHBPdXUxbDdLal85RnZmYzI2d25CdXd0aldiamxucGpyMlIwLW9LSGlrSFNBUWhvazd2MkNHNGNTTUhadUJKbWJQVENhMVlaUjQ3b05j?oc=5",
-    "time": "11/16 16:10",
-    "rawTitle": "Fed Gov. Michelle Bowman: Risk of \"Large Correction\" in Stocks if AI Doesn't Pan Out"
+    "title": "华尔街在英伟达财报前收低，关注Anthropic首秀",
+    "what": "路透社报道，华尔街股市在英伟达公布业绩前收低，市场关注转向人工智能公司Anthropic的首次亮相。报道未提供更多细节。",
+    "why": "英伟达作为重要科技股，其财报可能影响市场情绪；Anthropic作为新兴AI企业，其动向反映行业趋势。后续可关注英伟达正式财报数据及Anthropic业务进展。",
+    "source": "Reuters",
+    "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOemNySVhGbms1VkxVYXFsTFdtdVh1MjNQQk16Y1ZfNGFHMFhDRWUtZldZRzJzSWxpNlBLWVpTenJnU2FHZndaVUlEclFtQVNvTzJBWTNpM1p0N3dmWjlyMEFKbkowZkpSanhVcEVLUjZfOWxNcW5OZVFuLTNFNF93ZDd4b0wxX1VzNlJPODdqc0xob1ZrR0xuQkJ6bExvNDdQMk5saFVSdkVBZw?oc=5",
+    "time": "11/18 05:52",
+    "rawTitle": "Wall Street ends lower ahead of Nvidia results, focus turns to Anthropic debut"
   }
 ]
