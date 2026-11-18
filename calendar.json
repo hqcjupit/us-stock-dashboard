@@ -1,36 +1,6 @@
 [
   {
     "kind": "earnings",
-    "title": "PANW Palo Alto Networks, Inc. 财报",
-    "ts": 1795003200000,
-    "timeNote": "盘后",
-    "forecast": "每股预期 $0.52",
-    "previous": "去年同期 $0.53",
-    "source": "Nasdaq 财报日历",
-    "url": "https://www.nasdaq.com/market-activity/stocks/panw",
-    "zh": "PANW Palo Alto Networks公司财报",
-    "why": "Palo Alto Networks是网络安全公司，财报反映其盈利能力和业务增长。公布后可核对每股收益等财务数据与市场预期的差异。",
-    "dateLabel": "11/18",
-    "weekday": "周三",
-    "timeLabel": "盘后"
-  },
-  {
-    "kind": "macro",
-    "title": "FOMC Meeting Minutes",
-    "impact": "High",
-    "ts": 1795028400000,
-    "forecast": "",
-    "previous": "",
-    "source": "ForexFactory 经济日历",
-    "url": "https://www.forexfactory.com/calendar/304-us-fomc-meeting-minutes",
-    "zh": "FOMC会议纪要",
-    "why": "FOMC会议纪要记录了美联储政策制定者的讨论内容，通常反映他们对经济形势和货币政策的看法。公布后，可以核对美联储对未来利率和经济走势的预期。",
-    "dateLabel": "11/19",
-    "weekday": "周四",
-    "timeLabel": "03:00"
-  },
-  {
-    "kind": "earnings",
     "title": "WMT Walmart Inc. 财报",
     "ts": 1795089600000,
     "timeNote": "盘前",
@@ -39,7 +9,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/wmt",
     "zh": "沃尔玛(WMT)财报",
-    "why": "沃尔玛财报反映其零售业务表现，公布后可核对公司公告中的营收、利润等数据。",
+    "why": "沃尔玛财报反映全球零售巨头经营状况，公布后可核对营收、利润等财务数据与市场预期差异，观察消费趋势及供应链表现。",
     "dateLabel": "11/19",
     "weekday": "周四",
     "timeLabel": "盘前"
@@ -54,7 +24,7 @@
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/325-us-philly-fed-manufacturing-index",
     "zh": "费城联储制造业指数",
-    "why": "该指数反映费城地区制造业活动状况，公布后可对比其他地区制造业数据及全国PMI，评估制造业整体趋势。",
+    "why": "该指数反映费城地区制造业活动状况，公布后可核对制造业扩张或收缩情况，是观察美国地区制造业的重要指标。",
     "dateLabel": "11/19",
     "weekday": "周四",
     "timeLabel": "21:30"
@@ -68,10 +38,40 @@
     "previous": "200K",
     "source": "ForexFactory 经济日历",
     "url": "https://www.forexfactory.com/calendar/11-us-unemployment-claims",
-    "zh": "美国初请失业金人数",
-    "why": "初请失业金人数反映美国劳动力市场状况，公布后可对比非农就业报告等数据，评估就业市场变化。",
+    "zh": "失业救济申请人数",
+    "why": "失业救济申请人数是衡量美国劳动力市场健康状况的关键指标。公布后，可以核对就业报告和经济增长数据，了解失业趋势和经济活动变化。",
     "dateLabel": "11/19",
     "weekday": "周四",
     "timeLabel": "21:30"
+  },
+  {
+    "kind": "macro",
+    "title": "Revised UoM Consumer Sentiment",
+    "impact": "Medium",
+    "ts": 1795186800000,
+    "forecast": "51.7",
+    "previous": "51.0",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/54-us-revised-uom-consumer-sentiment",
+    "zh": "修正后密歇根大学消费者信心指数",
+    "why": "该指数反映美国消费者对经济前景的看法，公布后可与消费者支出、零售销售等数据对比，评估消费市场趋势。",
+    "dateLabel": "11/20",
+    "weekday": "周五",
+    "timeLabel": "23:00"
+  },
+  {
+    "kind": "earnings",
+    "title": "ADI Analog Devices, Inc. 财报",
+    "ts": 1795521600000,
+    "timeNote": "盘前",
+    "forecast": "每股预期 $3.89",
+    "previous": "去年同期 $2.26",
+    "source": "Nasdaq 财报日历",
+    "url": "https://www.nasdaq.com/market-activity/stocks/adi",
+    "zh": "ADI公司财报",
+    "why": "ADI是全球领先的模拟芯片制造商，财报反映其在工业、汽车等市场的表现，可核对营收、利润等关键财务数据。",
+    "dateLabel": "11/24",
+    "weekday": "周二",
+    "timeLabel": "盘前"
   }
 ]
