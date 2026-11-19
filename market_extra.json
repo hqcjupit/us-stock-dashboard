@@ -1,188 +1,195 @@
 {
-  "updatedAt": "2026-11-19 07:17",
+  "updatedAt": "2026-11-20 07:13",
   "sentiment": {
-    "score": 30,
-    "label": "恐惧",
+    "score": 17,
+    "label": "极度恐惧",
     "parts": [
       {
         "label": "指数动能",
-        "score": 28,
-        "raw": "SPY 较 125 日均线 -3.56%"
+        "score": 16,
+        "raw": "SPY 较 125 日均线 -5.42%"
       },
       {
         "label": "板块宽度",
-        "score": 45,
-        "raw": "11 个行业 ETF 中 5 个上涨"
+        "score": 0,
+        "raw": "11 个行业 ETF 中 0 个上涨"
       },
       {
         "label": "波动率",
-        "score": 37,
-        "raw": "VIX 24.56"
+        "score": 18,
+        "raw": "VIX 28.44"
       },
       {
         "label": "避险需求",
-        "score": 12,
-        "raw": "SPY 与 IEF 近 20 日相对收益 -6.04%"
+        "score": 13,
+        "raw": "SPY 与 IEF 近 20 日相对收益 -5.88%"
       },
       {
         "label": "信用需求",
-        "score": 41,
-        "raw": "HYG 与 IEF 近 20 日相对收益 -0.92%"
+        "score": 47,
+        "raw": "HYG 与 IEF 近 20 日相对收益 -0.32%"
       },
       {
         "label": "指数动量",
-        "score": 15,
-        "raw": "标普500 近 20 日 -5.59%"
+        "score": 10,
+        "raw": "标普500 近 20 日 -6.36%"
       }
     ]
   },
   "ust2y": {
-    "date": "2026-11-17",
+    "date": "2026-11-18",
     "value": 4.8
   },
   "sectors": [
     {
       "sym": "XLK",
       "zh": "科技",
-      "chgPct": 0.34,
-      "price": 163.81
+      "chgPct": -1.9,
+      "price": 160.69
     },
     {
       "sym": "XLC",
       "zh": "通信服务",
-      "chgPct": 0.3,
-      "price": 105.58
+      "chgPct": -2.67,
+      "price": 102.76
     },
     {
       "sym": "XLY",
       "zh": "可选消费",
-      "chgPct": 1.79,
-      "price": 119.2
+      "chgPct": -2.78,
+      "price": 115.88
     },
     {
       "sym": "XLP",
       "zh": "必需消费",
-      "chgPct": -0.31,
-      "price": 91.18
+      "chgPct": -1.45,
+      "price": 89.86
     },
     {
       "sym": "XLB",
       "zh": "材料",
-      "chgPct": -0.75,
-      "price": 50.46
+      "chgPct": -2.06,
+      "price": 49.42
     },
     {
       "sym": "XLE",
       "zh": "能源",
-      "chgPct": -3.27,
-      "price": 61.29
+      "chgPct": -0.65,
+      "price": 60.89
     },
     {
       "sym": "XLF",
       "zh": "金融",
-      "chgPct": -1.14,
-      "price": 56.42
+      "chgPct": -1.49,
+      "price": 55.58
     },
     {
       "sym": "XLV",
       "zh": "医疗",
-      "chgPct": -2.2,
-      "price": 181.17
+      "chgPct": -2.05,
+      "price": 177.46
     },
     {
       "sym": "XLI",
       "zh": "工业",
-      "chgPct": -0.05,
-      "price": 164.66
+      "chgPct": -2,
+      "price": 161.36
     },
     {
       "sym": "XLU",
       "zh": "公用事业",
-      "chgPct": 0.3,
-      "price": 43.55
+      "chgPct": -1.24,
+      "price": 43.01
     },
     {
       "sym": "XLRE",
       "zh": "房地产",
-      "chgPct": 0.07,
-      "price": 43.62
+      "chgPct": -1.7,
+      "price": 42.88
     }
   ],
   "hotStocks": [
     {
-      "code": "PANW",
-      "name": "Palo Alto Networks, Inc.",
-      "basePrice": 339.92,
-      "baseChg": 9.9,
-      "why": "Yahoo 美股热搜第 1 名，最新 $339.92，当日 +9.90%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "ANT",
+      "name": "Anthropic, PBC Class A Common Stock",
+      "basePrice": 97.17,
+      "baseChg": 17.07,
+      "why": "Yahoo 美股热搜第 1 名，最新 $97.17，当日 +17.07%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "CRWD",
-      "name": "CrowdStrike",
-      "basePrice": 237.03,
-      "baseChg": 7.95,
-      "why": "Yahoo 美股热搜第 3 名，最新 $237.03，当日 +7.95%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "INTU",
+      "name": "Intuit Inc.",
+      "basePrice": 310.02,
+      "baseChg": -1.03,
+      "why": "Yahoo 美股热搜第 2 名，最新 $310.02，当日 -1.03%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "UNH",
-      "name": "UnitedHealth Group Incorporated",
-      "basePrice": 349.91,
-      "baseChg": -10.21,
-      "why": "Yahoo 美股热搜第 4 名，最新 $349.91，当日 -10.21%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "INSM",
+      "name": "Insmed Incorporated",
+      "basePrice": 144.46,
+      "baseChg": 20.58,
+      "why": "Yahoo 美股热搜第 3 名，最新 $144.46，当日 +20.58%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "TTWO",
-      "name": "Take-Two Interactive Software, ",
-      "basePrice": 216.61,
-      "baseChg": 6.22,
-      "why": "Yahoo 美股热搜第 5 名，最新 $216.61，当日 +6.22%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "GME",
+      "name": "GameStop Corporation",
+      "basePrice": 26.93,
+      "baseChg": 1.51,
+      "why": "Yahoo 美股热搜第 4 名，最新 $26.93，当日 +1.51%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "AMD",
+      "name": "超威半导体",
+      "basePrice": 489.19,
+      "baseChg": -7.72,
+      "why": "Yahoo 美股热搜第 5 名，最新 $489.19，当日 -7.72%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
     {
       "id": "tnx",
-      "value": "5.066%",
-      "change": "-3.7bp（较前一交易日）"
+      "value": "5.052%",
+      "change": "-1.4bp（较前一交易日）"
     },
     {
       "id": "tyx",
-      "value": "5.412%",
-      "change": "-4.6bp（较前一交易日）"
+      "value": "5.401%",
+      "change": "-1.1bp（较前一交易日）"
     },
     {
       "id": "dxy",
-      "value": "103.81",
-      "change": "+0.32%（较前一交易日）"
+      "value": "103.91",
+      "change": "+0.05%（较前一交易日）"
     },
     {
       "id": "yieldcurve",
-      "value": "+0.27%",
-      "change": "曲线未倒挂 · 10Y 5.07% − 2Y 4.80%"
+      "value": "+0.25%",
+      "change": "曲线未倒挂 · 10Y 5.05% − 2Y 4.80%"
     },
     {
       "id": "ust2y",
       "value": "4.80%",
-      "change": "FRED 公布日 2026-11-17"
+      "change": "FRED 公布日 2026-11-18"
     },
     {
       "id": "cugold",
-      "value": "0.00152",
-      "change": "铜 $5.67 / 金 $3732"
+      "value": "0.00154",
+      "change": "铜 $5.59 / 金 $3633"
     },
     {
       "id": "wti",
-      "value": "$81.91",
-      "change": "-0.49%（较前一交易日）"
+      "value": "$83.03",
+      "change": "+0.72%（较前一交易日）"
     },
     {
       "id": "gold",
-      "value": "$3732.30",
-      "change": "-0.26%（较前一交易日）"
+      "value": "$3632.60",
+      "change": "-1.44%（较前一交易日）"
     },
     {
       "id": "btc",
-      "value": "$62,485",
-      "change": "-3.68%（较前一交易日）"
+      "value": "$61,904",
+      "change": "-1.71%（较前一交易日）"
     }
   ]
 }
