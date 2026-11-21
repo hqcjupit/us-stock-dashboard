@@ -1,29 +1,29 @@
 [
   {
-    "title": "美股大跌，标普500随AI股抛售加速下滑",
-    "what": "据报道，美国股市出现下跌，标普500指数因人工智能相关股票的抛售加速而下滑。报道未提供更多细节。",
-    "why": "AI行业近期受到市场高度关注，相关股票波动可能影响大盘指数。投资者可关注后续公司财报、行业动态及宏观经济数据，以评估市场情绪。",
-    "source": "Times Union",
-    "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQUjlmb1BPVEtsWWw5Z1JoMFV6MzBzZXEtck5HUmtTYWkxNGRsWkVfQTdERXpnc19qSzRrdmZ0SHhNRmVLVXRqbFJwR2owaElTLUdJdm5KNjdVbzd6bXE4TTREY2NWRDh2NlA1eEVydDB4ay1EVVVxTUkyWXlUREQ1OEo1T0J1X09kMXFXcFlxVkhhZDFmMGx3OEhsSG9pdkxORW5FSQ?oc=5",
-    "time": "11/21 02:16",
-    "rawTitle": "US stocks tumble, and the S&P 500 drops as the sell-off for AI stocks accelerates"
-  },
-  {
-    "title": "标普500和道指进入修正区，纳指因AI股大跌超4%",
-    "what": "Investing.com报道，标普500指数和道琼斯工业平均指数已进入修正区域，纳斯达克综合指数因AI相关股票大幅下跌超过4%。",
-    "why": "主要股指进入修正区域通常反映市场情绪变化，可能影响投资者信心。后续可核对相关指数的公开历史数据、成分股表现及市场分析报告，以评估调整幅度和持续时间。AI板块波动可能反映行业估值重估，可关注相关公司财报和行业动态。",
-    "source": "Investing.com",
-    "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNQThTT3puUEVZbEtYNFRrUFNEMWU1VEVDY0FTdVJ4Tmp0T2YtUFl1MnozV2tDcWFQTXZ3Qk1hUDA2RUJYQll3UnVqNm95NXNoSlpId2ZTMGtHRElYZ3BkVV83WXZTMHhRNXp6eXF0dzFsYi0wZll1aDNQSGVSR3UxZ3dLWENXdjRwMUxIcEQwTGZPcGdsRHpxS2RKQTVoM2N6TWxmQzZzZVNxVHBOYnhxaTdnbkhHLXM5RzgwaTZ3aC04ZTA?oc=5",
-    "time": "11/20 09:13",
-    "rawTitle": "S&P 500 and Dow enter correction territory, Nasdaq craters over 4% amid AI rout"
-  },
-  {
-    "title": "英伟达股价大跌14%，创2008年来最长周连跌",
-    "what": "报道称英伟达股价单日下跌14%，遭遇自2008年金融危机以来最长的周线连跌纪录。该公司市值已从全球第一降至第四，落后于苹果、微软和Alphabet。",
-    "why": "科技巨头股价异动反映市场对行业前景的评估变化。后续可关注英伟达财报中的业务数据、机构持仓变动及半导体行业需求指标，这些公开数据可验证市场情绪是否持续。",
+    "title": "State and federal battle over prediction markets regulation ",
+    "what": "据 CNBC 报道：State and federal battle over prediction markets regulation heats up after midterms",
+    "why": "报道未提供更多可核对细节；建议点开原文查看全文，并以官方数据或公司公告为准。",
     "source": "CNBC",
-    "link": "https://www.cnbc.com/2026/11/20/nvidias-7-week-losing-streak-is-longest-since-2008-financial-crisis.html",
-    "time": "11/21 06:59",
-    "rawTitle": "Nvidia stock plunges 14%, wraps up longest weekly losing streak since 2008 financial crisis"
+    "link": "https://www.cnbc.com/2026/11/21/prediction-market-regulation-kalshi-cftc.html",
+    "time": "11/21 21:12",
+    "rawTitle": "State and federal battle over prediction markets regulation heats up after midterms"
+  },
+  {
+    "title": "Anthropic’s record IPO collides with tech’s worst week on Wa",
+    "what": "据 CNBC 报道：Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020",
+    "why": "报道未提供更多可核对细节；建议点开原文查看全文，并以官方数据或公司公告为准。",
+    "source": "CNBC",
+    "link": "https://www.cnbc.com/2026/11/21/anthropic-ipo-tech-selloff.html",
+    "time": "11/22 00:40",
+    "rawTitle": "Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020"
+  },
+  {
+    "title": "Nasdaq 100 Ends Worst Week Since 2020, S&P 500 In Correction",
+    "what": "据 Yahoo Finance 报道：Nasdaq 100 Ends Worst Week Since 2020, S&P 500 In Correction Territory As AI Rout Sours Sentiment — ANT, NVDA, TTWO, ZS, CRWD In Focus",
+    "why": "报道未提供更多可核对细节；建议点开原文查看全文，并以官方数据或公司公告为准。",
+    "source": "Yahoo Finance",
+    "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQQ1hBdGw1anUtLVZ1cFNyVmJmX0liYVYxcGg3WEpaOURrSlJLWHZDSzlIbjFBM3ZaTlllb29CTERST2ZDaWVfWUxnRUJ5b19ybWs2dXp5NFRjUmU5TVlVUHYtYm5maDRxMUlpVFc0WDhyUEJFN1M2MjJGWGY0dXk1V2RHanl3S1pWU3J0Rm5CRDdjRXVJN2c?oc=5",
+    "time": "11/21 09:30",
+    "rawTitle": "Nasdaq 100 Ends Worst Week Since 2020, S&P 500 In Correction Territory As AI Rout Sours Sentiment — ANT, NVDA, TTWO, ZS, CRWD In Focus"
   }
 ]

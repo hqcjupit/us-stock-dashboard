@@ -9,7 +9,7 @@
     "source": "Nasdaq 财报日历",
     "url": "https://www.nasdaq.com/market-activity/stocks/adi",
     "zh": "ADI Analog Devices, Inc. 财报",
-    "why": "ADI是模拟芯片行业龙头，财报反映半导体行业需求。公布后可核对公司官网投资者关系页面的正式财报文件。",
+    "why": "财报里的营收、利润与管理层指引是可核对的硬信息，公布后可与市场预期直接比对；在此之前不宜把单季数字外推成趋势。",
     "dateLabel": "11/24",
     "weekday": "周二",
     "timeLabel": "盘前"
