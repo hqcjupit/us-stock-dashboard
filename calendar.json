@@ -1,5 +1,35 @@
 [
   {
+    "kind": "macro",
+    "title": "Flash Manufacturing PMI",
+    "impact": "Medium",
+    "ts": 1795445100000,
+    "forecast": "54.5",
+    "previous": "56.0",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/552-us-flash-manufacturing-pmi",
+    "zh": "Flash Manufacturing PMI",
+    "why": "这类数据公布后可直接比对给定预期与前值，再观察市场实际反应；单月读数不足以定趋势。",
+    "dateLabel": "11/23",
+    "weekday": "周一",
+    "timeLabel": "22:45"
+  },
+  {
+    "kind": "macro",
+    "title": "Flash Services PMI",
+    "impact": "Medium",
+    "ts": 1795445100000,
+    "forecast": "55.6",
+    "previous": "57.9",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/583-us-flash-services-pmi",
+    "zh": "Flash Services PMI",
+    "why": "这类数据公布后可直接比对给定预期与前值，再观察市场实际反应；单月读数不足以定趋势。",
+    "dateLabel": "11/23",
+    "weekday": "周一",
+    "timeLabel": "22:45"
+  },
+  {
     "kind": "earnings",
     "title": "ADI Analog Devices, Inc. 财报",
     "ts": 1795521600000,
@@ -13,5 +43,35 @@
     "dateLabel": "11/24",
     "weekday": "周二",
     "timeLabel": "盘前"
+  },
+  {
+    "kind": "macro",
+    "title": "CB Consumer Confidence",
+    "impact": "Medium",
+    "ts": 1795532400000,
+    "forecast": "92.1",
+    "previous": "91.7",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/208-us-cb-consumer-confidence",
+    "zh": "CB Consumer Confidence",
+    "why": "这类数据公布后可直接比对给定预期与前值，再观察市场实际反应；单月读数不足以定趋势。",
+    "dateLabel": "11/24",
+    "weekday": "周二",
+    "timeLabel": "23:00"
+  },
+  {
+    "kind": "macro",
+    "title": "Core PCE Price Index m/m",
+    "impact": "High",
+    "ts": 1795613400000,
+    "forecast": "0.3%",
+    "previous": "0.3%",
+    "source": "ForexFactory 经济日历",
+    "url": "https://www.forexfactory.com/calendar/85-us-core-pce-price-index-mm",
+    "zh": "核心 PCE 物价指数",
+    "why": "这类通胀读数会影响市场对利率路径的预期；公布后可比对给定预期与前值，并观察美债收益率与股指的实际反应。",
+    "dateLabel": "11/25",
+    "weekday": "周三",
+    "timeLabel": "21:30"
   }
 ]

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22 07:06",
+  "updatedAt": "2026-11-23 07:08",
   "sentiment": {
     "score": 7,
     "label": "极度恐惧",
@@ -110,39 +110,25 @@
   ],
   "hotStocks": [
     {
-      "code": "BTC-USD",
-      "name": "Bitcoin USD",
-      "basePrice": 60003.3,
-      "baseChg": 2.02,
-      "why": "Yahoo 美股热搜第 1 名，最新 $60003.30，当日 +2.02%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "NFLX",
+      "name": "奈飞",
+      "basePrice": 56.73,
+      "baseChg": -2.96,
+      "why": "Yahoo 美股热搜第 1 名，最新 $56.73，当日 -2.96%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "ETH-USD",
-      "name": "Ethereum USD",
-      "basePrice": 1677.68,
-      "baseChg": 3.61,
-      "why": "Yahoo 美股热搜第 2 名，最新 $1677.68，当日 +3.61%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "APP",
+      "name": "Applovin Corporation",
+      "basePrice": 348.29,
+      "baseChg": -8.11,
+      "why": "Yahoo 美股热搜第 2 名，最新 $348.29，当日 -8.11%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "XRP-USD",
-      "name": "XRP USD",
-      "basePrice": 0.93,
-      "baseChg": 2.05,
-      "why": "Yahoo 美股热搜第 3 名，最新 $0.93，当日 +2.05%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
-    },
-    {
-      "code": "TTWO",
-      "name": "Take-Two Interactive Software, ",
-      "basePrice": 210,
-      "baseChg": 0.65,
-      "why": "Yahoo 美股热搜第 4 名，最新 $210.00，当日 +0.65%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
-    },
-    {
-      "code": "SOL-USD",
-      "name": "Solana USD",
-      "basePrice": 70.08,
-      "baseChg": 2.01,
-      "why": "Yahoo 美股热搜第 5 名，最新 $70.08，当日 +2.01%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "OFRM",
+      "name": "Once Upon a Farm, PBC",
+      "basePrice": 12.17,
+      "baseChg": -1.78,
+      "why": "Yahoo 美股热搜第 3 名，最新 $12.17，当日 -1.78%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
@@ -188,8 +174,8 @@
     },
     {
       "id": "btc",
-      "value": "$60,003",
-      "change": "+2.02%（较前一交易日）"
+      "value": "$60,756",
+      "change": "+1.11%（较前一交易日）"
     }
   ]
 }
