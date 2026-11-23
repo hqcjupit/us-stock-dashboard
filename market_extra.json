@@ -1,181 +1,195 @@
 {
-  "updatedAt": "2026-11-23 07:08",
+  "updatedAt": "2026-11-24 07:19",
   "sentiment": {
-    "score": 7,
-    "label": "极度恐惧",
+    "score": 32,
+    "label": "恐惧",
     "parts": [
       {
         "label": "指数动能",
-        "score": 0,
-        "raw": "SPY 较 125 日均线 -8.80%"
+        "score": 22,
+        "raw": "SPY 较 125 日均线 -4.48%"
       },
       {
         "label": "板块宽度",
-        "score": 9,
-        "raw": "11 个行业 ETF 中 1 个上涨"
+        "score": 82,
+        "raw": "11 个行业 ETF 中 9 个上涨"
       },
       {
         "label": "波动率",
-        "score": 0,
-        "raw": "VIX 35.89"
+        "score": 27,
+        "raw": "VIX 26.62"
       },
       {
         "label": "避险需求",
-        "score": 0,
-        "raw": "SPY 与 IEF 近 20 日相对收益 -9.89%"
+        "score": 11,
+        "raw": "SPY 与 IEF 近 20 日相对收益 -6.20%"
       },
       {
         "label": "信用需求",
-        "score": 34,
-        "raw": "HYG 与 IEF 近 20 日相对收益 -1.59%"
+        "score": 35,
+        "raw": "HYG 与 IEF 近 20 日相对收益 -1.45%"
       },
       {
         "label": "指数动量",
-        "score": 0,
-        "raw": "标普500 近 20 日 -9.36%"
+        "score": 14,
+        "raw": "标普500 近 20 日 -5.73%"
       }
     ]
   },
   "ust2y": {
-    "date": "2026-11-19",
-    "value": 4.76
+    "date": "2026-11-20",
+    "value": 4.63
   },
   "sectors": [
     {
       "sym": "XLK",
       "zh": "科技",
-      "chgPct": -7.27,
-      "price": 149.01
+      "chgPct": 8.97,
+      "price": 162.38
     },
     {
       "sym": "XLC",
       "zh": "通信服务",
-      "chgPct": -2.66,
-      "price": 100.03
+      "chgPct": 3.57,
+      "price": 103.6
     },
     {
       "sym": "XLY",
       "zh": "可选消费",
-      "chgPct": -2.95,
-      "price": 112.46
+      "chgPct": 3.98,
+      "price": 116.93
     },
     {
       "sym": "XLP",
       "zh": "必需消费",
-      "chgPct": 0.67,
-      "price": 90.46
+      "chgPct": -0.09,
+      "price": 90.38
     },
     {
       "sym": "XLB",
       "zh": "材料",
-      "chgPct": -2.18,
-      "price": 48.34
+      "chgPct": 3.23,
+      "price": 49.9
     },
     {
       "sym": "XLE",
       "zh": "能源",
-      "chgPct": -0.62,
-      "price": 60.51
+      "chgPct": -1.06,
+      "price": 59.87
     },
     {
       "sym": "XLF",
       "zh": "金融",
-      "chgPct": -1.82,
-      "price": 54.57
+      "chgPct": 1.98,
+      "price": 55.65
     },
     {
       "sym": "XLV",
       "zh": "医疗",
-      "chgPct": -0.12,
-      "price": 177.24
+      "chgPct": 1.23,
+      "price": 179.42
     },
     {
       "sym": "XLI",
       "zh": "工业",
-      "chgPct": -3.09,
-      "price": 156.37
+      "chgPct": 3.9,
+      "price": 162.47
     },
     {
       "sym": "XLU",
       "zh": "公用事业",
-      "chgPct": -0.74,
-      "price": 42.69
+      "chgPct": 1.48,
+      "price": 43.32
     },
     {
       "sym": "XLRE",
       "zh": "房地产",
-      "chgPct": -0.98,
-      "price": 42.46
+      "chgPct": 1.04,
+      "price": 42.9
     }
   ],
   "hotStocks": [
     {
-      "code": "NFLX",
-      "name": "奈飞",
-      "basePrice": 56.73,
-      "baseChg": -2.96,
-      "why": "Yahoo 美股热搜第 1 名，最新 $56.73，当日 -2.96%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "HPE",
+      "name": "Hewlett Packard Enterprise Comp",
+      "basePrice": 48.02,
+      "baseChg": 17.38,
+      "why": "Yahoo 美股热搜第 1 名，最新 $48.02，当日 +17.38%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "APP",
-      "name": "Applovin Corporation",
-      "basePrice": 348.29,
-      "baseChg": -8.11,
-      "why": "Yahoo 美股热搜第 2 名，最新 $348.29，当日 -8.11%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "DELL",
+      "name": "Dell Technologies Inc.",
+      "basePrice": 334.91,
+      "baseChg": 20.46,
+      "why": "Yahoo 美股热搜第 2 名，最新 $334.91，当日 +20.46%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "OFRM",
-      "name": "Once Upon a Farm, PBC",
-      "basePrice": 12.17,
-      "baseChg": -1.78,
-      "why": "Yahoo 美股热搜第 3 名，最新 $12.17，当日 -1.78%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "OTLY",
+      "name": "Oatly Group AB",
+      "basePrice": 14.5,
+      "baseChg": 109.08,
+      "why": "Yahoo 美股热搜第 3 名，最新 $14.50，当日 +109.08%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "ZM",
+      "name": "Zoom Communications, Inc.",
+      "basePrice": 86.03,
+      "baseChg": 5.87,
+      "why": "Yahoo 美股热搜第 4 名，最新 $86.03，当日 +5.87%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+    },
+    {
+      "code": "KYMR",
+      "name": "Kymera Therapeutics, Inc.",
+      "basePrice": 150.37,
+      "baseChg": 30.41,
+      "why": "Yahoo 美股热搜第 5 名，最新 $150.37，当日 +30.41%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
     {
       "id": "tnx",
-      "value": "4.912%",
-      "change": "-14.0bp（较前一交易日）"
+      "value": "4.918%",
+      "change": "+0.6bp（较前一交易日）"
     },
     {
       "id": "tyx",
-      "value": "5.303%",
-      "change": "-9.8bp（较前一交易日）"
+      "value": "5.294%",
+      "change": "-0.9bp（较前一交易日）"
     },
     {
       "id": "dxy",
-      "value": "103.84",
-      "change": "+0.03%（较前一交易日）"
+      "value": "104.32",
+      "change": "+0.49%（较前一交易日）"
     },
     {
       "id": "yieldcurve",
-      "value": "+0.15%",
-      "change": "曲线未倒挂 · 10Y 4.91% − 2Y 4.76%"
+      "value": "+0.29%",
+      "change": "曲线未倒挂 · 10Y 4.92% − 2Y 4.63%"
     },
     {
       "id": "ust2y",
-      "value": "4.76%",
-      "change": "FRED 公布日 2026-11-19"
+      "value": "4.63%",
+      "change": "FRED 公布日 2026-11-20"
     },
     {
       "id": "cugold",
-      "value": "0.00156",
-      "change": "铜 $5.49 / 金 $3515"
+      "value": "0.00155",
+      "change": "铜 $5.62 / 金 $3636"
     },
     {
       "id": "wti",
-      "value": "$83.41",
-      "change": "+1.18%（较前一交易日）"
+      "value": "$80.19",
+      "change": "+0.03%（较前一交易日）"
     },
     {
       "id": "gold",
-      "value": "$3515.40",
-      "change": "-4.62%（较前一交易日）"
+      "value": "$3635.70",
+      "change": "-0.43%（较前一交易日）"
     },
     {
       "id": "btc",
-      "value": "$60,756",
-      "change": "+1.11%（较前一交易日）"
+      "value": "$61,426",
+      "change": "+0.43%（较前一交易日）"
     }
   ]
 }
