@@ -1,35 +1,5 @@
 [
   {
-    "kind": "earnings",
-    "title": "ADI Analog Devices, Inc. 财报",
-    "ts": 1795521600000,
-    "timeNote": "盘前",
-    "forecast": "每股预期 $3.89",
-    "previous": "去年同期 $2.26",
-    "source": "Nasdaq 财报日历",
-    "url": "https://www.nasdaq.com/market-activity/stocks/adi",
-    "zh": "ADI Analog Devices, Inc. 财报",
-    "why": "财报里的营收、利润与管理层指引是可核对的硬信息，公布后可与市场预期直接比对；在此之前不宜把单季数字外推成趋势。",
-    "dateLabel": "11/24",
-    "weekday": "周二",
-    "timeLabel": "盘前"
-  },
-  {
-    "kind": "macro",
-    "title": "CB Consumer Confidence",
-    "impact": "Medium",
-    "ts": 1795532400000,
-    "forecast": "92.4",
-    "previous": "91.7",
-    "source": "ForexFactory 经济日历",
-    "url": "https://www.forexfactory.com/calendar/208-us-cb-consumer-confidence",
-    "zh": "CB Consumer Confidence",
-    "why": "这类数据公布后可直接比对给定预期与前值，再观察市场实际反应；单月读数不足以定趋势。",
-    "dateLabel": "11/24",
-    "weekday": "周二",
-    "timeLabel": "23:00"
-  },
-  {
     "kind": "macro",
     "title": "Core PCE Price Index m/m",
     "impact": "High",
