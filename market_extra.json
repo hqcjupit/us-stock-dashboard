@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-26 07:18",
+  "updatedAt": "2026-11-27 07:24",
   "sentiment": {
-    "score": 23,
+    "score": 24,
     "label": "极度恐惧",
     "parts": [
       {
@@ -16,8 +16,8 @@
       },
       {
         "label": "波动率",
-        "score": 19,
-        "raw": "VIX 28.29"
+        "score": 26,
+        "raw": "VIX 26.80"
       },
       {
         "label": "避险需求",
@@ -110,39 +110,25 @@
   ],
   "hotStocks": [
     {
-      "code": "META",
-      "name": "Meta",
-      "basePrice": 609.89,
-      "baseChg": 3.4,
-      "why": "Yahoo 美股热搜第 1 名，最新 $609.89，当日 +3.40%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "BTC-USD",
+      "name": "Bitcoin USD",
+      "basePrice": 60398.24,
+      "baseChg": 0.02,
+      "why": "Yahoo 美股热搜第 1 名，最新 $60398.24，当日 +0.02%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "PANW",
-      "name": "Palo Alto Networks, Inc.",
-      "basePrice": 356.14,
-      "baseChg": 0.89,
-      "why": "Yahoo 美股热搜第 2 名，最新 $356.14，当日 +0.89%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "EWZ",
+      "name": "iShares MSCI Brazil ETF",
+      "basePrice": 30.16,
+      "baseChg": 2.94,
+      "why": "Yahoo 美股热搜第 2 名，最新 $30.16，当日 +2.94%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     },
     {
-      "code": "PLUG",
-      "name": "Plug Power, Inc.",
-      "basePrice": 1.07,
-      "baseChg": 14.34,
-      "why": "Yahoo 美股热搜第 3 名，最新 $1.07，当日 +14.34%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
-    },
-    {
-      "code": "AMZN",
-      "name": "亚马逊",
-      "basePrice": 244.43,
-      "baseChg": -3.11,
-      "why": "Yahoo 美股热搜第 4 名，最新 $244.43，当日 -3.11%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
-    },
-    {
-      "code": "ASTS",
-      "name": "AST SpaceMobile, Inc.",
-      "basePrice": 26.02,
-      "baseChg": 10.25,
-      "why": "Yahoo 美股热搜第 5 名，最新 $26.02，当日 +10.25%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
+      "code": "ETH-USD",
+      "name": "Ethereum USD",
+      "basePrice": 1685.46,
+      "baseChg": -0.29,
+      "why": "Yahoo 美股热搜第 3 名，最新 $1685.46，当日 -0.29%。可对照上方行业 ETF 涨跌，看热搜个股与板块方向是否同向；本条不含新闻归因。"
     }
   ],
   "metrics": [
@@ -158,8 +144,8 @@
     },
     {
       "id": "dxy",
-      "value": "103.70",
-      "change": "-0.11%（较前一交易日）"
+      "value": "103.78",
+      "change": "+0.11%（较前一交易日）"
     },
     {
       "id": "yieldcurve",
@@ -174,22 +160,22 @@
     {
       "id": "cugold",
       "value": "0.00152",
-      "change": "铜 $5.47 / 金 $3604"
+      "change": "铜 $5.45 / 金 $3594"
     },
     {
       "id": "wti",
-      "value": "$83.89",
-      "change": "+0.25%（较前一交易日）"
+      "value": "$84.80",
+      "change": "+1.34%（较前一交易日）"
     },
     {
       "id": "gold",
-      "value": "$3604.30",
-      "change": "+1.11%（较前一交易日）"
+      "value": "$3594.00",
+      "change": "+0.82%（较前一交易日）"
     },
     {
       "id": "btc",
-      "value": "$60,192",
-      "change": "+0.75%（较前一交易日）"
+      "value": "$60,398",
+      "change": "+0.02%（较前一交易日）"
     }
   ]
 }

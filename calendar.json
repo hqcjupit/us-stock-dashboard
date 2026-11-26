@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "kind": "earnings",
+    "title": "CRM Salesforce, Inc. 财报",
+    "ts": 1796212800000,
+    "timeNote": "盘后",
+    "forecast": "每股预期 $2.41",
+    "previous": "去年同期 $2.66",
+    "source": "Nasdaq 财报日历",
+    "url": "https://www.nasdaq.com/market-activity/stocks/crm",
+    "zh": "CRM Salesforce, Inc. 财报",
+    "why": "财报里的营收、利润与管理层指引是可核对的硬信息，公布后可与市场预期直接比对；在此之前不宜把单季数字外推成趋势。",
+    "dateLabel": "12/02",
+    "weekday": "周三",
+    "timeLabel": "盘后"
+  }
+]
